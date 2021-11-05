@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import Login from './Components/Login';
 import Home from './Components/Home';
+import PrivateRoute from './PrivateRoute';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
           <Redirect to='/login' />
         </Route> 
         <Route path='/login' exact component={Login} />
-        <Route path='/home' exact component={Home} />
+        <PrivateRoute path='/home' exact component={Home} />
       </Switch>
     </BrowserRouter>
 

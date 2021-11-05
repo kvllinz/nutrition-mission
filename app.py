@@ -1,10 +1,19 @@
 from typing import Text
 import flask
-from flask.helpers import url_for
-from flask_login.utils import login_required
+from dotenv import find_dotenv, load_dotenv
+from flask_login import (
+    LoginManager,
+    login_manager,
+    login_user,
+    login_required,
+    current_user,
+    logout_user,
+)
 import os
 import json
+from flask_sqlalchemy import SQLAlchemy
 
+load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__, static_folder='./build/static')
 # This tells our Flask app to look at the results of `npm build` instead of the 
@@ -13,7 +22,47 @@ app = flask.Flask(__name__, static_folder='./build/static')
 # why this is necessary.
 bp = flask.Blueprint("bp", __name__, template_folder="./build")
 
+# Point SQLAlchemy to your Heroku database
+url = os.getenv("DATABASE_URL")
+
+if url and url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = url
+# Gets rid of a warning
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 app.secret_key = os.urandom(9)
+
+db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+class CreateUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True)
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
+    def __repr__(self):
+        return "<User %r>" % (self.username)
+
+db.create_all()
+
+@login_manager.user_loader
+def load_user(user_id):
+    return CreateUser.query.get(int(user_id))     
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -54,8 +103,9 @@ def login_post():
 
     if len(username) == 0 and len(password) == 0:
         flask.flash("Enter valid Username. Please try again")
-    
-    if username == "Collins" and password == "Amadi":
+    user = CreateUser.query.filter_by(username=username).first()
+    if user and password == "Amadi":
+        login_user(user)
         return flask.jsonify({"loginResponse": "Ok"})
 	
 

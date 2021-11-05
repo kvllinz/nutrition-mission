@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router-dom";
+import SessionStorageProvider from "../Integrations/storage"
 import Home from "./Home";
 import './Login.css';
+import storage from "../Integrations/storage";
 
 
 const Login =()=> {
@@ -27,6 +29,7 @@ const Login =()=> {
           body: JSON.stringify({"username": username, "password": password}),
         }).then(response => response.json()).then(data => {
           setResponse(data.loginResponse);
+          SessionStorageProvider.setSessionToken(response);
         });
       }
     
