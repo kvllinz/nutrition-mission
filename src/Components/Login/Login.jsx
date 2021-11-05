@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Route, useHistory } from "react-router-dom";
-import SessionStorageProvider from "../Integrations/storage"
-import Home from "./Home";
+import SessionStorageProvider from "../../Integrations/storage"
 import './Login.css';
-import storage from "../Integrations/storage";
+import storage from "../../Integrations/storage";
 
 
 const Login =()=> {

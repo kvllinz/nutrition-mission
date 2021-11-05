@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useRef } from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
-import Login from './Components/Login';
-import Home from './Components/Home';
+import Home from './Components/Home/Home';
+import Login from './Components/Login/Login';
 import PrivateRoute from './PrivateRoute';
 
 
