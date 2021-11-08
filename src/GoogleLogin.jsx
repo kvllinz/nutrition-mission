@@ -1,9 +1,11 @@
 import React from 'react';
-import { refreshTokenSetup } from './utils/refreshToken';
+import { refreshTokenSetup } from './Components/Login/utils/refreshToken';
+import { GoogleLogin } from 'react-google-login';
 
-const GoogleLogin = () => {
+const clientId =
 
-    const clientId = "536541182500-lquie8fcrgr87io75pqva45sidgk788l.apps.googleusercontent.com"
+const GLogin = () => {
+
 
     console.log(clientId);
 
@@ -26,7 +28,7 @@ const GoogleLogin = () => {
     return (
         <div>
             <GoogleLogin
-                clientId={clientId}
+                clientId= {clientId}
                 buttonText="Login"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
@@ -39,4 +41,4 @@ const GoogleLogin = () => {
 
 }
 
-export default GoogleLogin;
+export default GLogin;

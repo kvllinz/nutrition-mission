@@ -3,7 +3,8 @@ import { Route, useHistory } from "react-router-dom";
 import SessionStorageProvider from "../../Integrations/storage"
 import './Login.css';
 import storage from "../../Integrations/storage";
-import { GoogleLogin } from 'react-google-login';
+// import { GoogleLogin } from 'react-google-login';
+import GLogin from "../../GoogleLogin";
 
 
 const Login = () => {
@@ -142,7 +143,7 @@ const Login = () => {
         />
       </div> */}
 
-      <GoogleLogin />
+      <GLogin />
     </div>
     //   </form>
   )
