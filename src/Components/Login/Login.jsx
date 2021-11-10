@@ -3,7 +3,6 @@ import { Route, useHistory } from "react-router-dom";
 import SessionStorageProvider from "../../Integrations/storage"
 import './Login.css';
 import storage from "../../Integrations/storage";
-// import { GoogleLogin } from 'react-google-login';
 import GLogin from "../../GoogleLogin";
 
 
@@ -33,21 +32,6 @@ const Login = () => {
       SessionStorageProvider.setSessionToken(response);
     });
   }
-
-  // const onSuccess = (res) => {
-  //   console.log('Login Success: currentUser:', res.profileObj);
-  //   alert(
-  //     `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
-  //   );
-  //   refreshTokenSetup(res);
-  // };
-
-  // const onFailure = (res) => {
-  //   console.log('Login failed: res:', res);
-  //   alert(
-  //     `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
-  //   );
-  // };
 
   return (
     // <form onSubmit ={()=> loginUser()}>
@@ -131,18 +115,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {/* <div>
-        <GoogleLogin
-          clientId={clientId}
-          buttonText="Login"
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          cookiePolicy={'single_host_origin'}
-          style={{ marginTop: '100px' }}
-          isSignedIn={true}
-        />
-      </div> */}
-
       <GLogin />
     </div>
     //   </form>

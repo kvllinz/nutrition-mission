@@ -1,14 +1,16 @@
 import React from 'react';
 import { refreshTokenSetup } from './Components/Login/utils/refreshToken';
 import { GoogleLogin } from 'react-google-login';
+import { Route, useHistory } from "react-router-dom";
 
-const clientId =
+require('dotenv').config()
+
+const clientId = process.env.REACT_APP_Google_Client_ID;
 
 const GLogin = () => {
 
-
     console.log(clientId);
-
+    const history = useHistory();
 
     const onSuccess = (res) => {
         console.log('Login Success: currentUser:', res.profileObj);
@@ -16,20 +18,21 @@ const GLogin = () => {
             `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
         );
         refreshTokenSetup(res);
+        history.push("/home")
     };
 
     const onFailure = (res) => {
         console.log('Login failed: res:', res);
         alert(
-            `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
+            `Failed to login. 😢 `
         );
     };
 
     return (
         <div>
             <GoogleLogin
-                clientId= {clientId}
-                buttonText="Login"
+                clientId={clientId}
+                buttonText="Login with Google"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
