@@ -23,6 +23,8 @@ jobs:
         pip install python-dotenv
         pip install flask-login
         pip install requests
+        pip install pylint-flask-sqlalchemy
+        pip install pylint-flask
     - name: Analysing the code with pylint
       run: |
         pylint `ls -R|grep .py$|xargs`
