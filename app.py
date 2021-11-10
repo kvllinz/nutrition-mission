@@ -75,6 +75,18 @@ class CreateUser(db.Model):
         """
         Return user
         """
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
+    def __repr__(self):
         return "<User %r>" % (self.username)
 
 db.create_all()
@@ -84,6 +96,7 @@ def load_user(user_id):
     """
     Load a user
     """
+    return CreateUser.query.get(int(user_id))
     return CreateUser.query.get(int(user_id))
 
 @app.route('/', defaults={'path': ''})
@@ -127,6 +140,23 @@ def login_post():
     """
     username= flask.request.json.get("username")
     password = flask.request.json.get("password")
+
+    username= flask.request.json.get("username")
+    password = flask.request.json.get("password")
+
+    if len(username) == 0 and len(password) == 0:
+        flask.flash("Enter valid Username. Please try again")
+    user = CreateUser.query.filter_by(username=username).first()
+    if user and password == "Amadi":
+        login_user(user)
+        return flask.jsonify({"loginResponse": "Ok"})
+	
+
+# @app.route('/save', methods=["POST"])
+# def save():
+#     ...
+
+
 
     if len(username) == 0 and len(password) == 0:
         flask.flash("Enter valid Username. Please try again")
