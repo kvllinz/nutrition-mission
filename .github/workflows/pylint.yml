@@ -19,7 +19,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
         pip install flask
-        pip install flask-sqlachemy
+        pip install -U Flask-SQLAlchemy
         pip install dotenv
         pip install flask-login
     - name: Analysing the code with pylint
