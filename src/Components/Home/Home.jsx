@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
 
 const Home = () => {
 
+  const location = useLocation();
+  const [liveRight, setLiveRight]=useState(false);
+  const [eatRight, setEatRight]=useState(false);
+  console.log(location.state)
+
+  const navigateToE=()=>{
+    setEatRight(true);
+    setLiveRight(false);
+  }
+  const navigateToL=()=>{
+    setEatRight(false);
+    setLiveRight(true);
+  }
 
   return (
-    <form>
+    // <form>
+    <>
       {/* <!-- Intro Display --> */}
       <div class="introDisplayContainer">
         <div class="headerContainer">
@@ -35,8 +50,8 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <input type="submit" value="Eat Right" id="tabLCIn" class="home" />
-                  {/* <button>Eat Right</button> */}
+                  {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
+                  <button id="tabLCIn" class="home" onClick={()=> navigateToE()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -51,8 +66,8 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <input type="submit" value="Live Right" id="tabRCIn" class="home" />
-                  {/* <button> Live Right</button> */}
+                  {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
+                  <button id="tabRCIn" class="home" onClick={()=> navigateToL()}> Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -74,15 +89,25 @@ const Home = () => {
               <div class="introImageContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introImageBox" id="introImageBox">
+                  <img src = {location.state.profilePhoto} />
                 </div>
               </div>
               <div class="introContentContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introWelcome" id="introWelcome">
+                  Welcome back, {location.state.name}
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
+                {eatRight &&
                 <div class="introFeature" id="introFeature">
+                  Hello
                 </div>
+                }
+                {liveRight && 
+                 <div class="introFeature" id="introFeature">
+                   Welcome
+                 </div>
+                }
               </div>
             </div>
           </div>
@@ -136,7 +161,8 @@ const Home = () => {
         </div>
       </div>
       < GLogout />
-    </form>
+    {/* </form> */}
+    </>
   )
 }
 
