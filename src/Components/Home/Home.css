@@ -116,8 +116,7 @@ body {
   width: 100%;
 }
 
-/* Tab Form: Submit */
-input.home[type=submit] {
+button.home {
   cursor: pointer;
   text-decoration: none;
   height: 100%;
