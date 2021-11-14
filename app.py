@@ -1,7 +1,7 @@
 """
 App.py
 """
-from typing import Text
+# from typing import Text
 import os
 import json
 from dotenv import find_dotenv, load_dotenv
@@ -16,7 +16,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv(find_dotenv())
 
-app = flask.Flask(__name__, static_folder='./build/static')
+app = flask.Flask(__name__, static_folder="./build/static")
 # This tells our Flask app to look at the results of `npm build` instead of the
 # actual files in /templates when we're looking for the index page file. This allows
 # us to load React code into a webpage. Look up create-react-app for more reading on
@@ -42,8 +42,9 @@ login_manager.init_app(app)
 
 class CreateUser(db.Model):
     """
-        Model for Users
+    Model for Users
     """
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
 
@@ -75,21 +76,11 @@ class CreateUser(db.Model):
         """
         Return user
         """
-        return True
+        return f"<User {self.username}>"
 
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return str(self.id)
-
-    def __repr__(self):
-        return "<User %r>" % (self.username)
 
 db.create_all()
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -97,15 +88,16 @@ def load_user(user_id):
     Load a user
     """
     return CreateUser.query.get(int(user_id))
-    return CreateUser.query.get(int(user_id))
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def catch_all(path):
-    """ This is a catch all that is required for react-router """
-    return flask.render_template('index.html')
+    """This is a catch all that is required for react-router"""
+    return flask.render_template("index.html")
 
-@bp.route('/index')
+
+@bp.route("/index")
 # @login_required
 def index():
     """
@@ -118,6 +110,7 @@ def index():
         "index.html",
         data=data,
     )
+
 
 app.register_blueprint(bp)
 
@@ -133,15 +126,16 @@ app.register_blueprint(bp)
 # def login():
 #     ...
 
-@app.route('/login', methods=["POST"])
+
+@app.route("/login", methods=["POST"])
 def login_post():
     """
     Get username and password from client, check if it is valid and log them in
     """
-    username= flask.request.json.get("username")
+    username = flask.request.json.get("username")
     password = flask.request.json.get("password")
 
-    username= flask.request.json.get("username")
+    username = flask.request.json.get("username")
     password = flask.request.json.get("password")
 
     if len(username) == 0 and len(password) == 0:
@@ -150,13 +144,10 @@ def login_post():
     if user and password == "Amadi":
         login_user(user)
         return flask.jsonify({"loginResponse": "Ok"})
-	
 
-# @app.route('/save', methods=["POST"])
-# def save():
-#     ...
-
-
+    # @app.route('/save', methods=["POST"])
+    # def save():
+    #     ...
 
     if len(username) == 0 and len(password) == 0:
         flask.flash("Enter valid Username. Please try again")
@@ -165,12 +156,12 @@ def login_post():
         login_user(user)
         return flask.jsonify({"loginResponse": "Ok"})
 
+
 # @app.route('/save', methods=["POST"])
 # def save():
 #     ...
 
-app.run(
-    host=os.getenv('IP', '0.0.0.0'),
-    port=int(os.getenv('PORT', 8081)),
-    # debug=True
-)
+if __name__ == "__main__":
+    # First app.run is local use. Second app.run is Heroku.
+    # app.run(use_reloader=True, debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
