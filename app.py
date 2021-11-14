@@ -13,6 +13,7 @@ from flask_login import (
 
 import flask
 from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
 
 load_dotenv(find_dotenv())
 
@@ -45,38 +46,41 @@ class CreateUser(db.Model):
     Model for Users
     """
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), unique=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    username = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
 
-    def is_authenticated(self):
-        """
-        Is user authenticated
-        """
-        return True
+    """
+    Is any of this stuff really necessary? I didn't need it for the project1. - Owen
+    """
+    # def is_authenticated(self):
+    #     """
+    #     Is user authenticated
+    #     """
+    #     return True
 
-    def is_active(self):
-        """
-        Is user active
-        """
-        return True
+    # def is_active(self):
+    #     """
+    #     Is user active
+    #     """
+    #     return True
 
-    def is_anonymous(self):
-        """
-        Is user anonymous
-        """
-        return False
+    # def is_anonymous(self):
+    #     """
+    #     Is user anonymous
+    #     """
+    #     return False
 
-    def get_id(self):
-        """
-        Get ID of the user
-        """
-        return str(self.id)
+    # def get_id(self):
+    #     """
+    #     Get ID of the user
+    #     """
+    #     return str(self.id)
 
-    def __repr__(self):
-        """
-        Return user
-        """
-        return f"<User {self.username}>"
+    # def __repr__(self):
+    #     """
+    #     Return user
+    #     """
+    #     return f"<User {self.username}>"
 
 
 db.create_all()
