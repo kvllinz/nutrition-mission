@@ -117,8 +117,7 @@ def login_post():
 
 
 
-app.run(
-    # host=os.getenv('IP', '0.0.0.0'),
-    # port=int(os.getenv('PORT', 8081)),
-    debug=True
-)
+if __name__ == "__main__":
+    # First app.run is local use. Second app.run is Heroku.
+    app.run(use_reloader=True, debug=True)
+    #app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
