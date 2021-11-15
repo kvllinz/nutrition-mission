@@ -8,7 +8,6 @@ API_KEY = os.getenv("API_KEY")
 
 params = {
     "apiKey": API_KEY,
-    # "query": 'orange',
     "maxCalories": 600,  # we will change this
     "minCalories": 300,
     "diet": "vegan",
