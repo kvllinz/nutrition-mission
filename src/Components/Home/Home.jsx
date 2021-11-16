@@ -9,7 +9,9 @@ const Home = () => {
   const [liveRight, setLiveRight]=useState(false);
   const [eatRight, setEatRight]=useState(false);
   const [height, setHeight]=useState("");
-  const [weight, setWeight]=useState("")
+  const [weight, setWeight]=useState("");
+  const [age, setAge]=useState("");
+  const [gender, setGender]=useState("");
   console.log(location.state)
 
   // useEffect(()=>{
@@ -22,7 +24,7 @@ const Home = () => {
       headers: {
         'Content-Type' : 'application/json',
       },
-      body: JSON.stringify({"name": location.state.name, "email": location.state.email, "age": "24", "gender": "Male", "weight": "215", "height": "6'0"}),
+      body: JSON.stringify({"name": location.state.name, "email": location.state.email, "age": age, "gender": gender, "weight": weight, "height": height}),
     }).then(response => response.json()).then(data => {
       console.log(data);
     });
@@ -75,7 +77,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={()=> saveInfo()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={()=> navigateToE()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -125,10 +127,14 @@ const Home = () => {
                 {eatRight &&
                 <div class="introFeature" id="introFeature">
                   <div> 
-                    Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} color="inherit"/>
-                    weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} color="inherit"/>
+                    Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} style={{width: "50px"}} />
+                    weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} style={{width: "50px"}}/>
                   </div>
-                  Hello
+                  <div>
+                    Age: <input type="text" value={age} onChange={(e)=> setAge(e.target.value)} style={{width: "50px"}}/>
+                    Gender: <input type="text" value={gender} onChange={(e)=> setGender(e.target.value)} style={{width: "50px"}} />
+                  </div>
+                  <button onClick={()=>saveInfo()}>Save</button>
                 </div>
                 }
                 {liveRight && 
