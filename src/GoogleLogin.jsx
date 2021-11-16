@@ -20,6 +20,7 @@ const GLogin = () => {
         );
         refreshTokenSetup(res);
         sessionStorage.setItem('loggedIn', true)
+        imageUrl = res.profileObj.imageUrl
         history.push("/home", { profilePhoto: res.profileObj.imageUrl, name: res.profileObj.name, email: res.profileObj.email })
     };
 

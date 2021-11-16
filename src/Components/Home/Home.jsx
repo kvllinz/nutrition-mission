@@ -113,7 +113,7 @@ const Home = () => {
               <div class="introImageContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introImageBox" id="introImageBox">
-                  <img src={location.state.profilePhoto} />
+                  <img src={location.state.profilePhoto} img-testid="img-insert" />
                 </div >
               </div >
               <div class="introContentContainer">
