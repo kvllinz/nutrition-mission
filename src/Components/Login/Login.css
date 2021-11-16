@@ -17,7 +17,9 @@ body {
 /* Title */
 .titleContainer {
   display: flex;
+  height: 40px;
   width: 35%;
+  margin-top: auto;
   margin-left: 7.5%;
 }
 
@@ -38,8 +40,10 @@ body {
 }
 
 .titleC {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
   width: 75%;
-  text-align: center;
   font-size: 1.5rem;
 }
 
