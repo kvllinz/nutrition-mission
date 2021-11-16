@@ -43,6 +43,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+
 class CreateUser(db.Model):
     """
     Model for Users
@@ -51,10 +52,10 @@ class CreateUser(db.Model):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
     name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
-    age = sqlalchemy.Column(sqlalchemy.String(120))
-    gender = sqlalchemy.Column(sqlalchemy.String(120))
-    weight = sqlalchemy.Column(sqlalchemy.String(120))
-    height = sqlalchemy.Column(sqlalchemy.String(120))
+    age = sqlalchemy.Column(sqlalchemy.String(3))
+    gender = sqlalchemy.Column(sqlalchemy.String(1))
+    weight = sqlalchemy.Column(sqlalchemy.String(3))
+    height = sqlalchemy.Column(sqlalchemy.String(3))
 
     """
     Is any of this stuff really necessary? I didn't need it for the project1. - Owen
@@ -89,7 +90,7 @@ class CreateUser(db.Model):
     #     """
     #     return f"<User {self.username}>"
 
-
+# db.drop_all()
 db.create_all()
 
 
@@ -195,12 +196,19 @@ def login_post():
     return flask.jsonify({"loginResponse": "Ok"})
 
 
-@app.route("/info", methods=["GET"])
-def info():
+@app.route("/getuserinfo", methods=["POST"])
+def userInfo():
     """
-    Give dummy info
+    send UserData to the frontend
     """
-    data = {"a": "OK", "b": "sure"}
+    email = flask.request.json.get("email")
+    user = CreateUser.query.filter_by(email=email).first()
+    data = {
+    "weight": user.weight,
+    "height": user.height,
+    "age": user.age,
+    "gender": user.gender
+    }
     return flask.jsonify({"data": data})
 
 
@@ -222,5 +230,5 @@ def usercalories():
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))

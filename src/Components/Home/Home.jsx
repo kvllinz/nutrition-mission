@@ -8,15 +8,19 @@ const Home = () => {
   const location = useLocation();
   const [liveRight, setLiveRight] = useState(false);
   const [eatRight, setEatRight] = useState(false);
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [age, setAge] = useState("");
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [age, setAge] = useState(null);
   const [gender, setGender] = useState("");
+  const [userHeight, setUserHeight] = useState(null);
+  const [userWeight, setUserWeight] = useState(null);
+  const [userAge, setUserAge] = useState(null);
+  const [userGender, setUserGender] = useState(null);
   console.log(location.state)
 
   // useEffect(()=>{
-  //   fetch('/')
-  // })
+  //   getUserInfo()
+  // },[])
 
   const saveInfo = () => {
     fetch('/login', {
@@ -24,21 +28,35 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age, "gender": gender, "weight": weight, "height": height }),
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age.toString(), "gender": gender.toString(), "weight": weight, "height": height.toString() }),
     }).then(response => response.json()).then(data => {
       console.log(data);
+      setAge(" ");
+      setHeight(" ");
+      setWeight(" ");
+      setGender(" ")
     });
   }
 
-  const getInfo = () => {
-    fetch('/info').then(response => response.json()).then(data => {
-      console.log(data.data.a);
+  const getUserInfo = () => {
+    fetch('/getuserinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"email": location.state.email}), }).then(response => response.json()).then(data => {
+      setUserHeight(data.data.height);
+      setUserAge(data.data.age);
+      setUserGender(data.data.gender);
+      setUserWeight(data.data.weight);
     })
-  }
+}
+
 
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
+    getUserInfo();
   }
   const navigateToL = () => {
     setEatRight(false);
@@ -126,12 +144,18 @@ const Home = () => {
                   <div class="introFeature">
                     <div class="entryContainer">
                       <div class="entryBox">
+                        <div >
+                          Height: {userHeight}{" "}
+                          Weight: {userWeight}lbs{" "}
+                          Age: {userAge}{" "}
+                          Gender: {userGender}{" "}
+                        </div>
                         <div class="userInputArea">
                           Calculate your daily calorie intake:<br />
-                          Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          Height: <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,2))} style={{ width: "50px" }} />{" "}
+                          Weight: <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,3))} style={{ width: "50px" }} />{" "}
+                          Age: <input type="number"  value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,3))} style={{ width: "50px" }} />{" "}
+                          Gender: <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
                           <button class="userInfoCalories" onClick={() => saveInfo()}>Save</button><br />
                           To maintain your weight, you need:<br />
                           PLACEHOLDER cal
