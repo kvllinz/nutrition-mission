@@ -47,7 +47,6 @@ const Home = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({"email": location.state.email}), }).then(response => response.json()).then(data => {
-      console.log(data)
       setUserHeight(data.data.height);
       setUserAge(data.data.age);
       setUserGender(data.data.gender);
@@ -148,6 +147,12 @@ const Home = () => {
                   <div class="introFeature">
                     <div class="entryContainer">
                       <div class="entryBox">
+                        {/* <div >
+                          Height: {userHeight}{" "}
+                          Weight: {userWeight}lbs{" "}
+                          Age: {userAge}{" "}
+                          Gender: {userGender}{" "}
+                        </div> */}
                         <div class="userInputArea">
                           Height: {userHeight} Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
                           Height: <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2))} style={{ width: "50px" }} />{" "}
@@ -198,8 +203,21 @@ const Home = () => {
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
-              <div class="bodyContent" id="bodyContent">
-              </div>
+              {eatRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Miles Run: Pushups: Jumping Jacks:<br />
+                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
+                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
+                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  <button class="userInfoCalories">Add</button>{" "}
+                  <button class="userInfoCalories">Update</button><br />
+                </div>
+              }
+              {liveRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Test
+                </div>
+              }
             </div>
           </div>
         </div>
