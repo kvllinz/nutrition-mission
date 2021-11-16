@@ -1,6 +1,7 @@
 """
 App.py
 """
+# pylint: disable=no-member
 # from typing import Text
 import os
 import json
@@ -9,6 +10,7 @@ from flask_login import (
     LoginManager,
     login_manager,
     login_user,
+    current_user,
 )
 
 import flask
@@ -102,8 +104,11 @@ def load_user(user_id):
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    """
+    This is a catch all that is required for react-router
+    """
     print(path)
-    """This is a catch all that is required for react-router"""
+
     return flask.render_template("index.html")
 
 
@@ -192,6 +197,9 @@ def login_post():
 
 @app.route("/info", methods=["GET"])
 def info():
+    """
+    Give dummy info
+    """
     data = {"a": "OK", "b": "sure"}
     return flask.jsonify({"data": data})
 
@@ -199,9 +207,20 @@ def info():
 # @app.route('/save', methods=["POST"])
 # def save():
 #     ...
+def usercalories():
+    """
+    Get calories needed from the user
+    """
+    user = CreateUser.query.get(current_user.id)
+    caloriesneeded = (10 * user.weight) + (6.25 * user.height) - (5 * user.age)
+    if user.gender == "female":
+        caloriesneeded -= 161
+    elif user.gender == "male":
+        caloriesneeded += 5
+    print(caloriesneeded)
+
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
+    app.run(use_reloader=True, debug=True)
     # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
-    app.run(debug=True)

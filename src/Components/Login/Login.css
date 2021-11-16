@@ -11,13 +11,71 @@ body {
 .displayContainer {
   width: 75%;
   margin: auto;
-  margin-top: 3em;
+  margin-top: 1rem;
+}
+
+/* Landing Info */
+.landingContainer {
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.motto {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.landingBoxBorder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.5%;
+  background-color: #05761c;
+}
+
+.landingBox {
+  margin: 0.5rem;
+  border-radius: 2.5%;
+  background-color: #2caa46;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.descriptionBox {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.featuresTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.featuresContainer {
+  display: flex;
+}
+
+.featuresBox {
+  flex: 1;
+  list-style-position: inside;
 }
 
 /* Title */
 .titleContainer {
   display: flex;
+  height: 40px;
   width: 35%;
+  margin-top: 1rem;
   margin-left: 7.5%;
 }
 
@@ -38,8 +96,10 @@ body {
 }
 
 .titleC {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
   width: 75%;
-  text-align: center;
   font-size: 1.5rem;
 }
 
@@ -61,21 +121,21 @@ body {
 }
 
 .loginBoxLIn, .loginBoxRIn {
-  width: 90%;
-  height: 90%;
+  width: 95%;
+  height: 95%;
   background-color: #2caa46;
 }
 
 .loginBoxL, .loginBoxLIn {
   justify-content: flex-end;
-  border-top-left-radius: 45%;
-  border-bottom-left-radius: 45%;
+  border-top-left-radius: 15%;
+  border-bottom-left-radius: 15%;
 }
 
 .loginBoxR, .loginBoxRIn {
   justify-content: flex-start;
-  border-top-right-radius: 45%;
-  border-bottom-right-radius: 45%;
+  border-top-right-radius: 15%;
+  border-bottom-right-radius: 15%;
 }
 
 /* Login Center Division */
@@ -88,132 +148,13 @@ body {
 
 .loginBoxCIn {
   display: flex;
+  justify-content:space-around;
+  align-items:center;
   width: 100%;
-  height: 90%;
+  height: 95%;
   background-color: #2caa46;
 }
 
-/* Login Form: Submit */
-.loginSubmit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-  font-size: 2.5rem;
-}
-
-/* Login Form: Form Fields */
-.loginFieldsContainer {
-  display: flex;
-  width: 80%;
-}
-
-/* Login Fields */
-.loginFieldsBox {
-  width: 50%;
-}
-
-.loginField {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50%;
-  font-size: 1.5rem;
-}
-
-/* Login User Input */
-.loginInputContainer, .loginInputBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50%;
-}
-
-.loginInputBox {
-  width: 100%;
-}
-
-.loginInputL, .loginInputR {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: #05761c;
-}
-
-.loginInputLIn, .loginInputRIn {
-  width: 90%;
-  height: 90%;
-  background-color: #ffffff;
-}
-
-.loginInputL, .loginInputLIn {
-  border-top-left-radius: 45%;
-  border-bottom-left-radius: 45%;
-}
-
-.loginInputL {
-  justify-content: flex-end;
-}
-
-.loginInputR, .loginInputRIn {
-  border-top-right-radius: 45%;
-  border-bottom-right-radius: 45%;
-}
-
-.loginInputR {
-  justify-content: flex-start;
-}
-
-.loginInputC {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  background-color: #05761c;
-}
-
-.loginInputCIn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90%;
-  width: 100%;
-  background-color: #ffffff;
-}
-
-/* Form Buttons */
-input[type=submit] {
-  cursor: pointer;
-  text-decoration: none;
-  background-color: #2caa46;
-  border: none;
-  font-size: 3.5rem;
-  color: white;
-}
-
-input[type=submit]:hover {
-  color: #05761c;
-}
-
-input[type=text] {
-  height: 1.5rem;
-  width: 10rem;
-  border: none;
-  font-size: 1.5rem;
-}
-
-input[type=text]:focus {
-  outline: none;
-}
-button {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-    color: white;
-}
-button:hover{
-    color: #05761c; 
+.login {
+	text-align:center;
 }

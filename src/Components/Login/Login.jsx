@@ -1,39 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import './Login.css';
 import GLogin from "../../GoogleLogin";
-
+import logo512 from "../../logo512.png"
+import googleLogo from '../../googleLogo.png';
 
 
 const Login = () => {
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [response, setResponse] = useState('')
-  const history = useHistory();
-
-  useEffect(() => {
-    if (response === "Ok") {
-      history.push("/home")
-    }
-  }, [response])
-
-
-  const loginUser = () => {
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "username": username, "password": password }),
-    }).then(response => response.json()).then(data => {
-      setResponse(data.loginResponse);
-    });
-  }
-
   return (
-    // <form onSubmit ={()=> loginUser()}>
     <div class="displayContainer">
+      <div class="landingContainer">
+        <img src={logo512} height="64" width="64" />
+        <div class="title">
+          Nutrition Mission
+        </div>
+        <div class="landingBoxBorder">
+          <div class="landingBox">
+            <div class="motto">
+              Eat Right, Live Right.
+            </div>
+            <div class="descriptionContainer">
+              <div class="descriptionBox">
+                Welcome to Nutrition Mission, a project about you and for you!
+                We aim to provide you interesting and diversified recipes
+                while also catering to your specific caloric needs as a person.
+                With the ability to save your daily workouts, you can sleep
+                easily knowing you're making a difference to your personal
+                wellbeing. Logging into the application is easy! Since your login
+                is verified by Google Authentification services, your personal data
+                will be ensured to be for your own eyes only.
+              </div>
+            </div>
+            <div class="featuresTitle">
+              Features
+            </div>
+            <div class="featuresContainerBorder">
+              <div class="featuresContainer">
+                <div class="featuresBox">
+                  <ul>
+                    <li>Diversified Daily Meals</li>
+                    <li>Recipes & Nutrition Facts</li>
+                  </ul>
+                </div>
+                <div class="featuresBox">
+                  <ul>
+                    <li>Personalized Weight Maintenance</li>
+                    <li>Workout Tracker</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="titleContainer">
         <div class="titleL">
           <div class="titleLIn">
@@ -56,55 +74,9 @@ const Login = () => {
         </div>
         <div class="loginBoxC">
           <div class="loginBoxCIn">
-            {/* <div class="loginSubmit"> */}
-            {/* <input type="submit" value="Login" /> */}
-            <button class="loginSubmit" onClick={() => loginUser()}> Login</button>
-            {/* </div> */}
-            <div class="loginFieldsContainer">
-              <div class="loginFieldsBox">
-                <div class="loginField">
-                  Username:
-                </div>
-                <div class="loginField">
-                  Password:
-                </div>
-              </div>
-              <div class="loginFieldsBox">
-                <div class="loginInputContainer">
-                  <div class="loginInputBox">
-                    <div class="loginInputL">
-                      <div class="loginInputLIn">
-                      </div>
-                    </div>
-                    <div class="loginInputC">
-                      <div class="loginInputCIn">
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" />
-                      </div>
-                    </div>
-                    <div class="loginInputR">
-                      <div class="loginInputRIn">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="loginInputContainer">
-                  <div class="loginInputBox">
-                    <div class="loginInputL">
-                      <div class="loginInputLIn">
-                      </div>
-                    </div>
-                    <div class="loginInputC">
-                      <div class="loginInputCIn">
-                        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
-                      </div>
-                    </div>
-                    <div class="loginInputR">
-                      <div class="loginInputRIn">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="login">
+              <img src={googleLogo} height="128" width="128" /><br />
+              <GLogin />
             </div>
           </div>
         </div>
@@ -113,9 +85,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <GLogin />
-    </div>
-    //   </form>
+    </div >
   )
 }
 

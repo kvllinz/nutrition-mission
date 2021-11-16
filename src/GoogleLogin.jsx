@@ -1,7 +1,7 @@
 import React from 'react';
 import { refreshTokenSetup } from './Components/Login/utils/refreshToken';
 import { GoogleLogin } from 'react-google-login';
-import { Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 require('dotenv').config()
 
@@ -16,18 +16,17 @@ const GLogin = () => {
     const onSuccess = (res) => {
         console.log('Login Success: currentUser:', res.profileObj);
         alert(
-            `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
+            `Logged in successfully. Welcome, ${res.profileObj.name} 😍.\nSee console for the full profile object.`
         );
         refreshTokenSetup(res);
         sessionStorage.setItem('loggedIn', true)
-        imageUrl = res.profileObj.imageUrl
         history.push("/home", { profilePhoto: res.profileObj.imageUrl, name: res.profileObj.name, email: res.profileObj.email })
     };
 
     const onFailure = (res) => {
         console.log('Login failed: res:', res);
         alert(
-            `Failed to login. 😢 `
+            `Failed to login. 😢`
         );
     };
 
@@ -35,12 +34,12 @@ const GLogin = () => {
         <div>
             <GoogleLogin
                 clientId={clientId}
-                buttonText="Login with Google"
+                buttonText="Sign in with Google"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
-                style={{ marginTop: '100px' }}
                 isSignedIn={true}
+                theme="dark"
             />
         </div>
     )

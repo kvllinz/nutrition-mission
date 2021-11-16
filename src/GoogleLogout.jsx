@@ -11,14 +11,13 @@ const GLogout = () => {
     const history = useHistory();
 
     const onSuccess = () => {
-        console.log('Logout made successfully');
-        alert('Logout made successfully✌');
-<<<<<<< HEAD
-        history.push("/login")
-=======
+
+        console.log('Logged out successfully.');
+        alert('Logged out successfully ✌.');
+
         sessionStorage.setItem('loggedIn', false)
         history.push("/")
->>>>>>> origin/main
+
     };
 
     return (
@@ -27,6 +26,7 @@ const GLogout = () => {
                 clientId={clientId}
                 buttonText="Logout"
                 onLogoutSuccess={onSuccess}
+                theme="dark"
             />
         </div>
     );
