@@ -1,12 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
 
 const Home = () => {
 
+  const location = useLocation();
+  const [liveRight, setLiveRight] = useState(false);
+  const [eatRight, setEatRight] = useState(false);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("")
+  console.log(location.state)
+
+  // useEffect(()=>{
+  //   fetch('/')
+  // })
+
+  const saveInfo = () => {
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": "24", "gender": "Male", "weight": "215", "height": "6'0" }),
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+    });
+  }
+
+  const getInfo = () => {
+    fetch('/info').then(response => response.json()).then(data => {
+      console.log(data.data.a);
+    })
+  }
+
+  const navigateToE = () => {
+    setEatRight(true);
+    setLiveRight(false);
+  }
+  const navigateToL = () => {
+    setEatRight(false);
+    setLiveRight(true);
+  }
 
   return (
-    <form>
+    // <form>
+    <>
       {/* <!-- Intro Display --> */}
       <div class="introDisplayContainer">
         <div class="headerContainer">
@@ -35,15 +74,15 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <input type="submit" value="Eat Right" id="tabLCIn" class="home" />
-                  {/* <button>Eat Right</button> */}
-                </div>
-              </div>
+                  {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
+                  <button id="tabLCIn" class="home" onClick={() => saveInfo()}>Eat Right</button>
+                </div >
+              </div >
               <div class="tabR">
                 <div class="tabRIn" id="tabLRIn">
                 </div>
               </div>
-            </div>
+            </div >
             <div class="tabBox" id="tabBoxR">
               <div class="tabL">
                 <div class="tabLIn" id="tabRLIn">
@@ -51,8 +90,8 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <input type="submit" value="Live Right" id="tabRCIn" class="home" />
-                  {/* <button> Live Right</button> */}
+                  {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
+                  <button id="tabRCIn" class="home" onClick={() => getInfo()}> Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -60,10 +99,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div >
+        </div >
         {/* <!-- Intro --> */}
-        <div class="introContainer">
+        < div class="introContainer" >
           <div class="introBoxL">
             <div class="introBoxLIn">
             </div>
@@ -74,28 +113,42 @@ const Home = () => {
               <div class="introImageContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introImageBox" id="introImageBox">
-                </div>
-              </div>
+                  <img src={location.state.profilePhoto} />
+                </div >
+              </div >
               <div class="introContentContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introWelcome" id="introWelcome">
+                  Welcome back, {location.state.name}
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
-                <div class="introFeature" id="introFeature">
-                </div>
-              </div>
-            </div>
-          </div>
+                {eatRight &&
+                  <div class="introFeature" id="introFeature">
+                    <div>
+                      Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} color="inherit" />
+                      weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} color="inherit" />
+                    </div>
+                    Hello
+                  </div>
+                }
+                {liveRight &&
+                  <div class="introFeature" id="introFeature">
+                    Welcome
+                  </div>
+                }
+              </div >
+            </div >
+          </div >
           <div class="introBoxR">
             <div class="introBoxRIn">
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       {/* <!-- Body --> */}
-      <div class="bodyContainer">
+      < div class="bodyContainer" >
         {/* <!-- Body Top --> */}
-        <div class="bodyContainerTop">
+        < div class="bodyContainerTop" >
           <div class="bodyTopL">
             <div class="bodyTopLIn">
             </div>
@@ -108,9 +161,9 @@ const Home = () => {
             <div class="bodyTopRIn">
             </div>
           </div>
-        </div>
+        </div >
         {/* <!-- Body Content --> */}
-        <div class="bodyContainerCenter">
+        < div class="bodyContainerCenter" >
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
@@ -118,9 +171,9 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div >
         {/* <!-- Body Bottom --> */}
-        <div class="bodyContainerBottom">
+        < div class="bodyContainerBottom" >
           <div class="bodyBottomL">
             <div class="bodyBottomLIn">
             </div>
@@ -133,10 +186,11 @@ const Home = () => {
             <div class="bodyBottomRIn">
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       < GLogout />
-    </form>
+      {/* </form> */}
+    </>
   )
 }
 

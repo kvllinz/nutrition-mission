@@ -13,7 +13,12 @@ const GLogout = () => {
     const onSuccess = () => {
         console.log('Logout made successfully');
         alert('Logout made successfully✌');
+<<<<<<< HEAD
         history.push("/login")
+=======
+        sessionStorage.setItem('loggedIn', false)
+        history.push("/")
+>>>>>>> origin/main
     };
 
     return (

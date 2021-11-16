@@ -10,6 +10,7 @@ const clientId = process.env.REACT_APP_Google_Client_ID;
 const GLogin = () => {
 
     console.log(clientId);
+
     const history = useHistory();
 
     const onSuccess = (res) => {
@@ -18,7 +19,8 @@ const GLogin = () => {
             `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
         );
         refreshTokenSetup(res);
-        history.push("/home")
+        sessionStorage.setItem('loggedIn', true)
+        history.push("/home", { profilePhoto: res.profileObj.imageUrl, name: res.profileObj.name, email: res.profileObj.email })
     };
 
     const onFailure = (res) => {

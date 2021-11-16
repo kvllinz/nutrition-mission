@@ -1,22 +1,24 @@
-from typing import Text
-import flask
+"""
+App.py
+"""
+# from typing import Text
+import os
+import json
 from dotenv import find_dotenv, load_dotenv
 from flask_login import (
     LoginManager,
     login_manager,
     login_user,
-    login_required,
-    current_user,
-    logout_user,
 )
-import os
-import json
+
+import flask
 from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
 
 load_dotenv(find_dotenv())
 
-app = flask.Flask(__name__, static_folder='./build/static')
-# This tells our Flask app to look at the results of `npm build` instead of the 
+app = flask.Flask(__name__, static_folder="./build/static")
+# This tells our Flask app to look at the results of `npm build` instead of the
 # actual files in /templates when we're looking for the index page file. This allows
 # us to load React code into a webpage. Look up create-react-app for more reading on
 # why this is necessary.
@@ -40,46 +42,85 @@ login_manager.init_app(app)
 
 
 class CreateUser(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), unique=True)
+    """
+    Model for Users
+    """
 
-    def is_authenticated(self):
-        return True
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+    name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+    age = sqlalchemy.Column(sqlalchemy.String(120))
+    gender = sqlalchemy.Column(sqlalchemy.String(120))
+    weight = sqlalchemy.Column(sqlalchemy.String(120))
+    height = sqlalchemy.Column(sqlalchemy.String(120))
 
-    def is_active(self):
-        return True
+    """
+    Is any of this stuff really necessary? I didn't need it for the project1. - Owen
+    """
+    # def is_authenticated(self):
+    #     """
+    #     Is user authenticated
+    #     """
+    #     return True
 
-    def is_anonymous(self):
-        return False
+    # def is_active(self):
+    #     """
+    #     Is user active
+    #     """
+    #     return True
 
-    def get_id(self):
-        return str(self.id)
+    # def is_anonymous(self):
+    #     """
+    #     Is user anonymous
+    #     """
+    #     return False
 
-    def __repr__(self):
-        return "<User %r>" % (self.username)
+    # def get_id(self):
+    #     """
+    #     Get ID of the user
+    #     """
+    #     return str(self.id)
+
+    # def __repr__(self):
+    #     """
+    #     Return user
+    #     """
+    #     return f"<User {self.username}>"
+
 
 db.create_all()
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    return CreateUser.query.get(int(user_id))     
+    """
+    Load a user
+    """
+    return CreateUser.query.get(int(user_id))
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def catch_all(path):
-    """ This is a catch all that is required for react-router """
-    return flask.render_template('index.html')
+    print(path)
+    """This is a catch all that is required for react-router"""
+    return flask.render_template("index.html")
 
-@bp.route('/index')
+
+@bp.route("/index")
 # @login_required
 def index():
-    # TODO: insert the data fetched by your app main page here as a JSON
-    DATA = {"your": "data here"}
-    data = json.dumps(DATA)
+    """
+    Index router
+    """
+    # insert the data fetched by your app main page here as a JSON
+    data = {"your": "data here"}
+    data = json.dumps(data)
     return flask.render_template(
         "index.html",
         data=data,
     )
+
 
 app.register_blueprint(bp)
 
@@ -95,19 +136,65 @@ app.register_blueprint(bp)
 # def login():
 #     ...
 
-@app.route('/login', methods=["POST"])
+
+@app.route("/login", methods=["POST"])
 def login_post():
+    """
+    Get username and password from client, check if it is valid and log them in
+    """
+    name = flask.request.json.get("name")
+    email = flask.request.json.get("email")
+    age = flask.request.json.get("age")
+    gender = flask.request.json.get("gender")
+    weight = flask.request.json.get("weight")
+    height = flask.request.json.get("height")
 
-    username= flask.request.json.get("username")
-    password = flask.request.json.get("password")
+    print(name, email, age, gender, weight, height)
 
-    if len(username) == 0 and len(password) == 0:
-        flask.flash("Enter valid Username. Please try again")
-    user = CreateUser.query.filter_by(username=username).first()
-    if user and password == "Amadi":
-        login_user(user)
-        return flask.jsonify({"loginResponse": "Ok"})
-	
+    checkemail = CreateUser.query.filter_by(email=email).first()
+    if checkemail:
+        checkemail.weight = weight
+        db.session.commit()
+    else:
+        user = CreateUser(
+            email=email, name=name, age=age, gender=gender, weight=weight, height=height
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    # if not checkemail:
+    #     user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight)
+    #     db.session.add(user)
+    #     db.session.commit()
+    #     print(user)
+
+    # username = flask.request.json.get("username")
+    # password = flask.request.json.get("password")
+
+    # if len(username) == 0 and len(password) == 0:
+    #     flask.flash("Enter valid Username. Please try again")
+    # user = CreateUser.query.filter_by(username=username).first()
+    # if user and password == "Amadi":
+    #     login_user(user)
+    #     return flask.jsonify({"loginResponse": "Ok"})
+
+    # # @app.route('/save', methods=["POST"])
+    # # def save():
+    # #     ...
+
+    # if len(username) == 0 and len(password) == 0:
+    #     flask.flash("Enter valid Username. Please try again")
+    # user = CreateUser.query.filter_by(username=username).first()
+    # if user and password == "Amadi":
+    #     login_user(user)
+    return flask.jsonify({"loginResponse": "Ok"})
+
+
+@app.route("/info", methods=["GET"])
+def info():
+    data = {"a": "OK", "b": "sure"}
+    return flask.jsonify({"data": data})
+
 
 # @app.route('/save', methods=["POST"])
 # def save():
@@ -115,6 +202,6 @@ def login_post():
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    app.run(use_reloader=True, debug=True)
-    #app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
-
+    # app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(debug=True)
