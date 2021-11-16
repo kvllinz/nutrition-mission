@@ -4,7 +4,7 @@
 
 ## Deployment
 
-[Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/home)
+[Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 ## About The Project
 
