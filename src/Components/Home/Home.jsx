@@ -6,47 +6,46 @@ import './Home.css';
 const Home = () => {
 
   const location = useLocation();
-  const [liveRight, setLiveRight]=useState(false);
-  const [eatRight, setEatRight]=useState(false);
-  const [height, setHeight]=useState("");
-  const [weight, setWeight]=useState("");
-  const [age, setAge]=useState("");
-  const [gender, setGender]=useState("");
+  const [liveRight, setLiveRight] = useState(false);
+  const [eatRight, setEatRight] = useState(false);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
   console.log(location.state)
 
   // useEffect(()=>{
   //   fetch('/')
   // })
 
-  const saveInfo =()=>{
+  const saveInfo = () => {
     fetch('/login', {
       method: 'POST',
       headers: {
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"name": location.state.name, "email": location.state.email, "age": age, "gender": gender, "weight": weight, "height": height}),
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age, "gender": gender, "weight": weight, "height": height }),
     }).then(response => response.json()).then(data => {
       console.log(data);
     });
   }
 
-  const getInfo=()=>{
+  const getInfo = () => {
     fetch('/info').then(response => response.json()).then(data => {
       console.log(data.data.a);
-  })
-}
+    })
+  }
 
-  const navigateToE=()=>{
+  const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
   }
-  const navigateToL=()=>{
+  const navigateToL = () => {
     setEatRight(false);
     setLiveRight(true);
   }
 
   return (
-    // <form>
     <>
       {/* <!-- Intro Display --> */}
       <div class="introDisplayContainer">
@@ -58,9 +57,7 @@ const Home = () => {
               </div>
             </div>
             <div class="titleC">
-              <div class="titleCIn">
-                Nutrition Mission
-              </div>
+              Nutrition Mission
             </div>
             <div class="titleR">
               <div class="titleRIn">
@@ -77,7 +74,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={()=> saveInfo()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={() => saveInfo()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -93,7 +90,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
-                  <button id="tabRCIn" class="home" onClick={()=> getInfo()}> Live Right</button>
+                  <button id="tabRCIn" class="home" onClick={() => getInfo()}> Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -101,6 +98,9 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div class="googleButton">
+            < GLogout />
           </div>
         </div>
         {/* <!-- Intro --> */}
@@ -115,7 +115,7 @@ const Home = () => {
               <div class="introImageContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
                 <div class="introImageBox" id="introImageBox">
-                  <img src = {location.state.profilePhoto} />
+                  <img src={location.state.profilePhoto} />
                 </div>
               </div>
               <div class="introContentContainer">
@@ -125,22 +125,22 @@ const Home = () => {
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
                 {eatRight &&
-                <div class="introFeature" id="introFeature">
-                  <div> 
-                    Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} style={{width: "50px"}} />
-                    weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} style={{width: "50px"}}/>
+                  <div class="introFeature" id="introFeature">
+                    <div>
+                      Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />
+                      weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />
+                    </div>
+                    <div>
+                      Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />
+                      Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />
+                    </div>
+                    <button onClick={() => saveInfo()}>Save</button>
                   </div>
-                  <div>
-                    Age: <input type="text" value={age} onChange={(e)=> setAge(e.target.value)} style={{width: "50px"}}/>
-                    Gender: <input type="text" value={gender} onChange={(e)=> setGender(e.target.value)} style={{width: "50px"}} />
-                  </div>
-                  <button onClick={()=>saveInfo()}>Save</button>
-                </div>
                 }
-                {liveRight && 
-                 <div class="introFeature" id="introFeature">
-                   Welcome
-                 </div>
+                {liveRight &&
+                  <div class="introFeature" id="introFeature">
+                    Welcome
+                  </div>
                 }
               </div>
             </div>
@@ -194,8 +194,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      < GLogout />
-    {/* </form> */}
     </>
   )
 }

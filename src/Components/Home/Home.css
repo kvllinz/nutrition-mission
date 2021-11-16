@@ -22,7 +22,9 @@ body {
 /* Title */
 .titleContainer {
   display: flex;
+  height: 40px;
   width: 35%;
+  margin-top: auto;
   margin-left: 7.5%;
 }
 
@@ -50,12 +52,10 @@ body {
 
 /* Tabs */
 .tabsContainer {
-  float: right;
   display: flex;
   width: 35%;
   margin-top: auto;
-  margin-left: auto;
-  margin-right: 7.5%;
+  margin-left: 2.5%;
 }
 
 .tabBox {
@@ -137,6 +137,10 @@ button.home {
   background-color: #2caa46;
 }
 
+.googleButton{
+  margin-left: 2.5%;
+}
+
 /* Intro */
 .introContainer {
   display: flex;
@@ -155,21 +159,21 @@ button.home {
 }
 
 .introBoxLIn, .introBoxRIn {
-  height: 90%;
-  width: 90%;
+  height: 95%;
+  width: 95%;
   background-color: #2caa46;
 }
 
 .introBoxL, .introBoxLIn {
   justify-content: flex-end;
-  border-top-left-radius: 45%;
-  border-bottom-left-radius: 45%;
+  border-top-left-radius: 15%;
+  border-bottom-left-radius: 15%;
 }
 
 .introBoxR, .introBoxRIn {
   justify-content: flex-start;
-  border-top-right-radius: 45%;
-  border-bottom-right-radius: 45%;
+  border-top-right-radius: 15%;
+  border-bottom-right-radius: 15%;
 }
 
 /* Intro Center */
@@ -182,8 +186,8 @@ button.home {
 
 .introBoxCIn {
   display: flex;
-  height: 90%;
   width: 100%;
+  height: 95%;
   background-color: #2caa46;
 }
 
@@ -253,15 +257,15 @@ button.home {
 
 .bodyTopLIn, .bodyTopRIn {
   height:80%;
-  width:90%;
+  width:95%;
 }
 
 .bodyTopL, .bodyTopLIn {
-  border-top-left-radius: 50%;
+  border-top-left-radius: 15%;
 }
 
 .bodyTopR, .bodyTopRIn {
-  border-top-right-radius: 50%;
+  border-top-right-radius: 15%;
 }
 
 .bodyTopL{
@@ -331,15 +335,15 @@ button.home {
 
 .bodyBottomLIn, .bodyBottomRIn {
   height:80%;
-  width:90%;
+  width:95%;
 }
 
 .bodyBottomL, .bodyBottomLIn {
-  border-bottom-left-radius: 50%;
+  border-bottom-left-radius: 15%;
 }
 
 .bodyBottomR, .bodyBottomRIn {
-  border-bottom-right-radius: 50%;
+  border-bottom-right-radius: 15%;
 }
 
 .bodyBottomL{
