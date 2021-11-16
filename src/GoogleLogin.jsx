@@ -18,7 +18,7 @@ const GLogin = () => {
         );
         refreshTokenSetup(res);
         sessionStorage.setItem('loggedIn', true)
-        history.push("/home", { profilePhoto: res.profileObj.imageUrl, name: res.profileObj.name, email: res.profileObj.email})
+        history.push("/home", { profilePhoto: res.profileObj.imageUrl, name: res.profileObj.name, email: res.profileObj.email })
     };
 
     const onFailure = (res) => {
@@ -32,7 +32,7 @@ const GLogin = () => {
         <div>
             <GoogleLogin
                 clientId={clientId}
-                buttonText="Login with Google"
+                buttonText="Sign in with Google"
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={'single_host_origin'}
