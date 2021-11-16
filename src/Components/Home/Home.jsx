@@ -177,8 +177,21 @@ const Home = () => {
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
-              <div class="bodyContent" id="bodyContent">
-              </div>
+              {eatRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Miles Run: Pushups: Jumping Jacks:<br />
+                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
+                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
+                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  <button class="userInfoCalories">Add</button>{" "}
+                  <button class="userInfoCalories">Update</button><br />
+                </div>
+              }
+              {liveRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Test
+                </div>
+              }
             </div>
           </div>
         </div>
