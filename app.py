@@ -9,7 +9,7 @@ from dotenv import find_dotenv, load_dotenv
 from flask_login import (
     LoginManager,
     login_manager,
-    login_user,
+    # login_user,
     current_user,
 )
 
@@ -230,5 +230,5 @@ def usercalories():
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    app.run(use_reloader=True, debug=True)
-    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    # app.run(use_reloader=True, debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
