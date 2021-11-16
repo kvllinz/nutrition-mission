@@ -12,8 +12,6 @@ Aimed to deliver a health-focused app accessible from the browser. Health is an 
 
 ### Built With
 
-Describe languages used here.
-
 Python
 Css
 html
@@ -27,19 +25,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 #### APIs
 
-Descirbe APIs used here.
 spoonacular.com
 
 ## Requirements
-
-Describe requirements here.
 
 npm install
 pip install -r requirements.txt
 
 ## Usage
 
-usage of the app is to track your health
+usage of the this browser is to track your health, like see how much do you weigh, what is your height and how much you want to gain or lose weight.
 
 ## Contributing
 
