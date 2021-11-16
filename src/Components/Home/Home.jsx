@@ -127,14 +127,15 @@ const Home = () => {
                     <div class="entryContainer">
                       <div class="entryBox">
                         <div class="userInputArea">
-                          Calculate your daily calorie intake:<br />
+                          Height: Weight: Age: Gender:<br />
                           Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />{" "}
                           Weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />{" "}
                           Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />{" "}
                           Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
-                          <button class="userInfoCalories" onClick={() => saveInfo()}>Save</button><br />
+                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
                           To maintain your weight, you need:<br />
-                          PLACEHOLDER cal
+                          cal<br />
+                          <button class="userInfoCalories">Calculate</button>
                         </div>
                       </div>
                     </div>
