@@ -8,31 +8,38 @@
 
 ## About The Project
 
-Describe the project here.
+Aimed to deliver a health-focused app accessible from the browser. Health is an important aspect of our lives, but every app focuses on one specific aspect of it like a good workout routine in one app and another app for getting healthful recipes. We wanted to combine the different applications into a one stop shop for all things health and nutrition related. Features of the application will include search boxes that allow users to get nutrition facts for ingredients and restaurant meals and text boxes for users to enter their height, weight, and workout plans to get visual feedback on their gains and losses for a specific period of time.
 
 ### Built With
 
 Describe languages used here.
 
+Python
+Css
+html
+react
+
 #### Libraries & Frameworks
 
-Describe libraries and frameworks used here.
+import flask
+import os
+from flask_sqlalchemy import SQLAlchemy
 
 #### APIs
 
 Descirbe APIs used here.
+spoonacular.com
 
 ## Requirements
 
 Describe requirements here.
 
-## Installation
-
-Describe setup here.
+npm install
+pip install -r requirements.txt
 
 ## Usage
 
-Describe usage here.
+usage of the app is to track your health
 
 ## Contributing
 
