@@ -144,21 +144,22 @@ const Home = () => {
                   <div class="introFeature">
                     <div class="entryContainer">
                       <div class="entryBox">
-                        <div >
+                        {/* <div >
                           Height: {userHeight}{" "}
                           Weight: {userWeight}lbs{" "}
                           Age: {userAge}{" "}
                           Gender: {userGender}{" "}
-                        </div>
+                        </div> */}
                         <div class="userInputArea">
-                          Calculate your daily calorie intake:<br />
-                          Height: <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,2))} style={{ width: "50px" }} />{" "}
-                          Weight: <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,3))} style={{ width: "50px" }} />{" "}
-                          Age: <input type="number"  value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0,3))} style={{ width: "50px" }} />{" "}
-                          Gender: <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
-                          <button class="userInfoCalories" onClick={() => saveInfo()}>Save</button><br />
+                          Height: {userHeight} Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
+                          Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
                           To maintain your weight, you need:<br />
-                          PLACEHOLDER cal
+                          cal<br />
+                          <button class="userInfoCalories">Calculate</button>
                         </div>
                       </div>
                     </div>

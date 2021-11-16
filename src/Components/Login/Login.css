@@ -11,7 +11,63 @@ body {
 .displayContainer {
   width: 75%;
   margin: auto;
-  margin-top: 3em;
+  margin-top: 1rem;
+}
+
+/* Landing Info */
+.landingContainer {
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.motto {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.landingBoxBorder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.5%;
+  background-color: #05761c;
+}
+
+.landingBox {
+  margin: 0.5rem;
+  border-radius: 2.5%;
+  background-color: #2caa46;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.descriptionBox {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.featuresTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.featuresContainer {
+  display: flex;
+}
+
+.featuresBox {
+  flex: 1;
+  list-style-position: inside;
 }
 
 /* Title */
@@ -19,7 +75,7 @@ body {
   display: flex;
   height: 40px;
   width: 35%;
-  margin-top: auto;
+  margin-top: 1rem;
   margin-left: 7.5%;
 }
 
