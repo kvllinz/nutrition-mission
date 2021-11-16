@@ -10,6 +10,7 @@ from flask_login import (
     LoginManager,
     login_manager,
     login_user,
+    current_user,
 )
 
 import flask
@@ -206,6 +207,18 @@ def info():
 # @app.route('/save', methods=["POST"])
 # def save():
 #     ...
+def usercalories():
+    """
+    Get calories needed from the user
+    """
+    user = CreateUser.query.get(current_user.id)
+    caloriesneeded = (10 * user.weight) + (6.25 * user.height) - (5 * user.age)
+    if user.gender == "female":
+        caloriesneeded -= 161
+    elif user.gender == "male":
+        caloriesneeded += 5
+    print(caloriesneeded)
+
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
