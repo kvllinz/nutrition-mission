@@ -61,8 +61,6 @@ class Workout(db.Model):
     jumpingjacks = db.Column(db.Integer)
 
 
-db.create_all()
-
 db.session.add(Workout)
 db.session.commit()
 """
