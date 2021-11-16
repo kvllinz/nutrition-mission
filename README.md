@@ -44,3 +44,6 @@ Describe usage here.
   <li> Open a Pull Request </li>
 </ol>
 
+## FAQ
+
+Describe frequently asked questions here and any problems that may arise during installation or setup.
