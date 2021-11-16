@@ -1,6 +1,7 @@
 """
 App.py
 """
+# pylint: disable=no-member
 # from typing import Text
 import os
 import json
@@ -102,8 +103,11 @@ def load_user(user_id):
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    """
+    This is a catch all that is required for react-router
+    """
     print(path)
-    """This is a catch all that is required for react-router"""
+
     return flask.render_template("index.html")
 
 
@@ -144,10 +148,10 @@ def login_post():
     """
     name = flask.request.json.get("name")
     email = flask.request.json.get("email")
-    age= flask.request.json.get("age")
-    gender= flask.request.json.get("gender")
-    weight= flask.request.json.get("weight")
-    height= flask.request.json.get("height")
+    age = flask.request.json.get("age")
+    gender = flask.request.json.get("gender")
+    weight = flask.request.json.get("weight")
+    height = flask.request.json.get("height")
 
     print(name, email, age, gender, weight, height)
 
@@ -156,7 +160,9 @@ def login_post():
         checkemail.weight = weight
         db.session.commit()
     else:
-        user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight, height=height)
+        user = CreateUser(
+            email=email, name=name, age=age, gender=gender, weight=weight, height=height
+        )
         db.session.add(user)
         db.session.commit()
 
@@ -165,8 +171,6 @@ def login_post():
     #     db.session.add(user)
     #     db.session.commit()
     #     print(user)
-
-    
 
     # username = flask.request.json.get("username")
     # password = flask.request.json.get("password")
@@ -189,9 +193,13 @@ def login_post():
     #     login_user(user)
     return flask.jsonify({"loginResponse": "Ok"})
 
+
 @app.route("/info", methods=["GET"])
 def info():
-    data = {"a": "OK", "b": 'sure'}
+    """
+    Give dummy info
+    """
+    data = {"a": "OK", "b": "sure"}
     return flask.jsonify({"data": data})
 
 
