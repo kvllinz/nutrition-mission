@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -77,7 +77,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={()=> navigateToE()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={()=> saveInfo()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
