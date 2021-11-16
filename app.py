@@ -130,19 +130,6 @@ def index():
 
 app.register_blueprint(bp)
 
-# @app.route('/signup')
-# def signup():
-# 	...
-
-# @app.route('/signup', methods=["POST"])
-# def signup_post():
-# 	...
-
-# @app.route('/login')
-# def login():
-#     ...
-
-
 @app.route("/login", methods=["POST"])
 def login_post():
     """
@@ -159,7 +146,10 @@ def login_post():
 
     checkemail = CreateUser.query.filter_by(email=email).first()
     if checkemail:
+        checkemail.age = age
+        checkemail.height = height
         checkemail.weight = weight
+        checkemail.gender = gender
         db.session.commit()
     else:
         user = CreateUser(
@@ -167,32 +157,6 @@ def login_post():
         )
         db.session.add(user)
         db.session.commit()
-
-    # if not checkemail:
-    #     user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight)
-    #     db.session.add(user)
-    #     db.session.commit()
-    #     print(user)
-
-    # username = flask.request.json.get("username")
-    # password = flask.request.json.get("password")
-
-    # if len(username) == 0 and len(password) == 0:
-    #     flask.flash("Enter valid Username. Please try again")
-    # user = CreateUser.query.filter_by(username=username).first()
-    # if user and password == "Amadi":
-    #     login_user(user)
-    #     return flask.jsonify({"loginResponse": "Ok"})
-
-    # # @app.route('/save', methods=["POST"])
-    # # def save():
-    # #     ...
-
-    # if len(username) == 0 and len(password) == 0:
-    #     flask.flash("Enter valid Username. Please try again")
-    # user = CreateUser.query.filter_by(username=username).first()
-    # if user and password == "Amadi":
-    #     login_user(user)
     return flask.jsonify({"loginResponse": "Ok"})
 
 
@@ -203,32 +167,30 @@ def userInfo():
     """
     email = flask.request.json.get("email")
     user = CreateUser.query.filter_by(email=email).first()
+    cal = usercalories(user.email)
     data = {
     "weight": user.weight,
     "height": user.height,
     "age": user.age,
-    "gender": user.gender
+    "gender": user.gender,
+    "calories": cal
     }
     return flask.jsonify({"data": data})
 
-
-# @app.route('/save', methods=["POST"])
-# def save():
-#     ...
-def usercalories():
+def usercalories(userEmail):
     """
     Get calories needed from the user
     """
-    user = CreateUser.query.get(current_user.id)
-    caloriesneeded = (10 * user.weight) + (6.25 * user.height) - (5 * user.age)
-    if user.gender == "female":
+    user = CreateUser.query.filter_by(email=userEmail).first()
+    caloriesneeded = (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
+    if user.gender == "F":
         caloriesneeded -= 161
-    elif user.gender == "male":
+    elif user.gender == "M":
         caloriesneeded += 5
-    print(caloriesneeded)
+    return(caloriesneeded)
 
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
