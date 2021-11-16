@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import './Login.css';
 import GLogin from "../../GoogleLogin";
-
+import googleLogo from '../../googleLogo.png';
 
 
 const Login = () => {
@@ -32,7 +32,6 @@ const Login = () => {
   }
 
   return (
-    // <form onSubmit ={()=> loginUser()}>
     <div class="displayContainer">
       <div class="titleContainer">
         <div class="titleL">
@@ -56,55 +55,9 @@ const Login = () => {
         </div>
         <div class="loginBoxC">
           <div class="loginBoxCIn">
-            {/* <div class="loginSubmit"> */}
-            {/* <input type="submit" value="Login" /> */}
-            <button class="loginSubmit" onClick={() => loginUser()}> Login</button>
-            {/* </div> */}
-            <div class="loginFieldsContainer">
-              <div class="loginFieldsBox">
-                <div class="loginField">
-                  Username:
-                </div>
-                <div class="loginField">
-                  Password:
-                </div>
-              </div>
-              <div class="loginFieldsBox">
-                <div class="loginInputContainer">
-                  <div class="loginInputBox">
-                    <div class="loginInputL">
-                      <div class="loginInputLIn">
-                      </div>
-                    </div>
-                    <div class="loginInputC">
-                      <div class="loginInputCIn">
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" />
-                      </div>
-                    </div>
-                    <div class="loginInputR">
-                      <div class="loginInputRIn">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="loginInputContainer">
-                  <div class="loginInputBox">
-                    <div class="loginInputL">
-                      <div class="loginInputLIn">
-                      </div>
-                    </div>
-                    <div class="loginInputC">
-                      <div class="loginInputCIn">
-                        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
-                      </div>
-                    </div>
-                    <div class="loginInputR">
-                      <div class="loginInputRIn">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="login">
+              <img src={googleLogo} height="128" width="128" /><br />
+              <GLogin />
             </div>
           </div>
         </div>
@@ -113,9 +66,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <GLogin />
     </div>
-    //   </form>
   )
 }
 
