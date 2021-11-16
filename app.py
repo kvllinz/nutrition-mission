@@ -47,7 +47,12 @@ class CreateUser(db.Model):
     """
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    username = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+    email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+    name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+    age = sqlalchemy.Column(sqlalchemy.String(120))
+    gender = sqlalchemy.Column(sqlalchemy.String(120))
+    weight = sqlalchemy.Column(sqlalchemy.String(120))
+    height = sqlalchemy.Column(sqlalchemy.String(120))
 
     """
     Is any of this stuff really necessary? I didn't need it for the project1. - Owen
@@ -97,6 +102,7 @@ def load_user(user_id):
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    print(path)
     """This is a catch all that is required for react-router"""
     return flask.render_template("index.html")
 
@@ -136,29 +142,57 @@ def login_post():
     """
     Get username and password from client, check if it is valid and log them in
     """
-    username = flask.request.json.get("username")
-    password = flask.request.json.get("password")
+    name = flask.request.json.get("name")
+    email = flask.request.json.get("email")
+    age= flask.request.json.get("age")
+    gender= flask.request.json.get("gender")
+    weight= flask.request.json.get("weight")
+    height= flask.request.json.get("height")
 
-    username = flask.request.json.get("username")
-    password = flask.request.json.get("password")
+    print(name, email, age, gender, weight, height)
 
-    if len(username) == 0 and len(password) == 0:
-        flask.flash("Enter valid Username. Please try again")
-    user = CreateUser.query.filter_by(username=username).first()
-    if user and password == "Amadi":
-        login_user(user)
-        return flask.jsonify({"loginResponse": "Ok"})
+    checkemail = CreateUser.query.filter_by(email=email).first()
+    if checkemail:
+        checkemail.weight = weight
+        db.session.commit()
+    else:
+        user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight, height=height)
+        db.session.add(user)
+        db.session.commit()
 
-    # @app.route('/save', methods=["POST"])
-    # def save():
-    #     ...
+    # if not checkemail:
+    #     user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight)
+    #     db.session.add(user)
+    #     db.session.commit()
+    #     print(user)
 
-    if len(username) == 0 and len(password) == 0:
-        flask.flash("Enter valid Username. Please try again")
-    user = CreateUser.query.filter_by(username=username).first()
-    if user and password == "Amadi":
-        login_user(user)
-        return flask.jsonify({"loginResponse": "Ok"})
+    
+
+    # username = flask.request.json.get("username")
+    # password = flask.request.json.get("password")
+
+    # if len(username) == 0 and len(password) == 0:
+    #     flask.flash("Enter valid Username. Please try again")
+    # user = CreateUser.query.filter_by(username=username).first()
+    # if user and password == "Amadi":
+    #     login_user(user)
+    #     return flask.jsonify({"loginResponse": "Ok"})
+
+    # # @app.route('/save', methods=["POST"])
+    # # def save():
+    # #     ...
+
+    # if len(username) == 0 and len(password) == 0:
+    #     flask.flash("Enter valid Username. Please try again")
+    # user = CreateUser.query.filter_by(username=username).first()
+    # if user and password == "Amadi":
+    #     login_user(user)
+    return flask.jsonify({"loginResponse": "Ok"})
+
+@app.route("/info", methods=["GET"])
+def info():
+    data = {"a": "OK", "b": 'sure'}
+    return flask.jsonify({"data": data})
 
 
 # @app.route('/save', methods=["POST"])
@@ -168,4 +202,5 @@ def login_post():
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
     # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(debug=True)

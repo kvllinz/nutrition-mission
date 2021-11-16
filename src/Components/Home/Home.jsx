@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -8,7 +8,31 @@ const Home = () => {
   const location = useLocation();
   const [liveRight, setLiveRight]=useState(false);
   const [eatRight, setEatRight]=useState(false);
+  const [height, setHeight]=useState("");
+  const [weight, setWeight]=useState("")
   console.log(location.state)
+
+  // useEffect(()=>{
+  //   fetch('/')
+  // })
+
+  const saveInfo =()=>{
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify({"name": location.state.name, "email": location.state.email, "age": "24", "gender": "Male", "weight": "215", "height": "6'0"}),
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+    });
+  }
+
+  const getInfo=()=>{
+    fetch('/info').then(response => response.json()).then(data => {
+      console.log(data.data.a);
+  })
+}
 
   const navigateToE=()=>{
     setEatRight(true);
@@ -51,7 +75,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={()=> navigateToE()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={()=> saveInfo()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -67,7 +91,7 @@ const Home = () => {
               <div class="tabC">
                 <div class="tabCIn">
                   {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
-                  <button id="tabRCIn" class="home" onClick={()=> navigateToL()}> Live Right</button>
+                  <button id="tabRCIn" class="home" onClick={()=> getInfo()}> Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -100,6 +124,10 @@ const Home = () => {
                 {/* <!-- APPLICATION CONTENT --> */}
                 {eatRight &&
                 <div class="introFeature" id="introFeature">
+                  <div> 
+                    Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} color="inherit"/>
+                    weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} color="inherit"/>
+                  </div>
                   Hello
                 </div>
                 }
