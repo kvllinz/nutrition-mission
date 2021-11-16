@@ -73,8 +73,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={() => saveInfo()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={() => navigateToL()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -89,8 +88,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
-                  <button id="tabRCIn" class="home" onClick={() => getInfo()}> Live Right</button>
+                  <button id="tabRCIn" class="home" onClick={() => navigateToE()}> Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -114,27 +112,32 @@ const Home = () => {
             <div class="introBoxCIn">
               <div class="introImageContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
-                <div class="introImageBox" id="introImageBox">
+                <div class="introImageBox">
                   <img src={location.state.profilePhoto} />
                 </div>
               </div>
               <div class="introContentContainer">
                 {/* <!-- APPLICATION CONTENT --> */}
-                <div class="introWelcome" id="introWelcome">
+                <div class="introWelcome">
                   Welcome back, {location.state.name}
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
                 {eatRight &&
-                  <div class="introFeature" id="introFeature">
-                    <div>
-                      Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />
-                      weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />
+                  <div class="introFeature">
+                    <div class="entryContainer">
+                      <div class="entryBox">
+                        <div class="userInputArea">
+                          Calculate your daily calorie intake:<br />
+                          Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />{" "}
+                          Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          <button class="userInfoCalories" onClick={() => saveInfo()}>Save</button><br />
+                          To maintain your weight, you need:<br />
+                          PLACEHOLDER cal
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />
-                      Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />
-                    </div>
-                    <button onClick={() => saveInfo()}>Save</button>
                   </div>
                 }
                 {liveRight &&
