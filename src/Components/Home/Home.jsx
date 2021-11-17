@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -18,8 +18,6 @@ const Home = () => {
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
   const [recipes, setRecipes] = useState(null);
-  console.log(recipes)
-  console.log(location.state)
 
   const saveInfo = () => {
     fetch('/login', {
@@ -60,11 +58,15 @@ const Home = () => {
     setLiveRight(true);
     getUserInfo();
   }
+
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
     getUserInfo();
   }
+  useEffect(() => {
+    getUserInfo()
+  }, [])
 
   return (
     <>
@@ -151,10 +153,13 @@ const Home = () => {
                       <div class="entryBox">
                         <div class="userImageArea">
                           <div class="userImage">
+                            <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
                           </div>
                           <div class="userImage">
+                            <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
                           </div>
                           <div class="userImage">
+                            <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
                           </div>
                         </div>
                       </div>
@@ -210,31 +215,37 @@ const Home = () => {
         < div class="bodyContainerCenter" >
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
-              {/* <!-- APPLICATION CONTENT: Images & Description --> */}
+              {/* <!-- APPLICATION CONTENT --> */}
               {eatRight &&
                 <div class="bodyContent" id="bodyContent">
                   <div class="recipeContainer">
                     <div class="recipeImage">
-                      TEST
+                      <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
                     </div>
                     <div class="recipeDescription">
-                      TEST
+                      <h1>{recipes["results"][0]["title"]}</h1>
+                      <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
                     </div>
                   </div>
                   <div class="recipeContainer">
                     <div class="recipeImage">
-                      TEST
+                      <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
                     </div>
                     <div class="recipeDescription">
-                      TEST
+                      <h1>{recipes["results"][1]["title"]}</h1>
+                      <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
                     </div>
                   </div>
                   <div class="recipeContainer">
                     <div class="recipeImage">
-                      TEST
+                      <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
                     </div>
                     <div class="recipeDescription">
-                      TEST
+                      <h1>{recipes["results"][2]["title"]}</h1>
+                      <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
                     </div>
                   </div>
                 </div>
