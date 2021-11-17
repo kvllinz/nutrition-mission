@@ -8,17 +8,7 @@
 
 ## About The Project
 
-Aimed to deliver a health-focused app accessible from the browser. Health is an important aspect of our lives, but every app focuses on one specific aspect of it like a good workout routine in one app and another app for getting healthful recipes. We wanted to combine the different applications into a one stop shop for all things health and nutrition related. Features of the application will include search boxes that allow users to get nutrition facts for ingredients and restaurant meals and text boxes for users to enter their height, weight, and workout plans to get visual feedback on their gains and losses for a specific period of time.
-
-### Built With
-
-Flask and `create-react-app`
-
-Python
-
-Css
-
-html
+This project aims to deliver a health-focused app accessible from the browser. Health is an essential part of our lives, but usually apps only focus on one specific aspect of it. Examples include a good workout routine in one app and another for getting healthy recipes. We wanted to combine the different applications into a one stop shop for all things health and nutrition related. Later features of the application will include search boxes that allow users to get nutrition facts for ingredients and restaurant meals and text boxes for users to enter their height, weight, and workout plans to get visual feedback on their gains and losses for a specific period of time.
 
 #### Libraries & Frameworks
 
@@ -28,9 +18,21 @@ import os
 
 from flask_sqlalchemy import SQLAlchemy
 
+- Python
+- HTML
+- CSS
+- JavaScript
+- PostGreSQL
+
+#### Libraries & Frameworks
+
+- Flask
+- React
+- SQLAlchemy
+
 #### APIs
 
-spoonacular.com
+- Spoonacular
 
 ## Requirements
 
@@ -42,11 +44,12 @@ pip install -r requirements.txt
 
 usage of the this browser is to track your health, like see how much do you weigh, what is your height and how much you want to gain or lose weight, It will also track your workout.
 
-## Run Application
+## How To Run
 
-1. Run command in terminal (in your project directory): `npm run build`. This will update anything related to your `App.js` file (so `public/index.html`, any CSS you're pulling in, etc).
-2. Run command in terminal (in your project directory): `python3 app.py`
-3. Preview web page in browser 'localhost:8080/' (or whichever port you're using)
+1. Clone this repository.
+2. Run this command in the terminal while in your project directory: `npm run build`. This will update anything related to your `App.js` file and its various dependencies such as `public/index.html`, any CSS you're pulling in, and additional images needed to be displayed.
+3. Run `python3 app.py`.
+4. Preview the web page in your local browser with the declaration of `localhost:8080/` or whichever port you're using.
 
 ## Deploy to Heroku
 
