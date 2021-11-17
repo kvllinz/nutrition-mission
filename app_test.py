@@ -1,7 +1,7 @@
 import unittest
 import flask_testing
 from unittest.mock import patch
-from app import login_post, get_user_info_from_db, CreateUser, usercalories
+from app import login_post, get_user_info_from_db, CreateUser, usercalories, getemail
 
 
 class NutritionMissionTest(unittest.TestCase):
@@ -57,7 +57,18 @@ class NutritionMissionTest(unittest.TestCase):
                 ),
             )
 
-    def test_usercalories(self):
+    def test_getEmail(self):
+        expected_email = []
+        for user in self.mock_db_entries:
+            expected_email.append(user.email)
+
+        with patch("app.CreateUser.query.filter_by(email=email)") as mocked_query:
+            mocked_query.first.return_value = self.mock_db_entries
+            email = getemail()
+            self.assertEqual(email, (expected_email))
+
+
+"""    def test_usercalories(self):
         weight = 180
         height = 72
         age = 24
@@ -72,7 +83,7 @@ class NutritionMissionTest(unittest.TestCase):
 
         for user in self.mock_db_entries:
             user = usercalories(user.email)
-            self.assertEqual(user, userCalories)
+            self.assertEqual(user, userCalories)"""
 
 
 if __name__ == "__main__":
