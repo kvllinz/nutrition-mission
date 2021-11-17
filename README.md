@@ -10,7 +10,7 @@
 
 This project aims to deliver a health-focused app accessible from the browser. Health is an essential part of our lives, but usually apps only focus on one specific aspect of it. Examples include a good workout routine in one app and another for getting healthy recipes. We wanted to combine the different applications into a one stop shop for all things health and nutrition related. Later features of the application will include search boxes that allow users to get nutrition facts for ingredients and restaurant meals and text boxes for users to enter their height, weight, and workout plans to get visual feedback on their gains and losses for a specific period of time.
 
-#### Libraries & Frameworks
+#### Built With
 
 - Python
 - HTML
