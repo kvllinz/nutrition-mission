@@ -73,13 +73,12 @@ Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 what do you do if your webpage is blank?
 check if you install npm and run "npm run build"
+
 what do you do if the url is not working?
+copy the link and paste it in your browser: https://ancient-anchorage-26581.herokuapp.com/
 
 what to do when you enter data on the liveright section and liveright doesn't respond?
 check if you entered integers instead of strings.
 
 Am I able to add an exercise that is not already there?
-
-Will there be any fees for using it in the future?
-
-Will my workout data be made public?
+As of now user will not be able to add an exercise.
