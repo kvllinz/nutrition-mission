@@ -32,6 +32,7 @@ This project aims to deliver a health-focused app accessible from the browser. H
 
 * npm install
 * pip install -r requirements.txt
+* go to spoonacular to have an API key and save the key .env file as API_KEY = "apiKey"
 
 ## Usage
 
