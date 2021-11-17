@@ -67,8 +67,7 @@ class NutritionMissionTest(unittest.TestCase):
             email = getemail()
             self.assertEqual(email, (expected_email))
 
-
-"""    def test_usercalories(self):
+    def test_usercalories(self):
         weight = 180
         height = 72
         age = 24
@@ -83,7 +82,7 @@ class NutritionMissionTest(unittest.TestCase):
 
         for user in self.mock_db_entries:
             user = usercalories(user.email)
-            self.assertEqual(user, userCalories)"""
+            self.assertEqual(user, userCalories)
 
 
 if __name__ == "__main__":
