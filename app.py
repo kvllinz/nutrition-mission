@@ -2,20 +2,17 @@
 App.py
 """
 # pylint: disable=no-member
+# pylint: disable=bare-except
 # from typing import Text
 import os
 import json
 from dotenv import find_dotenv, load_dotenv
-from flask_login import (
-    LoginManager,
-    login_manager,
-    # login_user,
-    current_user,
-)
-
+from flask_login import LoginManager, login_manager
 import flask
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
+from sqlalchemy.sql.expression import null
+from spoonacular import getrecipeswithcalories
 
 load_dotenv(find_dotenv())
 
@@ -43,6 +40,7 @@ class CreateUser(db.Model):
     """
     Model for Users
     """
+
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
     name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
@@ -118,7 +116,7 @@ def login_post():
 
 
 @app.route("/getuserinfo", methods=["POST"])
-def userInfo():
+def userinfo():
     """
     Send UserData if it exists to the frontend
     """
@@ -126,39 +124,44 @@ def userInfo():
         email = flask.request.json.get("email")
         user = CreateUser.query.filter_by(email=email).first()
         cal = usercalories(user.email)
+        recipes = getrecipeswithcalories(cal)
         data = {
             "weight": user.weight,
             "height": user.height,
             "age": user.age,
             "gender": user.gender,
-            "calories": cal
+            "calories": cal,
+            "recipes": recipes,
         }
     except:
+        recipes = getrecipeswithcalories(2000)
         data = {
             "weight": 0,
             "height": 0,
             "age": 0,
             "gender": 0,
-            "calories": 0
+            "calories": 0,
+            "recipes": recipes,
         }
     return flask.jsonify({"data": data})
 
 
-def usercalories(userEmail):
+def usercalories(useremail):
     """
     Get calories needed from the user
     """
-    user = CreateUser.query.filter_by(email=userEmail).first()
-    caloriesneeded = (10 * int(user.weight)) + \
-        (6.25 * int(user.height)) - (5 * int(user.age))
+    user = CreateUser.query.filter_by(email=useremail).first()
+    caloriesneeded = (
+        (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
+    )
     if user.gender == "F":
         caloriesneeded -= 161
     elif user.gender == "M":
         caloriesneeded += 5
-    return(caloriesneeded)
+    return caloriesneeded
 
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    app.run(use_reloader=True, debug=True)
-    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    # app.run(use_reloader=True, debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
