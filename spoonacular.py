@@ -7,11 +7,8 @@ Python file for API Endpoint to Spoonacular
 # pylint: disable=unused-variable
 
 import os
-<<<<<<< Updated upstream
 
 # import json
-=======
->>>>>>> Stashed changes
 import random
 from dotenv import find_dotenv, load_dotenv
 import requests
@@ -45,21 +42,11 @@ def getrecipeswithcalories(calories):
     addparam("minCalories", calories - 10)
     addparam("number", 3)
     recipes = getrecipe()
-<<<<<<< Updated upstream
     # print(json.dumps(recipes, indent=2))
     print(recipes["results"][0]["title"])
     print(recipes["results"][0]["sourceUrl"])
     print(recipes["results"][0]["image"])
     print(recipes["results"][0]["nutrition"]["nutrients"][0]["amount"])
-=======
-    # i = 0
-    # while i < len(recipes)-1:
-    #    print(recipes["results"][i]["title"])
-    #    print(recipes["results"][i]["sourceUrl"])
-    #    print(recipes["results"][i]["image"])
-    #    print(recipes["results"][i]["nutrition"]["nutrients"][0]["amount"])
-    #    i += 1
->>>>>>> Stashed changes
     return recipes
 
 

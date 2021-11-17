@@ -7,16 +7,6 @@ App.py
 import os
 import json
 from dotenv import find_dotenv, load_dotenv
-from flask_login import (
-    LoginManager,
-    login_manager,
-    login_user,
-    current_user,
-)
-
-import flask
-from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy
 from flask_login import LoginManager, login_manager
 import flask
 from flask_sqlalchemy import SQLAlchemy
@@ -27,10 +17,6 @@ from spoonacular import getrecipeswithcalories
 load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__, static_folder="./build/static")
-# This tells our Flask app to look at the results of `npm build` instead of the
-# actual files in /templates when we're looking for the index page file. This allows
-# us to load React code into a webpage. Look up create-react-app for more reading on
-# why this is necessary.
 bp = flask.Blueprint("bp", __name__, template_folder="./build")
 
 # Point SQLAlchemy to your Heroku database
@@ -58,45 +44,13 @@ class CreateUser(db.Model):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
     name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
-    age = sqlalchemy.Column(sqlalchemy.String(120))
-    gender = sqlalchemy.Column(sqlalchemy.String(120))
-    weight = sqlalchemy.Column(sqlalchemy.String(120))
-    height = sqlalchemy.Column(sqlalchemy.String(120))
-
-    """
-    Is any of this stuff really necessary? I didn't need it for the project1. - Owen
-    """
-    # def is_authenticated(self):
-    #     """
-    #     Is user authenticated
-    #     """
-    #     return True
-
-    # def is_active(self):
-    #     """
-    #     Is user active
-    #     """
-    #     return True
-
-    # def is_anonymous(self):
-    #     """
-    #     Is user anonymous
-    #     """
-    #     return False
-
-    # def get_id(self):
-    #     """
-    #     Get ID of the user
-    #     """
-    #     return str(self.id)
-
-    # def __repr__(self):
-    #     """
-    #     Return user
-    #     """
-    #     return f"<User {self.username}>"
+    age = sqlalchemy.Column(sqlalchemy.String(3))
+    gender = sqlalchemy.Column(sqlalchemy.String(1))
+    weight = sqlalchemy.Column(sqlalchemy.String(3))
+    height = sqlalchemy.Column(sqlalchemy.String(3))
 
 
+db.drop_all()
 db.create_all()
 
 
@@ -114,8 +68,6 @@ def catch_all(path):
     """
     This is a catch all that is required for react-router
     """
-    print(path)
-
     return flask.render_template("index.html")
 
 
@@ -125,7 +77,6 @@ def index():
     """
     Index router
     """
-    # insert the data fetched by your app main page here as a JSON
     data = {"your": "data here"}
     data = json.dumps(data)
     return flask.render_template(
@@ -135,18 +86,6 @@ def index():
 
 
 app.register_blueprint(bp)
-
-# @app.route('/signup')
-# def signup():
-# 	...
-
-# @app.route('/signup', methods=["POST"])
-# def signup_post():
-# 	...
-
-# @app.route('/login')
-# def login():
-#     ...
 
 
 @app.route("/login", methods=["POST"])
@@ -160,12 +99,12 @@ def login_post():
     gender = flask.request.json.get("gender")
     weight = flask.request.json.get("weight")
     height = flask.request.json.get("height")
-
-    print(name, email, age, gender, weight, height)
-
     checkemail = CreateUser.query.filter_by(email=email).first()
     if checkemail:
+        checkemail.age = age
+        checkemail.height = height
         checkemail.weight = weight
+        checkemail.gender = gender
         db.session.commit()
     else:
         user = CreateUser(
@@ -173,54 +112,9 @@ def login_post():
         )
         db.session.add(user)
         db.session.commit()
-
-    # if not checkemail:
-    #     user = CreateUser(email=email, name=name, age=age, gender=gender, weight=weight)
-    #     db.session.add(user)
-    #     db.session.commit()
-    #     print(user)
-
-    # username = flask.request.json.get("username")
-    # password = flask.request.json.get("password")
-
-    # if len(username) == 0 and len(password) == 0:
-    #     flask.flash("Enter valid Username. Please try again")
-    # user = CreateUser.query.filter_by(username=username).first()
-    # if user and password == "Amadi":
-    #     login_user(user)
-    #     return flask.jsonify({"loginResponse": "Ok"})
-
-    # # @app.route('/save', methods=["POST"])
-    # # def save():
-    # #     ...
-
-    # if len(username) == 0 and len(password) == 0:
-    #     flask.flash("Enter valid Username. Please try again")
-    # user = CreateUser.query.filter_by(username=username).first()
-    # if user and password == "Amadi":
-    #     login_user(user)
     return flask.jsonify({"loginResponse": "Ok"})
 
 
-@app.route("/info", methods=["GET"])
-def info():
-    """
-    Give dummy info
-    """
-    data = {"a": "OK", "b": "sure"}
-    return flask.jsonify({"data": data})
-
-
-# @app.route('/save', methods=["POST"])
-# def save():
-#     ...
-def usercalories():
-    """
-    Get calories needed from the user
-    """
-    user = CreateUser.query.get(current_user.id)
-    caloriesneeded = (10 * user.weight) + (6.25 * user.height) - (5 * user.age)
-    if user.gender == "female":
 @app.route("/getuserinfo", methods=["POST"])
 def userinfo():
     """
@@ -262,9 +156,8 @@ def usercalories(useremail):
     )
     if user.gender == "F":
         caloriesneeded -= 161
-    elif user.gender == "male":
+    elif user.gender == "M":
         caloriesneeded += 5
-    print(caloriesneeded)
     return caloriesneeded
 
 
