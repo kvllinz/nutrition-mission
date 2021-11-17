@@ -170,10 +170,10 @@ const Home = () => {
                       <div class="entryBox">
                         <div class="userInputArea">
                           Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
-                          Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} />{" "}
-                          Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} /><br />
-                          Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} />{" "}
-                          Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} data-testid="test_height" />{" "}
+                          Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} data-testid="test_weight" /><br />
+                          Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} data-testid="test_age" />{" "}
+                          Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} data-testid="test_gender" />{" "}<br />
                           <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
                           To maintain your weight, you need:<br />
                           {calories} cal<br />
