@@ -4,35 +4,53 @@
 
 ## Deployment
 
-[Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
+[Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/home)
 
 ## About The Project
 
-Describe the project here.
+This project aims to deliver a health-focused app accessible from the browser. Health is an essential part of our lives, but usually apps only focus on one specific aspect of it. Examples include a good workout routine in one app and another for getting healthy recipes. We wanted to combine the different applications into a one stop shop for all things health and nutrition related. Later features of the application will include search boxes that allow users to get nutrition facts for ingredients and restaurant meals and text boxes for users to enter their height, weight, and workout plans to get visual feedback on their gains and losses for a specific period of time.
 
-### Built With
+#### Built With
 
-Describe languages used here.
+- Python
+- HTML
+- CSS
+- JavaScript
+- PostGreSQL
 
 #### Libraries & Frameworks
 
-Describe libraries and frameworks used here.
+- Flask
+- React
+- SQLAlchemy
 
 #### APIs
 
-Descirbe APIs used here.
+- Spoonacular
 
 ## Requirements
 
-Describe requirements here.
-
-## Installation
-
-Describe setup here.
+* npm install
+* pip install -r requirements.txt
 
 ## Usage
 
-Describe usage here.
+Users using this application will be able to track their weight over time and calculate how many calories they must consume in order to gain or lose weight. Workout totals can also be recorded over time.
+
+## How To Run
+
+1. Clone this repository.
+2. Run this command in the terminal while in your project directory: `npm run build`. This will update anything related to your `App.js` file and its various dependencies such as `public/index.html`, any CSS you're pulling in, and additional images needed to be displayed.
+3. Run `python3 app.py`.
+4. Preview the web page in your local browser with the declaration of `localhost:8080/` or whichever port you're using.
+
+## Deploy to Heroku
+
+1. Create a Heroku app: `heroku create --buildpack heroku/python`
+2. Add nodejs buildpack: `heroku buildpacks:add --index 1 heroku/nodejs`
+3. Push to Heroku: `git push heroku main`
+
+* Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 ## Contributing
 
@@ -46,4 +64,8 @@ Describe usage here.
 
 ## FAQ
 
-Describe frequently asked questions here and any problems that may arise during installation or setup.
+1. What do you do if your webpage is blank?
+Check if you installed npm and ran `npm run build`.
+
+2. What do you do if the url is not working?
+If you're running the application locally, you will have to use `localhost:8080/` or whatever port you are forwarding.
