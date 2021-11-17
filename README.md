@@ -64,8 +64,6 @@ Usage of the app allows the user to perform various health-related activities su
 
 ## FAQ
 
-Describe frequently asked questions here and any problems that may arise during installation or setup.
-
 what do you do if your webpage is blank?
 check if you install npm and run "npm run build"
 
