@@ -65,3 +65,13 @@ Usage of the app allows the user to perform various health-related activities su
 ## FAQ
 
 Describe frequently asked questions here and any problems that may arise during installation or setup.
+
+what do you do if your webpage is blank?
+check if you install npm and run "npm run build"
+
+what do you do if the url is not working?
+
+what to do when you enter data on the liveright section and liveright doesn't respond?
+check if you entered integers instead of strings.
+
+Am I able to add an exercise that is not already there?
