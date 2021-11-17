@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
-import { Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 require('dotenv').config()
 

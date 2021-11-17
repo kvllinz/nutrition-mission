@@ -6,17 +6,18 @@ import './Home.css';
 const Home = () => {
 
   const location = useLocation();
-  const [liveRight, setLiveRight] = useState(false);
+  const [liveRight, setLiveRight] = useState(true);
   const [eatRight, setEatRight] = useState(false);
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [age, setAge] = useState("");
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [calories, setCalories] = useState(null);
+  const [age, setAge] = useState(null);
   const [gender, setGender] = useState("");
+  const [userHeight, setUserHeight] = useState(null);
+  const [userWeight, setUserWeight] = useState(null);
+  const [userAge, setUserAge] = useState(null);
+  const [userGender, setUserGender] = useState(null);
   console.log(location.state)
-
-  // useEffect(()=>{
-  //   fetch('/')
-  // })
 
   const saveInfo = () => {
     fetch('/login', {
@@ -24,26 +25,45 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age, "gender": gender, "weight": weight, "height": height }),
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age.toString(), "gender": gender.toString(), "weight": weight, "height": height.toString() }),
     }).then(response => response.json()).then(data => {
       console.log(data);
+      setAge(" ");
+      setHeight(" ");
+      setWeight(" ");
+      setGender(" ")
     });
+    getUserInfo();
   }
 
-  const getInfo = () => {
-    fetch('/info').then(response => response.json()).then(data => {
-      console.log(data.data.a);
+  const getUserInfo = () => {
+    fetch('/getuserinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "email": location.state.email }),
+    }).then(response => response.json()).then(data => {
+      setUserHeight(data.data.height);
+      setUserAge(data.data.age);
+      setUserGender(data.data.gender);
+      setUserWeight(data.data.weight);
+      setCalories(data.data.calories);
     })
   }
 
-  const navigateToE = () => {
-    setEatRight(true);
-    setLiveRight(false);
-  }
   const navigateToL = () => {
     setEatRight(false);
     setLiveRight(true);
+    getUserInfo();
   }
+  const navigateToE = () => {
+    setEatRight(true);
+    setLiveRight(false);
+    getUserInfo();
+  }
+
+  getUserInfo();
 
   return (
     <>
@@ -73,7 +93,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <button id="tabLCIn" class="home" onClick={() => navigateToL()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={() => navigateToL()}>Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -88,7 +108,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  <button id="tabRCIn" class="home" onClick={() => navigateToE()}> Live Right</button>
+                  <button id="tabRCIn" class="home" onClick={() => navigateToE()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -97,6 +117,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+          {/* <!-- Logout --> */}
           <div class="googleButton">
             < GLogout />
           </div>
@@ -111,39 +132,54 @@ const Home = () => {
           <div class="introBoxC">
             <div class="introBoxCIn">
               <div class="introImageContainer">
-                {/* <!-- APPLICATION CONTENT --> */}
+                {/* <!-- APPLICATION CONTENT: Gmail Profile --> */}
                 <div class="introImageBox">
                   <img src={location.state.profilePhoto} />
                 </div>
               </div>
               <div class="introContentContainer">
-                {/* <!-- APPLICATION CONTENT --> */}
+                {/* <!-- APPLICATION CONTENT: Gmail Name --> */}
                 <div class="introWelcome">
                   Welcome back, {location.state.name}
                 </div>
-                {/* <!-- APPLICATION CONTENT --> */}
+                {/* <!-- APPLICATION CONTENT: Tab Data --> */}
+                {/* <!-- Recipes --> */}
                 {eatRight &&
-                  <div class="introFeature">
+                  <div class="introFeature" id="introFeature">
                     <div class="entryContainer">
                       <div class="entryBox">
-                        <div class="userInputArea">
-                          Height: Weight: Age: Gender:<br />
-                          Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Age: <input type="text" value={age} onChange={(e) => setAge(e.target.value)} style={{ width: "50px" }} />{" "}
-                          Gender: <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
-                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
-                          To maintain your weight, you need:<br />
-                          cal<br />
-                          <button class="userInfoCalories">Calculate</button>
+                        <div class="userImageArea">
+                          <div class="userImage">
+                            <img src={location.state.profilePhoto} />
+                          </div>
+                          <div class="userImage">
+                            <img src={location.state.profilePhoto} />
+                          </div>
+                          <div class="userImage">
+                            <img src={location.state.profilePhoto} />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 }
+                {/* <!-- Exercise --> */}
                 {liveRight &&
-                  <div class="introFeature" id="introFeature">
-                    Welcome
+                  <div class="introFeature">
+                    <div class="entryContainer">
+                      <div class="entryBox">
+                        <div class="userInputArea">
+                          Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
+                          Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} />{" "}
+                          Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} /><br />
+                          Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} />{" "}
+                          Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
+                          To maintain your weight, you need:<br />
+                          {calories} cal<br />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 }
               </div>
@@ -177,8 +213,21 @@ const Home = () => {
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
-              <div class="bodyContent" id="bodyContent">
-              </div>
+              {eatRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Test
+                </div>
+              }
+              {liveRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Miles Run: Pushups: Jumping Jacks:<br />
+                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
+                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
+                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  <button class="userInfoCalories">Add</button>{" "}
+                  <button class="userInfoCalories">Update</button><br />
+                </div>
+              }
             </div>
           </div>
         </div>
