@@ -13,14 +13,19 @@ Aimed to deliver a health-focused app accessible from the browser. Health is an 
 ### Built With
 
 Flask and `create-react-app`
+
 Python
+
 Css
+
 html
 
 #### Libraries & Frameworks
 
 import flask
+
 import os
+
 from flask_sqlalchemy import SQLAlchemy
 
 #### APIs
@@ -30,6 +35,7 @@ spoonacular.com
 ## Requirements
 
 npm install
+
 pip install -r requirements.txt
 
 ## Usage
