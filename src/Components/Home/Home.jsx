@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
 import React, { useEffect, useState } from "react";
-=======
 import React, { useState, useEffect } from "react";
->>>>>>> Stashed changes
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -31,14 +28,11 @@ const Home = () => {
       console.log(data);
     });
   }
-
-<<<<<<< Updated upstream
   const getInfo=()=>{
     fetch('/info').then(response => response.json()).then(data => {
       console.log(data.data.a);
   })
 }
-=======
   const getUserInfo = () => {
     fetch('/getuserinfo', {
       method: 'POST',
@@ -61,19 +55,15 @@ const Home = () => {
     setLiveRight(true);
     getUserInfo();
   }
->>>>>>> Stashed changes
 
   const navigateToE=()=>{
     setEatRight(true);
     setLiveRight(false);
-<<<<<<< Updated upstream
   }
   const navigateToL=()=>{
     setEatRight(false);
     setLiveRight(true);
-=======
     getUserInfo();
->>>>>>> Stashed changes
   }
   useEffect(() => {
     getUserInfo()
@@ -159,12 +149,10 @@ const Home = () => {
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
                 {eatRight &&
-<<<<<<< Updated upstream
                 <div class="introFeature" id="introFeature">
                   <div> 
                     Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} color="inherit"/>
                     weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} color="inherit"/>
-=======
                   <div class="introFeature" id="introFeature">
                     <div class="entryContainer">
                       <div class="entryBox">
@@ -181,7 +169,6 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
->>>>>>> Stashed changes
                   </div>
                   Hello
                 </div>
@@ -222,10 +209,8 @@ const Home = () => {
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
-<<<<<<< Updated upstream
               <div class="bodyContent" id="bodyContent">
               </div>
-=======
               {eatRight &&
                 <div class="bodyContent" id="bodyContent">
                   <div class="recipeContainer">
@@ -270,7 +255,6 @@ const Home = () => {
                   <button class="userInfoCalories">Update</button><br />
                 </div>
               } */}
->>>>>>> Stashed changes
             </div>
           </div>
         </div>
