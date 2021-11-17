@@ -4,6 +4,7 @@
 
 ## Deployment
 
+<<<<<<< HEAD
 [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/home)
 
 ## About The Project
@@ -47,6 +48,37 @@ usage of the this browser is to track your health, like see how much do you weig
 1. Create a Heroku app: `heroku create --buildpack heroku/python`
 2. Add nodejs buildpack: `heroku buildpacks:add --index 1 heroku/nodejs`
 3. Push to Heroku: `git push heroku main`
+=======
+* Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
+
+## About The Project
+
+Describe the project here.
+
+### Built With
+
+Describe languages used here.
+
+#### Libraries & Frameworks
+
+Describe libraries and frameworks used here.
+
+#### APIs
+
+Descirbe APIs used here.
+
+## Requirements
+
+Describe requirements here.
+
+## Installation
+
+Describe setup here.
+
+## Usage
+
+Describe usage here.
+>>>>>>> 5ff5eda8b4e43dba0084bf388441197b95f933c9
 
 ## Contributing
 
