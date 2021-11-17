@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> Stashed changes
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -28,20 +32,52 @@ const Home = () => {
     });
   }
 
+<<<<<<< Updated upstream
   const getInfo=()=>{
     fetch('/info').then(response => response.json()).then(data => {
       console.log(data.data.a);
   })
 }
+=======
+  const getUserInfo = () => {
+    fetch('/getuserinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "email": location.state.email }),
+    }).then(response => response.json()).then(data => {
+      setUserHeight(data.data.height);
+      setUserAge(data.data.age);
+      setUserGender(data.data.gender);
+      setUserWeight(data.data.weight);
+      setCalories(data.data.calories);
+      setRecipes(data.data.recipes);
+    })
+  }
+
+  const navigateToL = () => {
+    setEatRight(false);
+    setLiveRight(true);
+    getUserInfo();
+  }
+>>>>>>> Stashed changes
 
   const navigateToE=()=>{
     setEatRight(true);
     setLiveRight(false);
+<<<<<<< Updated upstream
   }
   const navigateToL=()=>{
     setEatRight(false);
     setLiveRight(true);
+=======
+    getUserInfo();
+>>>>>>> Stashed changes
   }
+  useEffect(() => {
+    getUserInfo()
+  }, [])
 
   return (
     // <form>
@@ -123,10 +159,29 @@ const Home = () => {
                 </div>
                 {/* <!-- APPLICATION CONTENT --> */}
                 {eatRight &&
+<<<<<<< Updated upstream
                 <div class="introFeature" id="introFeature">
                   <div> 
                     Height: <input type="text" value={height} onChange={(e)=> setHeight(e.target.value)} color="inherit"/>
                     weight: <input type="text" value={weight} onChange={(e)=> setWeight(e.target.value)} color="inherit"/>
+=======
+                  <div class="introFeature" id="introFeature">
+                    <div class="entryContainer">
+                      <div class="entryBox">
+                        <div class="userImageArea">
+                          <div class="userImage">
+                            <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                          </div>
+                          <div class="userImage">
+                            <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                          </div>
+                          <div class="userImage">
+                            <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+>>>>>>> Stashed changes
                   </div>
                   Hello
                 </div>
@@ -167,8 +222,55 @@ const Home = () => {
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
+<<<<<<< Updated upstream
               <div class="bodyContent" id="bodyContent">
               </div>
+=======
+              {eatRight &&
+                <div class="bodyContent" id="bodyContent">
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                    </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][0]["title"]}</h1>
+                      <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                    </div>
+                  </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                    </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][1]["title"]}</h1>
+                      <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                    </div>
+                  </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                    </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][2]["title"]}</h1>
+                      <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                    </div>
+                  </div>
+                </div>
+              }
+              {/* {liveRight &&
+                <div class="bodyContent" id="bodyContent">
+                  Miles Run: Pushups: Jumping Jacks:<br />
+                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
+                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
+                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  <button class="userInfoCalories">Add</button>{" "}
+                  <button class="userInfoCalories">Update</button><br />
+                </div>
+              } */}
+>>>>>>> Stashed changes
             </div>
           </div>
         </div>

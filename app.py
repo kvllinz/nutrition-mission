@@ -2,10 +2,12 @@
 App.py
 """
 # pylint: disable=no-member
+# pylint: disable=bare-except
 # from typing import Text
 import os
 import json
 from dotenv import find_dotenv, load_dotenv
+<<<<<<< Updated upstream
 from flask_login import (
     LoginManager,
     login_manager,
@@ -16,6 +18,14 @@ from flask_login import (
 import flask
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
+=======
+from flask_login import LoginManager, login_manager
+import flask
+from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
+from sqlalchemy.sql.expression import null
+from spoonacular import getrecipeswithcalories
+>>>>>>> Stashed changes
 
 load_dotenv(find_dotenv())
 
@@ -195,6 +205,7 @@ def login_post():
     return flask.jsonify({"loginResponse": "Ok"})
 
 
+<<<<<<< Updated upstream
 @app.route("/info", methods=["GET"])
 def info():
     """
@@ -214,14 +225,64 @@ def usercalories():
     user = CreateUser.query.get(current_user.id)
     caloriesneeded = (10 * user.weight) + (6.25 * user.height) - (5 * user.age)
     if user.gender == "female":
+=======
+@app.route("/getuserinfo", methods=["POST"])
+def userinfo():
+    """
+    Send UserData if it exists to the frontend
+    """
+    try:
+        email = flask.request.json.get("email")
+        user = CreateUser.query.filter_by(email=email).first()
+        cal = usercalories(user.email)
+        recipes = getrecipeswithcalories(cal)
+        data = {
+            "weight": user.weight,
+            "height": user.height,
+            "age": user.age,
+            "gender": user.gender,
+            "calories": cal,
+            "recipes": recipes,
+        }
+    except:
+        recipes = getrecipeswithcalories(2000)
+        data = {
+            "weight": 0,
+            "height": 0,
+            "age": 0,
+            "gender": 0,
+            "calories": 0,
+            "recipes": recipes,
+        }
+    return flask.jsonify({"data": data})
+
+
+def usercalories(useremail):
+    """
+    Get calories needed from the user
+    """
+    user = CreateUser.query.filter_by(email=useremail).first()
+    caloriesneeded = (
+        (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
+    )
+    if user.gender == "F":
+>>>>>>> Stashed changes
         caloriesneeded -= 161
     elif user.gender == "male":
         caloriesneeded += 5
+<<<<<<< Updated upstream
     print(caloriesneeded)
+=======
+    return caloriesneeded
+>>>>>>> Stashed changes
 
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
     # app.run(use_reloader=True, debug=True)
+<<<<<<< Updated upstream
     # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
     app.run(debug=True)
+=======
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+>>>>>>> Stashed changes

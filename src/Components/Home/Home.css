@@ -314,6 +314,30 @@ button.home {
   padding-right: 2rem;
 }
 
+.recipeContainer {
+  display: flex;
+  justify-content: space-around;
+  height: auto;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.recipeImage {
+  height: 128px;
+  width: 128px;
+}
+
+.recipeImage img {
+  height: 100%;
+  width: 100%;
+}
+
+.recipeDescription {
+  height: 100%;
+  width: 75%;
+}
+
 /* Body Bottom */
 .bodyContainerBottom{
   display:flex;
