@@ -43,10 +43,10 @@ def getrecipeswithcalories(calories):
     addparam("number", 3)
     recipes = getrecipe()
     # print(json.dumps(recipes, indent=2))
-    print(recipes["results"][0]["title"])
-    print(recipes["results"][0]["sourceUrl"])
-    print(recipes["results"][0]["image"])
-    print(recipes["results"][0]["nutrition"]["nutrients"][0]["amount"])
+    # print(recipes["results"][0]["title"])
+    # print(recipes["results"][0]["sourceUrl"])
+    # print(recipes["results"][0]["image"])
+    # print(recipes["results"][0]["nutrition"]["nutrients"][0]["amount"])
     return recipes
 
 

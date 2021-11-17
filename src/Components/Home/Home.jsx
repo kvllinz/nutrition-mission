@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
@@ -7,15 +6,18 @@ import './Home.css';
 const Home = () => {
 
   const location = useLocation();
-  const [liveRight, setLiveRight] = useState(false);
+  const [liveRight, setLiveRight] = useState(true);
   const [eatRight, setEatRight] = useState(false);
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("")
-  console.log(location.state)
-
-  // useEffect(()=>{
-  //   fetch('/')
-  // })
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [calories, setCalories] = useState(null);
+  const [age, setAge] = useState(null);
+  const [gender, setGender] = useState("");
+  const [userHeight, setUserHeight] = useState(null);
+  const [userWeight, setUserWeight] = useState(null);
+  const [userAge, setUserAge] = useState(null);
+  const [userGender, setUserGender] = useState(null);
+  const [recipes, setRecipes] = useState(null);
 
   const saveInfo = () => {
     fetch('/login', {
@@ -23,16 +25,17 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": "24", "gender": "Male", "weight": "215", "height": "6'0" }),
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age.toString(), "gender": gender.toString(), "weight": weight, "height": height.toString() }),
     }).then(response => response.json()).then(data => {
       console.log(data);
+      setAge(" ");
+      setHeight(" ");
+      setWeight(" ");
+      setGender(" ")
     });
+    getUserInfo();
   }
-  const getInfo = () => {
-    fetch('/info').then(response => response.json()).then(data => {
-      console.log(data.data.a);
-    })
-  }
+
   const getUserInfo = () => {
     fetch('/getuserinfo', {
       method: 'POST',
@@ -59,10 +62,6 @@ const Home = () => {
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
-  }
-  const navigateToL = () => {
-    setEatRight(false);
-    setLiveRight(true);
     getUserInfo();
   }
   useEffect(() => {
@@ -70,7 +69,6 @@ const Home = () => {
   }, [])
 
   return (
-    // <form>
     <>
       {/* <!-- Intro Display --> */}
       <div class="introDisplayContainer">
@@ -82,9 +80,7 @@ const Home = () => {
               </div>
             </div>
             <div class="titleC">
-              <div class="titleCIn">
-                Nutrition Mission
-              </div>
+              Nutrition Mission
             </div>
             <div class="titleR">
               <div class="titleRIn">
@@ -100,8 +96,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  {/* <input type="submit" value="Eat Right" id="tabLCIn" class="home" /> */}
-                  <button id="tabLCIn" class="home" onClick={() => saveInfo()}>Eat Right</button>
+                  <button id="tabLCIn" class="home" onClick={() => navigateToL()}>Live Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -116,8 +111,7 @@ const Home = () => {
               </div>
               <div class="tabC">
                 <div class="tabCIn">
-                  {/* <input type="submit" value="Live Right" id="tabRCIn" class="home" /> */}
-                  <button id="tabRCIn" class="home" onClick={() => getInfo()}> Live Right</button>
+                  <button id="tabRCIn" class="home" onClick={() => navigateToE()}>Eat Right</button>
                 </div>
               </div>
               <div class="tabR">
@@ -125,6 +119,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+          {/* <!-- Logout --> */}
+          <div class="googleButton">
+            < GLogout />
           </div>
         </div>
         {/* <!-- Intro --> */}
@@ -137,115 +135,122 @@ const Home = () => {
           <div class="introBoxC">
             <div class="introBoxCIn">
               <div class="introImageContainer">
-                {/* <!-- APPLICATION CONTENT --> */}
-                <div class="introImageBox" id="introImageBox">
+                {/* <!-- APPLICATION CONTENT: Gmail Profile --> */}
+                <div class="introImageBox">
                   <img src={location.state.profilePhoto} />
                 </div>
               </div>
               <div class="introContentContainer">
-                {/* <!-- APPLICATION CONTENT --> */}
-                <div class="introWelcome" id="introWelcome">
+                {/* <!-- APPLICATION CONTENT: Gmail Name --> */}
+                <div class="introWelcome">
                   Welcome back, {location.state.name}
                 </div>
-                {/* <!-- APPLICATION CONTENT --> */}
+                {/* <!-- APPLICATION CONTENT: Tab Data --> */}
+                {/* <!-- Recipes --> */}
                 {eatRight &&
                   <div class="introFeature" id="introFeature">
-                    <div>
-                      Height: <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} color="inherit" />
-                      weight: <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} color="inherit" />
-                      <div class="introFeature" id="introFeature">
-                        <div class="entryContainer">
-                          <div class="entryBox">
-                            <div class="userImageArea">
-                              <div class="userImage">
-                                <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
-                              </div>
-                              <div class="userImage">
-                                <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
-                              </div>
-                              <div class="userImage">
-                                <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
-                              </div>
-                            </div>
+                    <div class="entryContainer">
+                      <div class="entryBox">
+                        <div class="userImageArea">
+                          <div class="userImage">
+                            <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                          </div>
+                          <div class="userImage">
+                            <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                          </div>
+                          <div class="userImage">
+                            <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
                           </div>
                         </div>
                       </div>
-                      Hello
                     </div>
-                }
-                    {liveRight &&
-                      <div class="introFeature" id="introFeature">
-                        Welcome
-                      </div>
-                    }
                   </div>
-            </div>
-            </div>
-            <div class="introBoxR">
-              <div class="introBoxRIn">
+                }
+                {/* <!-- Exercise --> */}
+                {liveRight &&
+                  <div class="introFeature">
+                    <div class="entryContainer">
+                      <div class="entryBox">
+                        <div class="userInputArea">
+                          Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
+                          Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} />{" "}
+                          Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} /><br />
+                          Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} />{" "}
+                          Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
+                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
+                          To maintain your weight, you need:<br />
+                          {calories} cal<br />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
               </div>
+            </div>
+          </div>
+          <div class="introBoxR">
+            <div class="introBoxRIn">
             </div>
           </div>
         </div>
-        {/* <!-- Body --> */}
-        <div class="bodyContainer">
-          {/* <!-- Body Top --> */}
-          <div class="bodyContainerTop">
-            <div class="bodyTopL">
-              <div class="bodyTopLIn">
-              </div>
-            </div>
-            <div class="bodyTopC">
-              <div class="bodyTopCIn">
-              </div>
-            </div>
-            <div class="bodyTopR">
-              <div class="bodyTopRIn">
-              </div>
+      </div>
+      {/* <!-- Body --> */}
+      <div class="bodyContainer">
+        {/* <!-- Body Top --> */}
+        <div class="bodyContainerTop">
+          <div class="bodyTopL">
+            <div class="bodyTopLIn">
             </div>
           </div>
-          {/* <!-- Body Content --> */}
-          <div class="bodyContainerCenter">
-            <div class="bodyContentContainer">
-              <div class="bodyContentBox">
-                {/* <!-- APPLICATION CONTENT --> */}
+          <div class="bodyTopC">
+            <div class="bodyTopCIn">
+            </div>
+          </div>
+          <div class="bodyTopR">
+            <div class="bodyTopRIn">
+            </div>
+          </div>
+        </div>
+        {/* <!-- Body Content --> */}
+        <div class="bodyContainerCenter">
+          <div class="bodyContentContainer">
+            <div class="bodyContentBox">
+              {/* <!-- APPLICATION CONTENT --> */}
+              {eatRight &&
                 <div class="bodyContent" id="bodyContent">
-                </div>
-                {eatRight &&
-                  <div class="bodyContent" id="bodyContent">
-                    <div class="recipeContainer">
-                      <div class="recipeImage">
-                        <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
-                      </div>
-                      <div class="recipeDescription">
-                        <h1>{recipes["results"][0]["title"]}</h1>
-                        <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
-                        <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
-                      </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
                     </div>
-                    <div class="recipeContainer">
-                      <div class="recipeImage">
-                        <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
-                      </div>
-                      <div class="recipeDescription">
-                        <h1>{recipes["results"][1]["title"]}</h1>
-                        <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
-                        <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
-                      </div>
-                    </div>
-                    <div class="recipeContainer">
-                      <div class="recipeImage">
-                        <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
-                      </div>
-                      <div class="recipeDescription">
-                        <h1>{recipes["results"][2]["title"]}</h1>
-                        <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
-                        <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
-                      </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][0]["title"]}</h1>
+                      <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
                     </div>
                   </div>
-                }
-                {/* {liveRight &&
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                    </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][1]["title"]}</h1>
+                      <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                    </div>
+                  </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                    </div>
+                    <div class="recipeDescription">
+                      <h1>{recipes["results"][2]["title"]}</h1>
+                      <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
+                      <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                    </div>
+                  </div>
+                </div>
+              }
+              {/* {liveRight &&
                 <div class="bodyContent" id="bodyContent">
                   Miles Run: Pushups: Jumping Jacks:<br />
                   Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
@@ -255,29 +260,27 @@ const Home = () => {
                   <button class="userInfoCalories">Update</button><br />
                 </div>
               } */}
-              </div>
-            </div>
-          </div>
-          {/* <!-- Body Bottom --> */}
-          <div class="bodyContainerBottom">
-            <div class="bodyBottomL">
-              <div class="bodyBottomLIn">
-              </div>
-            </div>
-            <div class="bodyBottomC">
-              <div class="bodyBottomCIn">
-              </div>
-            </div>
-            <div class="bodyBottomR">
-              <div class="bodyBottomRIn">
-              </div>
             </div>
           </div>
         </div>
-        < GLogout />
-        {/* </form> */}
-      </>
-      )
+        {/* <!-- Body Bottom --> */}
+        <div class="bodyContainerBottom">
+          <div class="bodyBottomL">
+            <div class="bodyBottomLIn">
+            </div>
+          </div>
+          <div class="bodyBottomC">
+            <div class="bodyBottomCIn">
+            </div>
+          </div>
+          <div class="bodyBottomR">
+            <div class="bodyBottomRIn">
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
-      export default Home;
+export default Home;
