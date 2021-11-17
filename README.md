@@ -4,7 +4,6 @@
 
 ## Deployment
 
-<<<<<<< HEAD
 [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/home)
 
 ## About The Project
@@ -14,14 +13,19 @@ Aimed to deliver a health-focused app accessible from the browser. Health is an 
 ### Built With
 
 Flask and `create-react-app`
+
 Python
+
 Css
+
 html
 
 #### Libraries & Frameworks
 
 import flask
+
 import os
+
 from flask_sqlalchemy import SQLAlchemy
 
 #### APIs
@@ -31,11 +35,12 @@ spoonacular.com
 ## Requirements
 
 npm install
+
 pip install -r requirements.txt
 
 ## Usage
 
-usage of the this browser is to track your health, like see how much do you weigh, what is your height and how much you want to gain or lose weight.
+usage of the this browser is to track your health, like see how much do you weigh, what is your height and how much you want to gain or lose weight, It will also track your workout.
 
 ## Run Application
 
@@ -48,37 +53,8 @@ usage of the this browser is to track your health, like see how much do you weig
 1. Create a Heroku app: `heroku create --buildpack heroku/python`
 2. Add nodejs buildpack: `heroku buildpacks:add --index 1 heroku/nodejs`
 3. Push to Heroku: `git push heroku main`
-=======
-* Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
-## About The Project
-
-Describe the project here.
-
-### Built With
-
-Describe languages used here.
-
-#### Libraries & Frameworks
-
-Describe libraries and frameworks used here.
-
-#### APIs
-
-Descirbe APIs used here.
-
-## Requirements
-
-Describe requirements here.
-
-## Installation
-
-Describe setup here.
-
-## Usage
-
-Describe usage here.
->>>>>>> 5ff5eda8b4e43dba0084bf388441197b95f933c9
+Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 ## Contributing
 
@@ -92,4 +68,15 @@ Describe usage here.
 
 ## FAQ
 
-Describe frequently asked questions here and any problems that may arise during installation or setup.
+what do you do if your webpage is blank?
+check if you install npm and run "npm run build"
+what do you do if the url is not working?
+
+what to do when you enter data on the liveright section and liveright doesn't respond?
+check if you entered integers instead of strings.
+
+Am I able to add an exercise that is not already there?
+
+Will there be any fees for using it in the future?
+
+Will my workout data be made public?
