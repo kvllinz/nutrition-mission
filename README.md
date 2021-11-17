@@ -12,12 +12,6 @@ This project aims to deliver a health-focused app accessible from the browser. H
 
 #### Libraries & Frameworks
 
-import flask
-
-import os
-
-from flask_sqlalchemy import SQLAlchemy
-
 - Python
 - HTML
 - CSS
@@ -36,13 +30,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 ## Requirements
 
-npm install
-
-pip install -r requirements.txt
+* npm install
+* pip install -r requirements.txt
 
 ## Usage
 
-usage of the this browser is to track your health, like see how much do you weigh, what is your height and how much you want to gain or lose weight, It will also track your workout.
+Users using this application will be able to track their weight over time and calculate how many calories they must consume in order to gain or lose weight. Workout totals can also be recorded over time.
 
 ## How To Run
 
@@ -57,7 +50,7 @@ usage of the this browser is to track your health, like see how much do you weig
 2. Add nodejs buildpack: `heroku buildpacks:add --index 1 heroku/nodejs`
 3. Push to Heroku: `git push heroku main`
 
-Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
+* Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 ## Contributing
 
@@ -71,14 +64,8 @@ Heroku: [Nutrition Mission](https://ancient-anchorage-26581.herokuapp.com/login)
 
 ## FAQ
 
-what do you do if your webpage is blank?
-check if you install npm and run "npm run build"
+1. What do you do if your webpage is blank?
+Check if you installed npm and ran `npm run build`.
 
-what do you do if the url is not working?
-copy the link and paste it in your browser: https://ancient-anchorage-26581.herokuapp.com/
-
-what to do when you enter data on the liveright section and liveright doesn't respond?
-check if you entered integers instead of strings.
-
-Am I able to add an exercise that is not already there?
-As of now user will not be able to add an exercise.
+2. What do you do if the url is not working?
+If you're running the application locally, you will have to use `localhost:8080/` or whatever port you are forwarding.
