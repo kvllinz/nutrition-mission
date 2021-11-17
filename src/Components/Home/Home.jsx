@@ -17,6 +17,8 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
+  const [recipes, setRecipes] = useState(null);
+  console.log(recipes)
   console.log(location.state)
 
   const saveInfo = () => {
@@ -49,6 +51,7 @@ const Home = () => {
       setUserGender(data.data.gender);
       setUserWeight(data.data.weight);
       setCalories(data.data.calories);
+      setRecipes(data.data.recipes);
     })
   }
 
@@ -62,8 +65,6 @@ const Home = () => {
     setLiveRight(false);
     getUserInfo();
   }
-
-  getUserInfo();
 
   return (
     <>
@@ -150,13 +151,10 @@ const Home = () => {
                       <div class="entryBox">
                         <div class="userImageArea">
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                         </div>
                       </div>
@@ -212,13 +210,36 @@ const Home = () => {
         < div class="bodyContainerCenter" >
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
-              {/* <!-- APPLICATION CONTENT --> */}
+              {/* <!-- APPLICATION CONTENT: Images & Description --> */}
               {eatRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Test
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      TEST
+                    </div>
+                    <div class="recipeDescription">
+                      TEST
+                    </div>
+                  </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      TEST
+                    </div>
+                    <div class="recipeDescription">
+                      TEST
+                    </div>
+                  </div>
+                  <div class="recipeContainer">
+                    <div class="recipeImage">
+                      TEST
+                    </div>
+                    <div class="recipeDescription">
+                      TEST
+                    </div>
+                  </div>
                 </div>
               }
-              {liveRight &&
+              {/* {liveRight &&
                 <div class="bodyContent" id="bodyContent">
                   Miles Run: Pushups: Jumping Jacks:<br />
                   Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
@@ -227,7 +248,7 @@ const Home = () => {
                   <button class="userInfoCalories">Add</button>{" "}
                   <button class="userInfoCalories">Update</button><br />
                 </div>
-              }
+              } */}
             </div>
           </div>
         </div >
