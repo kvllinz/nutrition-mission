@@ -17,7 +17,7 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  console.log(location.state)
+  const [recipes, setRecipes] = useState(null);
 
   const saveInfo = () => {
     fetch('/login', {
@@ -49,6 +49,8 @@ const Home = () => {
       setUserGender(data.data.gender);
       setUserWeight(data.data.weight);
       setCalories(data.data.calories);
+      console.log(data.data.recipes);
+      setRecipes(data.data.recipes);
     })
   }
 
@@ -57,13 +59,13 @@ const Home = () => {
     setLiveRight(true);
     getUserInfo();
   }
+
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
     getUserInfo();
+    console.log(recipes.results);
   }
-
-  getUserInfo();
 
   return (
     <>
@@ -150,13 +152,10 @@ const Home = () => {
                       <div class="entryBox">
                         <div class="userImageArea">
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                           <div class="userImage">
-                            <img src={location.state.profilePhoto} />
                           </div>
                         </div>
                       </div>

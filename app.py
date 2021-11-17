@@ -8,14 +8,13 @@ import json
 from dotenv import find_dotenv, load_dotenv
 from flask_login import (
     LoginManager,
-    login_manager,
-    # login_user,
-    current_user,
+    login_manager
 )
-
 import flask
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
+from sqlalchemy.sql.expression import null
+from spoonacular import *
 
 load_dotenv(find_dotenv())
 
@@ -126,20 +125,24 @@ def userInfo():
         email = flask.request.json.get("email")
         user = CreateUser.query.filter_by(email=email).first()
         cal = usercalories(user.email)
+        recipes = getrecipeswithcalories(cal)
         data = {
             "weight": user.weight,
             "height": user.height,
             "age": user.age,
             "gender": user.gender,
-            "calories": cal
+            "calories": cal,
+            "recipes": recipes
         }
     except:
+        recipes = getrecipeswithcalories(2000)
         data = {
             "weight": 0,
             "height": 0,
             "age": 0,
             "gender": 0,
-            "calories": 0
+            "calories": 0,
+            "recipes": recipes
         }
     return flask.jsonify({"data": data})
 
@@ -160,5 +163,5 @@ def usercalories(userEmail):
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))

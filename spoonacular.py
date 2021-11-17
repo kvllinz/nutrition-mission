@@ -7,8 +7,7 @@ Python file for API Endpoint to Spoonacular
 # pylint: disable=unused-variable
 
 import os
-
-# import json
+import json
 import random
 from dotenv import find_dotenv, load_dotenv
 import requests
@@ -42,11 +41,13 @@ def getrecipeswithcalories(calories):
     addparam("minCalories", calories - 10)
     addparam("number", 3)
     recipes = getrecipe()
-    # print(json.dumps(recipes, indent=2))
-    print(recipes["results"][0]["title"])
-    print(recipes["results"][0]["sourceUrl"])
-    print(recipes["results"][0]["image"])
-    print(recipes["results"][0]["nutrition"]["nutrients"][0]["amount"])
+    #i = 0
+    # while i < len(recipes)-1:
+    #    print(recipes["results"][i]["title"])
+    #    print(recipes["results"][i]["sourceUrl"])
+    #    print(recipes["results"][i]["image"])
+    #    print(recipes["results"][i]["nutrition"]["nutrients"][0]["amount"])
+    #    i += 1
     return recipes
 
 
@@ -72,12 +73,3 @@ def resetparams():
         "instructionsRequired": True,
         "addRecipeInformation": True,
     }
-
-
-# print(response["results"][0]["title"])
-
-# addparam("maxCalories", 600)
-# addparam("minCalories", 580)
-# recipe = getrecipe()
-# print(json.dumps(recipe, indent=2))
-# getRecipesWithCalories(2100)
