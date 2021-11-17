@@ -32,8 +32,13 @@ This project aims to deliver a health-focused app accessible from the browser. H
 
 * npm install
 * pip install -r requirements.txt
-* go to spoonacular to have an API key and save the key .env file as API_KEY = "apiKey"
-* have a database url and save it in .env file as DATABASE_URL = "postgresql://hypixwyorskwds:a7c......................................"
+* npm i react-google-login
+* npm i google-auth-library
+* npm install dotenv --save
+* .env file
+* Heroku Database URL: `DATABASE_URL`
+* Google Auth API: `REACT_APP_Google_Client_ID`
+* Spoonacular API: `API_KEY`
 
 ## Usage
 
@@ -66,8 +71,11 @@ Users using this application will be able to track their weight over time and ca
 
 ## FAQ
 
-1. What do you do if your webpage is blank?
+1. My webpage is blank:<br>
 Check if you installed npm and ran `npm run build`.
 
-2. What do you do if the url is not working?
+2. My url is not working:<br>
 If you're running the application locally, you will have to use `localhost:8080/` or whatever port you are forwarding.
+
+3. No content on webpage:<br>
+Check your .env file for necessary Spoonacular API Key.
