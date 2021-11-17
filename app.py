@@ -1,10 +1,7 @@
 """
 App.py
 """
-<<<<<<< HEAD
 # pylint: disable=no-member
-=======
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
 # from typing import Text
 import os
 import json
@@ -12,12 +9,8 @@ from dotenv import find_dotenv, load_dotenv
 from flask_login import (
     LoginManager,
     login_manager,
-<<<<<<< HEAD
-    # login_user,
     current_user,
-=======
     login_user,
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
 )
 
 import flask
@@ -27,13 +20,10 @@ import sqlalchemy
 load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__, static_folder="./build/static")
-<<<<<<< HEAD
-=======
 # This tells our Flask app to look at the results of `npm build` instead of the
 # actual files in /templates when we're looking for the index page file. This allows
 # us to load React code into a webpage. Look up create-react-app for more reading on
 # why this is necessary.
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
 bp = flask.Blueprint("bp", __name__, template_folder="./build")
 
 # Point SQLAlchemy to your Heroku database
@@ -57,7 +47,6 @@ class CreateUser(db.Model):
     """
     Model for Users
     """
-<<<<<<< HEAD
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
     name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
@@ -68,10 +57,9 @@ class CreateUser(db.Model):
 
 
 db.drop_all()
-=======
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    username = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
+id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+username = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
 
 # creating workout class
 
@@ -121,7 +109,6 @@ db.session.commit()
 #     return f"<User {self.username}>"
 
 
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
 db.create_all()
 
 
@@ -136,13 +123,10 @@ def load_user(user_id):
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-<<<<<<< HEAD
     """
     This is a catch all that is required for react-router
     """
-=======
     """This is a catch all that is required for react-router"""
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
     return flask.render_template("index.html")
 
 
@@ -152,10 +136,7 @@ def index():
     """
     Index router
     """
-<<<<<<< HEAD
-=======
     # insert the data fetched by your app main page here as a JSON
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
     data = {"your": "data here"}
     data = json.dumps(data)
     return flask.render_template(
@@ -163,10 +144,8 @@ def index():
         data=data,
     )
 
-<<<<<<< HEAD
 
 app.register_blueprint(bp)
-=======
 
 app.register_blueprint(bp)
 
@@ -181,7 +160,6 @@ app.register_blueprint(bp)
 # @app.route('/login')
 # def login():
 #     ...
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
 
 
 @app.route("/login", methods=["POST"])
@@ -189,7 +167,6 @@ def login_post():
     """
     Get username and password from client, check if it is valid and log them in
     """
-<<<<<<< HEAD
     name = flask.request.json.get("name")
     email = flask.request.json.get("email")
     age = flask.request.json.get("age")
@@ -257,7 +234,6 @@ if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
     app.run(use_reloader=True, debug=True)
     #app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
-=======
     username = flask.request.json.get("username")
     password = flask.request.json.get("password")
 
@@ -291,4 +267,3 @@ if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
     # app.run(use_reloader=True, debug=True)
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
->>>>>>> 371f0ad48bed6a0280e31892b275591b49715054
