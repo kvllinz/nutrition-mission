@@ -220,10 +220,17 @@ const Home = () => {
               }
               {liveRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Miles Run: Pushups: Jumping Jacks:<br />
+                  Miles Run: Pushups: Jumping Jacks: Swimming: Jogging: Bicycling: Ropeclimb: Toereaches: Crunches <br />
                   Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
                   Pushups: <input type="text" style={{ width: "50px" }} />{" "}
                   Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  Swimming: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Jogging: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Bicycling: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Ropeclimb: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Toereaches: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Crunches: <input type = "text" style = {{width: "50px" }} /> {" "}
+
                   <button class="userInfoCalories">Add</button>{" "}
                   <button class="userInfoCalories">Update</button><br />
                 </div>
