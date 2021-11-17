@@ -1,12 +1,7 @@
 import unittest
 import flask_testing
 from unittest.mock import patch
-from app import login_post, get_user_info_from_db, CreateUser
-
-
-# class loginTest(unittest.TestCase):
-#     def setUp(self) -> None:
-#         return super().setUp()
+from app import login_post, get_user_info_from_db, CreateUser, usercalories
 
 
 class NutritionMissionTest(unittest.TestCase):
@@ -61,6 +56,23 @@ class NutritionMissionTest(unittest.TestCase):
                     expected_height,
                 ),
             )
+
+    def test_usercalories(self):
+        weight = 180
+        height = 72
+        age = 24
+        gender = "M"
+
+        userCalories = (10 * int(weight)) + (6.25 * int(height)) - (5 * int(age))
+
+        if gender == "M":
+            userCalories += 5
+        elif gender == "F":
+            userCalories -= 161
+
+        for user in self.mock_db_entries:
+            user = usercalories(user.email)
+            self.assertEqual(user, userCalories)
 
 
 if __name__ == "__main__":
