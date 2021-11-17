@@ -43,6 +43,7 @@ class CreateUser(db.Model):
     """
     Model for Users
     """
+
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     email = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
     name = sqlalchemy.Column(sqlalchemy.String(120), unique=True)
@@ -131,16 +132,10 @@ def userInfo():
             "height": user.height,
             "age": user.age,
             "gender": user.gender,
-            "calories": cal
+            "calories": cal,
         }
     except:
-        data = {
-            "weight": 0,
-            "height": 0,
-            "age": 0,
-            "gender": 0,
-            "calories": 0
-        }
+        data = {"weight": 0, "height": 0, "age": 0, "gender": 0, "calories": 0}
     return flask.jsonify({"data": data})
 
 
@@ -149,13 +144,14 @@ def usercalories(userEmail):
     Get calories needed from the user
     """
     user = CreateUser.query.filter_by(email=userEmail).first()
-    caloriesneeded = (10 * int(user.weight)) + \
-        (6.25 * int(user.height)) - (5 * int(user.age))
+    caloriesneeded = (
+        (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
+    )
     if user.gender == "F":
         caloriesneeded -= 161
     elif user.gender == "M":
         caloriesneeded += 5
-    return(caloriesneeded)
+    return caloriesneeded
 
 
 if __name__ == "__main__":
