@@ -50,7 +50,7 @@ class CreateUser(db.Model):
     height = sqlalchemy.Column(sqlalchemy.String(3))
 
 
-db.drop_all()
+# db.drop_all()
 db.create_all()
 
 
