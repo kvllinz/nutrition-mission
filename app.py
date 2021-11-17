@@ -142,6 +142,32 @@ app.register_blueprint(bp)
 #     ...
 
 
+def get_user_info_from_db():
+    users = CreateUser.query.all()
+    expected_email = []
+    expected_name = []
+    expected_age = []
+    expected_gender = []
+    expected_weight = []
+    expected_height = []
+    for user in users:
+        expected_email.append(user.email)
+        expected_name.append(user.name)
+        expected_age.append(user.age)
+        expected_gender.append(user.gender)
+        expected_weight.append(user.weight)
+        expected_height.append(user.height)
+
+    return (
+        expected_email,
+        expected_name,
+        expected_age,
+        expected_gender,
+        expected_weight,
+        expected_height,
+    )
+
+
 @app.route("/login", methods=["POST"])
 def login_post():
     """
