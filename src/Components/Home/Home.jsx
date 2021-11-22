@@ -220,7 +220,7 @@ const Home = () => {
               }
               {liveRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Miles Run: Pushups: Jumping Jacks: Swimming: Jogging: Bicycling: Ropeclimb: Toereaches: Crunches <br />
+                  Miles Run:   Pushups:   Jumping Jacks:   Swimming:   Jogging:   Bicycling:   Ropeclimb:   Toereaches:   Crunches <br />
                   Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
                   Pushups: <input type="text" style={{ width: "50px" }} />{" "}
                   Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
@@ -231,8 +231,8 @@ const Home = () => {
                   Toereaches: <input type = "text" style = {{width: "50px" }} /> {" "}
                   Crunches: <input type = "text" style = {{width: "50px" }} /> {" "}
 
-                  <button class="userInfoCalories">Add</button>{" "}
-                  <button class="userInfoCalories">Update</button><br />
+                  <button class="userInfoCalories"> Add </button>{" "}
+                  <button class="userInfoCalories"> Update </button><br />
                 </div>
               }
             </div>
@@ -245,7 +245,7 @@ const Home = () => {
             </div>
           </div>
           <div class="bodyBottomC">
-            <div class="bodyBottomCIn">
+          <div class="bodyBottomCIn">
             </div>
           </div>
           <div class="bodyBottomR">
