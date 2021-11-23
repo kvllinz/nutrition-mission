@@ -57,16 +57,16 @@ db.create_all()
 
 
 class Workout(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    milesran = db.Column(db.Integer)
-    pushups = db.Column(db.Integer)
-    jumpingjacks = db.Column(db.Integer)
-    swimming = db.Column(db.Integer)
-    jogging = db.Column(db.Integer)
-    Bicycling = db.Column(db.Integer)
-    ropeclimb = db.Column(db.Integer)
-    toereaches = db.Column(db.Integer)
-    crunches = db.Column(db.Integer)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    Milesrun = sqlalchemy.Column(sqlalchemy.String(200))
+    Pushups = sqlalchemy.Column(sqlalchemy.String(200))
+    Jumpingjacks = sqlalchemy.Column(sqlalchemy.String(200))
+    Swimming = sqlalchemy.Column(sqlalchemy.String(200))
+    Jogging = sqlalchemy.Column(sqlalchemy.String(200))
+    Bicycling = sqlalchemy.Column(sqlalchemy.String(200))
+    Ropeclimb = sqlalchemy.Column(sqlalchemy.String(200))
+    Toereaches = sqlalchemy.Column(sqlalchemy.String(200))
+    Crunches = sqlalchemy.Column(sqlalchemy.String(200))
 
 
 db.drop_all()
@@ -79,6 +79,10 @@ def load_user(user_id):
     Load a user
     """
     return CreateUser.query.get(int(user_id))
+
+
+def load_user(user_id):
+    return Workout.query.get(int(user_id))
 
 
 @app.route("/", defaults={"path": ""})
@@ -157,6 +161,42 @@ def userInfo():
             "age": 0,
             "gender": 0,
             "calories": 0
+        }
+    return flask.jsonify({"data": data})
+
+
+@app.route("/getuserinfoWorkout", methods=["POST"])
+def userInfoWorkout():
+    """
+    Send UserData if it exists to the frontend
+    """
+    try:
+        email = flask.request.json.get("email")
+        user = Workout.query.filter_by(id=id).first()
+
+        data = {
+            "MilesRun": user.MilesRun,
+            "Swimming": user.Swimming,
+            "Pushups": user.Pushups,
+            "Jumpingjacks": user.Jumpingjacks,
+            "Jogging": user.Jogging,
+            "Bicycling": user.Bicycling,
+            "Ropeclimb": user.Ropeclimb,
+            "Toereaches": user.Toereaches,
+            "Crunches": user.Crunches,
+        }
+    except:
+        data = {
+            "MilesRun": 0,
+            "Swimming": 0,
+            "Pushups": 0,
+            "Jumpingjacks": 0,
+            "Jogging": 0,
+            "Bicycling": 0,
+            "Ropeclimb": 0,
+            "Toereaches": 0,
+            "Crunches": 0,
+
         }
     return flask.jsonify({"data": data})
 

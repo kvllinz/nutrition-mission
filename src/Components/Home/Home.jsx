@@ -17,16 +17,18 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  const [Milesrun, setMilesrun] = useState(null);
+
+  const [MilesRun, setMilesRun] = useState(null);
+  const [Swimming, setSwimming] = useState(null);
   const [Pushups, setPushups] = useState(null);
   const [Jumpingjacks, setJumpingjacks] = useState(null);
-  const [Swimming, setSwimming] = useState(null);
   const [Jogging, setJogging] = useState(null);
   const [Bicycling, setBicycling] = useState(null);
   const [Ropeclimb, setRopeclimb] = useState(null);
   const [Toereaches, setToereaches] = useState(null);
   const [Crunches, setCrunches] = useState(null);
-  
+
+
   console.log(location.state)
 
   const saveInfo = () => {
@@ -35,25 +37,13 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age.toString(), "gender": gender.toString(), "weight": weight, "height": height.toString(),'Milesrun': Milesrun.toString(), 'Pushups': Pushups.toString(), 'Jumpingjacks': Jumpingjacks.toString(), 'Swimming': Swimming.toString(), 'Jogging': Jogging.toString(), 'Bicycling': Bicycling.toString(), 'Ropeclimb': Ropeclimb.toString(), 'Toereaches': Toereaches.toString(), 'Crunches': Crunches.toString() }),
+      body: JSON.stringify({ "name": location.state.name, "email": location.state.email, "age": age.toString(), "gender": gender.toString(), "weight": weight, "height": height.toString() }),
     }).then(response => response.json()).then(data => {
       console.log(data);
       setAge(" ");
       setHeight(" ");
       setWeight(" ");
-      setGender(" ");
-      setMilesrun(" ");
-      setPushups(" ");
-      setJumpingjacks(" ");
-      setSwimming(" ");
-      setJogging(" ");
-      setBicycling(" ");
-      setRopeclimb(" ");
-      setToereaches(" ");
-      setCrunches(" ");
-
-
-
+      setGender(" ")
     });
     getUserInfo();
   }
@@ -71,9 +61,53 @@ const Home = () => {
       setUserGender(data.data.gender);
       setUserWeight(data.data.weight);
       setCalories(data.data.calories);
-      setMilesrun(data.data.Milesrun);
     })
+
+    const saveInfoWorkout = () => {
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "MilesRun": MilesRun.toString(), "Swimming": Swimming.toString(), "Pushups": Pushups.toString(), "Jumpingjacks": Jumpingjacks.toString(), "Jogging": Jogging.toString(), "Bicycling": Bicycling.toString(), "Ropeclimb": Ropeclimb.toString(), "Toereaches": Toereaches.toString(), "Crunches": Crunches.toString() }),
+      }).then(response => response.json()).then(data => {
+        console.log(data);
+        setMilesRun(" ");
+        setSwimming(" ");
+        setPushups(" ");
+        setJumpingjacks(" ");
+        setJogging(" ");
+        setBicycling(" ");
+        setRopeclimb(" ");
+        setToereaches(" ");
+        setCrunches(" ");
+      });
+
+      getUserInfoWorkout();
+    }
+
+
+    const getUserInfoWorkout = () => {
+      fetch('/getuserinfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "email": location.state.email }),
+      }).then(response => response.json()).then(data => {
+        setMilesRun(data.data.MilesRun);
+        setSwimming(data.data.Swimming);
+        setPushups(data.data.Pushups);
+        setJumpingjacks(data.data.Jumpingjacks);
+        setJogging(data.data.Jogging);
+        setBicycling(data.data.Bicycling);
+        setRopeclimb(data.data.Ropeclimb);
+        setToereaches(data.data.Toereaches);
+        setCrunches(data.data.Crunches)
+      
+      });
   }
+}
 
   const navigateToL = () => {
     setEatRight(false);
@@ -243,20 +277,22 @@ const Home = () => {
               }
               {liveRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Miles Run: Pushups: Jumping Jacks: Swimming: Jogging: Bicycling: Ropeclimb: Toereaches: Crunches <br />
-                  
-                  Milesrun: <input type="text" style={{ width: "50px" }} />{" "}
-                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
-                  Jumpingjacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
-                  Swimming: <input type = "text" style = {{width: "50px" }} /> {" "}
-                  Jogging: <input type = "text" style = {{width: "50px" }} /> {" "}
-                  Bicycling: <input type = "text" style = {{width: "50px" }} /> {" "}
-                  Ropeclimb: <input type = "text" style = {{width: "50px" }} /> {" "}
-                  Toereaches: <input type = "text" style = {{width: "50px" }} /> {" "}
-                  Crunches: <input type = "text" style = {{width: "50px" }} /> {" "}
+                  Miles Run: Pushups: Swimming: jumpingjacks: Jogging: Bicycling: Ropeclimb: Toereaches: Crunches: <br />
 
-                  <button class="userInfoCalories"> Add </button>{" "}
-                  <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
+                  MilesRun: <input type="number" style={{ width: "50px" }} />{" "}
+                  Swimming: <input type="text" style={{ width: "50px" }} />{" "}<br />
+                  Pushups: <input type="number" style={{ width: "50px" }} />{" "}
+                  Jumpingjacks: <input type="number" style={{ width: "50px" }} />{" "}
+                  Jogging: <input type="number" style={{ width: "50px" }} />{" "}
+                  Bicycling: <input type="text" style={{ width: "50px" }} />{" "}
+                  Ropeclimb: <input type="number" style={{ width: "50px" }} />{" "}
+                  Toereaches: <input type="number" style={{ width: "50px" }} />{" "}
+                  Crunches: <input type="number" style={{ width: "50px" }} />{" "}
+
+                  {/* <button class="userInfoCalories">Add</button>{" "} */}
+                  <button class="userInfoCalories" onClick={() => saveInfo}>Update</button>{" "}<br />
+
+                  {/* <button class="userInfoCalories" onClick={() => saveInfoWorkout}>Update</button>{" "}<br /> */}
                 </div>
               }
             </div>
@@ -269,7 +305,7 @@ const Home = () => {
             </div>
           </div>
           <div class="bodyBottomC">
-          <div class="bodyBottomCIn">
+            <div class="bodyBottomCIn">
             </div>
           </div>
           <div class="bodyBottomR">
