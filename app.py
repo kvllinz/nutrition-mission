@@ -51,16 +51,28 @@ class CreateUser(db.Model):
 
 
 class Workout(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    milesran = db.Column(db.Integer)
-    pushups = db.Column(db.Integer)
-    jumpingjacks = db.Column(db.Integer)
-    swimming = db.Column(db.Integer)
-    jogging = db.Column(db.Integer)
-    Bicycling = db.Column(db.Integer)
-    ropeclimb = db.Column(db.Integer)
-    toereaches = db.Column(db.Integer)
-    crunches = db.Column(db.Integer)
+
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    milesran = sqlalchemy.Column(sqlalchemy.String(100))
+    pushups = sqlalchemy.Column(sqlalchemy.String(200))
+    jumpingjacks = sqlalchemy.Column(sqlalchemy.String(200))
+    swimming = sqlalchemy.Column(sqlalchemy.String(200))
+    jogging = sqlalchemy.Column(sqlalchemy.String(200))
+    Bicycling = sqlalchemy.Column(sqlalchemy.String(200))
+    ropeclimb = sqlalchemy.Column(sqlalchemy.String(200))
+    toereaches = sqlalchemy.Column(sqlalchemy.String(200))
+    crunches = sqlalchemy.Column(sqlalchemy.String(200))
+
+    # id = db.Column(db.Integer, primary_key=True)
+    # milesran = db.Column(db.Integer)
+    # pushups = db.Column(db.Integer)
+    # jumpingjacks = db.Column(db.Integer)
+    # swimming = db.Column(db.Integer)
+    # jogging = db.Column(db.Integer)
+    # Bicycling = db.Column(db.Integer)
+    # ropeclimb = db.Column(db.Integer)
+    # toereaches = db.Column(db.Integer)
+    # crunches = db.Column(db.Integer)
 
 
 # db.drop_all()
@@ -73,6 +85,11 @@ def load_user(user_id):
     Load a user
     """
     return CreateUser.query.get(int(user_id))
+
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return Workout.query.get(int(user_id))
 
 
 @app.route("/", defaults={"path": ""})
