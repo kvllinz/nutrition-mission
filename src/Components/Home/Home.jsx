@@ -143,7 +143,7 @@ const Home = () => {
               <div class="introContentContainer">
                 {/* <!-- APPLICATION CONTENT: Gmail Name --> */}
                 <div class="introWelcome">
-                  Welcome back, {location.state.name}
+                  Welcome back, {location.state.name}!
                 </div>
                 {/* <!-- APPLICATION CONTENT: Tab Data --> */}
                 {/* <!-- Recipes --> */}
@@ -218,34 +218,70 @@ const Home = () => {
               {/* <!-- APPLICATION CONTENT --> */}
               {eatRight &&
                 <div class="bodyContent" id="bodyContent">
+                  <div class="bodyTitle">
+                    <h1>Eat Right</h1>
+                  </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][0]["title"]}</h1>
-                      <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b> {recipes["results"][0]["title"]}</b></u><br />
+                      Preparation Time: m<br />
+                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
+                      Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Fat: g<br />
+                      Cholesterol: mg<br />
+                      Sodium: mg<br />
+                      Fiber: g<br />
+                      Sugar: g<br />
+                      Protein: g
                     </div>
                   </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][1]["title"]}</h1>
-                      <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b>{recipes["results"][1]["title"]}</b></u><br />
+                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
+                      Preparation Time: m<br />
+                      Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Fat: g<br />
+                      Cholesterol: mg<br />
+                      Sodium: mg<br />
+                      Fiber: g<br />
+                      Sugar: g<br />
+                      Protein: g
                     </div>
                   </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][2]["title"]}</h1>
-                      <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b>{recipes["results"][2]["title"]}</b></u><br />
+                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
+                      Preparation Time: m<br />
+                      Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Fat: g<br />
+                      Cholesterol: mg<br />
+                      Sodium: mg<br />
+                      Fiber: g<br />
+                      Sugar: g<br />
+                      Protein: g
                     </div>
                   </div>
                 </div>
