@@ -33,13 +33,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2.5%;
   background-color: #05761c;
 }
 
 .landingBox {
   margin: 0.5rem;
-  border-radius: 2.5%;
   background-color: #2caa46;
 }
 
@@ -128,14 +126,10 @@ body {
 
 .loginBoxL, .loginBoxLIn {
   justify-content: flex-end;
-  border-top-left-radius: 15%;
-  border-bottom-left-radius: 15%;
 }
 
 .loginBoxR, .loginBoxRIn {
   justify-content: flex-start;
-  border-top-right-radius: 15%;
-  border-bottom-right-radius: 15%;
 }
 
 /* Login Center Division */

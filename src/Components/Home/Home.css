@@ -168,14 +168,10 @@ button.home {
 
 .introBoxL, .introBoxLIn {
   justify-content: flex-end;
-  border-top-left-radius: 15%;
-  border-bottom-left-radius: 15%;
 }
 
 .introBoxR, .introBoxRIn {
   justify-content: flex-start;
-  border-top-right-radius: 15%;
-  border-bottom-right-radius: 15%;
 }
 
 /* Intro Center */
@@ -208,14 +204,12 @@ button.home {
 .introImageBox {
   height: 85%;
   width: 85%;
-  border-radius: 25%;
   background-color: #05761c;
 }
 
 .introImageBox img {
   height: 95%;
   width: 95%;
-  border-radius: 25%;
 }
 
 /* Intro Content */
@@ -242,7 +236,6 @@ button.home {
   align-items: center;
   height:100%;
   width:100%;
-  border-radius: 10%;
   background-color:#05761c;
 }
 
@@ -252,7 +245,6 @@ button.home {
   align-items: center;
   height:95%;
   width:97.5%;
-  border-radius: 10%;
   text-align: center;
   background-color:#2caa46;
 }
@@ -282,7 +274,6 @@ button.userInfoCalories {
   margin-top:4px;
   padding: 6px;
   border: none;
-  border-radius: 15%;
   color:#ffffff;
   background-color: #05761c;
 }
@@ -316,14 +307,6 @@ button.userInfoCalories:hover{
 .bodyTopLIn, .bodyTopRIn {
   height:80%;
   width:95%;
-}
-
-.bodyTopL, .bodyTopLIn {
-  border-top-left-radius: 15%;
-}
-
-.bodyTopR, .bodyTopRIn {
-  border-top-right-radius: 15%;
 }
 
 .bodyTopL{
@@ -376,6 +359,11 @@ button.userInfoCalories:hover{
   padding-right: 2rem;
 }
 
+.bodyTitle {
+  text-align: center;
+  background-color: #05761c;
+}
+
 .recipeContainer {
   display: flex;
   justify-content: space-around;
@@ -385,7 +373,16 @@ button.userInfoCalories:hover{
   padding-bottom: 1rem;
 }
 
-.recipeImage {
+.recipeImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 30%;
+  background-color: #05761c;
+}
+
+.recipeImageBox {
   height: 128px;
   width: 128px;
 }
@@ -397,7 +394,26 @@ button.userInfoCalories:hover{
 
 .recipeDescription {
   height: 100%;
-  width: 75%;
+  width: 70%;
+  padding-left: 2rem;
+  text-align: center;
+}
+
+.recipeButton {
+  display: flex;
+  justify-content: center;;
+  align-items: center;
+  padding: 0.5rem;
+  background-color:#05761c;
+}
+
+.recipeButton:hover {
+  background-color:#67d07b;
+}
+
+.recipeDescription a {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 /* Body Bottom */
@@ -418,14 +434,6 @@ button.userInfoCalories:hover{
 .bodyBottomLIn, .bodyBottomRIn {
   height:80%;
   width:95%;
-}
-
-.bodyBottomL, .bodyBottomLIn {
-  border-bottom-left-radius: 15%;
-}
-
-.bodyBottomR, .bodyBottomRIn {
-  border-bottom-right-radius: 15%;
 }
 
 .bodyBottomL{
