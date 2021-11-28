@@ -17,7 +17,7 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState({});
 
   const saveInfo = () => {
     fetch('/login', {
@@ -56,13 +56,11 @@ const Home = () => {
   const navigateToL = () => {
     setEatRight(false);
     setLiveRight(true);
-    getUserInfo();
   }
 
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
-    getUserInfo();
   }
   useEffect(() => {
     getUserInfo()
