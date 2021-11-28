@@ -1,14 +1,11 @@
 import unittest
 import flask_testing
-import app
 from unittest.mock import patch
 from app import login_post, get_user_info_from_db, CreateUser, usercalories
 
 
 class NutritionMissionTest(unittest.TestCase):
     def setUp(self):
-        self.app = app.app.test_client()
-
         self.mock_db_entries = [
             CreateUser(
                 id="1",
@@ -61,14 +58,18 @@ class NutritionMissionTest(unittest.TestCase):
             )
 
     def test_usercaloriesMale(self):
-        userCalM = usercalories(180, 72, 24, "M")
+        userCal1 = usercalories(180, 72, 24, "M")
+        userCal2 = usercalories(150, 66, 30, "M")
 
-        self.assertEqual(userCalM, 2135)
+        self.assertEqual(userCal1, 2135)
+        self.assertEqual(userCal2, 1767.5)
 
-    def test_usercaloriesFemale(self):
-        userCalF = usercalories(120, 66, 22, "F")
+    def test_usercaloriesFemalF(self):
+        userCal1 = usercalories(100, 56, 18, "F")
+        userCal2 = usercalories(120, 66, 22, "F")
 
-        self.assertEqual(userCalF, 1341.5)
+        self.assertEqual(userCal1, 1099)
+        self.assertEqual(userCal2, 1341.5)
 
 
 if __name__ == "__main__":
