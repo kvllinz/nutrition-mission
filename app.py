@@ -154,7 +154,8 @@ def userinfo():
     try:
         email = flask.request.json.get("email")
         user = CreateUser.query.filter_by(email=email).first()
-        cal = usercalories(user.email)
+        weight, height, age, gender = userinfocalories(user.email)
+        cal = usercalories(weight, height, age, gender)
         recipes = getrecipeswithcalories(cal)
         data = {
             "weight": user.weight,
@@ -177,22 +178,27 @@ def userinfo():
     return flask.jsonify({"data": data})
 
 
-def usercalories(useremail):
+def userinfocalories(useremail):
+    """
+    Get user infomation for calories calculator
+    """
+    user = CreateUser.query.filter_by(email=useremail).first()
+    return user.weight, user.height, user.age, user.gender
+
+
+def usercalories(weight, height, age, gender):
     """
     Get calories needed from the user
     """
-    user = CreateUser.query.filter_by(email=useremail).first()
-    caloriesneeded = (
-        (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
-    )
-    if user.gender == "F":
+    caloriesneeded = (10 * int(weight)) + (6.25 * int(height)) - (5 * int(age))
+    if gender == "F":
         caloriesneeded -= 161
-    elif user.gender == "M":
+    elif gender == "M":
         caloriesneeded += 5
     return caloriesneeded
 
 
 if __name__ == "__main__":
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
