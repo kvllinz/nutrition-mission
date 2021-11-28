@@ -89,6 +89,9 @@ app.register_blueprint(bp)
 
 
 def get_user_info_from_db():
+    """
+    Query all the user information from database
+    """
     users = CreateUser.query.all()
     expected_email = []
     expected_name = []
@@ -115,6 +118,9 @@ def get_user_info_from_db():
 
 
 def getemail(email):
+    """
+    Get email for the user, to check user information in other function
+    """
     email = CreateUser.query.filter_by(email=email).first()
     return email
 
