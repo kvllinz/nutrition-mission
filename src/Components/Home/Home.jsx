@@ -231,15 +231,10 @@ const Home = () => {
                     </div>
                     <div class="recipeDescription">
                       <u><b> {recipes["results"][0]["title"]}</b></u><br />
-                      Preparation Time: m<br />
-                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
+                      Max Preparation Time: {recipes["results"][0]["readyInMinutes"]} minutes<br />
                       Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}<br />
-                      Fat: g<br />
-                      Cholesterol: mg<br />
-                      Sodium: mg<br />
-                      Fiber: g<br />
-                      Sugar: g<br />
-                      Protein: g
+                      Servings: {recipes["results"][0]["servings"]}
+                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                   <div class="recipeContainer">
@@ -252,15 +247,10 @@ const Home = () => {
                     </div>
                     <div class="recipeDescription">
                       <u><b>{recipes["results"][1]["title"]}</b></u><br />
-                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
-                      Preparation Time: m<br />
+                      Max Preparation Time: {recipes["results"][1]["readyInMinutes"]} minutes<br />
                       Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}<br />
-                      Fat: g<br />
-                      Cholesterol: mg<br />
-                      Sodium: mg<br />
-                      Fiber: g<br />
-                      Sugar: g<br />
-                      Protein: g
+                      Servings: {recipes["results"][1]["servings"]}
+                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                   <div class="recipeContainer">
@@ -273,15 +263,10 @@ const Home = () => {
                     </div>
                     <div class="recipeDescription">
                       <u><b>{recipes["results"][2]["title"]}</b></u><br />
-                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
-                      Preparation Time: m<br />
+                      Max Preparation Time: {recipes["results"][2]["readyInMinutes"]} minutes<br />
                       Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}<br />
-                      Fat: g<br />
-                      Cholesterol: mg<br />
-                      Sodium: mg<br />
-                      Fiber: g<br />
-                      Sugar: g<br />
-                      Protein: g
+                      Servings: {recipes["results"][2]["servings"]}
+                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                 </div>
