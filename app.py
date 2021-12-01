@@ -101,7 +101,9 @@ def userinfo():
         email = flask.request.json.get("email")
         user = CreateUser.query.filter_by(email=email).first()
         cal = usercalories(CreateUser.query.filter_by(email=user.email).first())
+        print(cal)
         recipes = getrecipeswithcalories(cal)
+        print(recipes)
         data = {
             "weight": user.weight,
             "height": user.height,
@@ -208,5 +210,5 @@ def workout_post():
 if __name__ == "__main__":
 
     # First app.run is local use. Second app.run is Heroku.
-    # app.run(use_reloader=True, debug=True)
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    app.run(use_reloader=True, debug=True)
+    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))

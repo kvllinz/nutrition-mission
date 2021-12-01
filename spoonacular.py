@@ -31,6 +31,7 @@ def usercalories(user):
     caloriesneeded = (
         (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
     )
+    print(caloriesneeded)
     if user.gender == "F":
         caloriesneeded -= 161
     elif user.gender == "M":
@@ -54,7 +55,6 @@ def getrecipeswithcalories(calories):
     addparam("minCalories", calories - 10)
     addparam("number", 3)
     recipes = getrecipe()
-    print(recipes)
     return recipes
 
 
