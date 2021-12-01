@@ -17,7 +17,7 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState({});
   const [milesRun, setMilesRun] = useState(0);
   const [pushUps, setPushUps] = useState(0);
   const [jumpingJacks, setJumpingJacks] = useState(0);
@@ -27,6 +27,8 @@ const Home = () => {
   const pushRef = useRef();
   const jumpingRef = useRef();
   const sitUpRef = useRef();
+
+  console.log(recipes)
 
   const handleMiles=()=>{
       let newItem = parseInt(milesRef.current.value);
