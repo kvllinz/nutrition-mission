@@ -242,7 +242,6 @@ const Home = () => {
                 {/* <!-- Exercise --> */}
                 {liveRight &&
                   <div class="introFeature">
-                    <div class="entryContainer">
                       <div class="entryBox">
                         <div class="userInputArea">
                           Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
@@ -255,7 +254,6 @@ const Home = () => {
                           {calories} cal<br />
                         </div>
                       </div>
-                    </div>
                   </div>
                 }
               </div>

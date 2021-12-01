@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body {
-  background-color: #67d07b;
+  background-color: #EBF5EE;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  color: #ffffff;
+  color: #000000;
 }
 
 /* Main Display */
@@ -29,7 +29,7 @@ body {
 }
 
 .titleL, .titleR, .titleC {
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .titleL, .titleR {
@@ -64,7 +64,7 @@ body {
 }
 
 .tabL, .tabR, .tabC {
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .tabL, .tabR {
@@ -121,7 +121,7 @@ button.home {
   text-decoration: none;
   height: 100%;
   width: 100%;
-  background-color: #05761c;
+  background-color: #2da945 ;
   border: none;
   font-family: 'Poppins', sans-serif;
   font-size: 1.25rem;
@@ -130,11 +130,11 @@ button.home {
 
 /* Tab On Hover */
 #tabBoxL:hover #tabLLIn, #tabBoxL:hover #tabLCIn, #tabBoxL:hover #tabLRIn {
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 #tabBoxR:hover #tabRLIn, #tabBoxR:hover #tabRCIn, #tabBoxR:hover #tabRRIn {
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 .googleButton{
@@ -152,7 +152,7 @@ button.home {
 /* Intro Left & Right */
 .introBoxL, .introBoxR {
   width: 12.5%;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .introBoxL, .introBoxR {
@@ -163,7 +163,7 @@ button.home {
 .introBoxLIn, .introBoxRIn {
   height: 95%;
   width: 95%;
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 .introBoxL, .introBoxLIn {
@@ -179,14 +179,14 @@ button.home {
   display: flex;
   align-items: center;
   width: 75%;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .introBoxCIn {
   display: flex;
   width: 100%;
   height: 95%;
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 /* Intro Image */
@@ -204,7 +204,7 @@ button.home {
 .introImageBox {
   height: 85%;
   width: 85%;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .introImageBox img {
@@ -236,7 +236,7 @@ button.home {
   align-items: center;
   height:100%;
   width:100%;
-  background-color:#05761c;
+  background-color:#2da945 ;
 }
 
 .entryBox {
@@ -246,7 +246,7 @@ button.home {
   height:95%;
   width:97.5%;
   text-align: center;
-  background-color:#2caa46;
+  background-color:#EBF5EE;
 }
 
 .userInputArea, .userImageArea {
@@ -275,7 +275,7 @@ button.userInfoCalories {
   padding: 6px;
   border: none;
   color:#ffffff;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 button.userInfoCalories:hover{
@@ -297,11 +297,11 @@ button.userInfoCalories:hover{
 }
 
 .bodyTopL, .bodyTopC, .bodyTopR {
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .bodyTopLIn, .bodyTopCIn, .bodyTopRIn {
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 .bodyTopLIn, .bodyTopRIn {
@@ -346,12 +346,12 @@ button.userInfoCalories:hover{
   justify-content: center;
   height: auto;
   width: 100%;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .bodyContentBox {
   width: 98.75%;
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 .bodyContent {
@@ -361,7 +361,7 @@ button.userInfoCalories:hover{
 
 .bodyTitle {
   text-align: center;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .recipeContainer {
@@ -379,7 +379,7 @@ button.userInfoCalories:hover{
   align-items: center;
   padding: 1rem;
   width: 30%;
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .recipeImageBox {
@@ -404,7 +404,7 @@ button.userInfoCalories:hover{
   justify-content: center;;
   align-items: center;
   padding: 0.5rem;
-  background-color:#05761c;
+  background-color:#2da945 ;
 }
 
 .recipeButton:hover {
@@ -424,11 +424,11 @@ button.userInfoCalories:hover{
 }
 
 .bodyBottomL, .bodyBottomC, .bodyBottomR {
-  background-color: #05761c;
+  background-color: #2da945 ;
 }
 
 .bodyBottomLIn, .bodyBottomCIn, .bodyBottomRIn {
-  background-color: #2caa46;
+  background-color: #EBF5EE;
 }
 
 .bodyBottomLIn, .bodyBottomRIn {
