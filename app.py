@@ -127,5 +127,5 @@ if __name__ == "__main__":
     db.drop_all()
     db.create_all()
     # First app.run is local use. Second app.run is Heroku.
-#     app.run(use_reloader=True, debug=True)
+    # app.run(use_reloader=True, debug=True)
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
