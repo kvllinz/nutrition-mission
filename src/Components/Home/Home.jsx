@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -17,7 +17,49 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  const [recipes, setRecipes] = useState({});
+  const [recipes, setRecipes] = useState(null);
+  const [milesRun, setMilesRun] = useState(0);
+  const [pushUps, setPushUps] = useState(0);
+  const [jumpingJacks, setJumpingJacks] = useState(0);
+  const [sitUps, setSitups]= useState(0);
+  const [data, setData]= useState({});
+  const milesRef = useRef();
+  const pushRef = useRef();
+  const jumpingRef = useRef();
+  const sitUpRef = useRef();
+
+  const handleMiles=()=>{
+      let newItem = parseInt(milesRef.current.value);
+      const newMiles = milesRun + newItem;
+      console.log(newMiles)
+      setMilesRun(newMiles)
+      milesRef.current.value = " ";
+    }
+
+    const handlePushUps=()=>{
+      let newItem = parseInt(pushRef.current.value);
+      const newPushUps = pushUps + newItem;
+      console.log(newPushUps)
+      setPushUps(newPushUps)
+      pushRef.current.value = " ";
+    }
+
+    const handleJumpingJacks=()=>{
+      let newItem = parseInt(jumpingRef.current.value);
+      const newJacks = jumpingJacks + newItem;
+      console.log(newJacks)
+      setJumpingJacks(newJacks)
+      jumpingRef.current.value = " ";
+    }
+
+    const handleSitups=()=>{
+      let newItem = parseInt(sitUpRef.current.value);
+      const newSitUps = sitUps + newItem;
+      console.log(newSitUps)
+      setSitups(newSitUps)
+      sitUpRef.current.value = " ";
+    }
+  
 
   const saveInfo = () => {
     fetch('/login', {
@@ -32,11 +74,43 @@ const Home = () => {
       setHeight(" ");
       setWeight(" ");
       setGender(" ")
+      getUserInfo();
     });
-    getUserInfo();
   }
 
+  const saveWorkoutInfo = () => {
+    fetch('/workout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"email": location.state.email, "milesRun": milesRun, "pushUps": pushUps, "jumpingJacks": jumpingJacks, "sitUps": sitUps }),
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+      setMilesRun(0);
+      setPushUps(0);
+      setJumpingJacks(0);
+      setSitups(0)
+      getWorkoutInfo();
+    });
+  }
+
+  const getWorkoutInfo = () => {
+    fetch('/workoutinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "email": location.state.email }),
+    }).then(response => response.json()).then(data => {
+      console.log("hello")
+      setData(data.data)
+    })
+  }
+
+
   const getUserInfo = () => {
+    console.log("Its Me")
     fetch('/getuserinfo', {
       method: 'POST',
       headers: {
@@ -63,7 +137,8 @@ const Home = () => {
     setLiveRight(false);
   }
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
+    getWorkoutInfo();
   }, [])
 
   return (
@@ -269,16 +344,24 @@ const Home = () => {
                   </div>
                 </div>
               }
-              {/* {liveRight &&
+              {liveRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Miles Run: Pushups: Jumping Jacks:<br />
-                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
-                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
-                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
-                  <button class="userInfoCalories">Add</button>{" "}
-                  <button class="userInfoCalories">Update</button><br />
+                  Miles Run: {milesRun} Pushups: {pushUps} Jumping Jacks: {jumpingJacks} Sit Ups: {sitUps}<br />
+                  Miles Run: <input type="number" ref={milesRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleMiles()}>Add</button>{" "}
+                  Pushups: <input type="number" ref={pushRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handlePushUps()} >Add</button>{" "}
+                  Jumping Jacks: <input type="number" ref={jumpingRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleJumpingJacks()}>Add</button>{" "}
+                  Sit Ups: <input type="number" ref={sitUpRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleSitups()}>Add</button>{" "}<br />
+                  {/* <button class="userInfoCalories">Add</button>{" "} */}
+                  <button class="userInfoCalories" onClick={() => saveWorkoutInfo()}>Update</button><br />
+                <div>
+                  You have ran a total of {data.totalMiles}  Miles<br />
+                  You have done a total of {data.totalPushUps}  Push Ups<br />
+                  You have done a total of {data.totalJumpingJacks}  Sit Ups<br />
+                  You have done a total of {data.totalSitUps}  Jumping Jacks<br />
+                  Horray!!!
+                  </div>
                 </div>
-              } */}
+              }
             </div>
           </div>
         </div>
