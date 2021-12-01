@@ -54,6 +54,7 @@ def getrecipeswithcalories(calories):
     addparam("minCalories", calories - 10)
     addparam("number", 3)
     recipes = getrecipe()
+    print(recipes)
     return recipes
 
 
