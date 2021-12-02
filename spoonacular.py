@@ -7,8 +7,6 @@ Python file for API Endpoint to Spoonacular
 # pylint: disable=unused-variable
 
 import os
-
-# import json
 import random
 from dotenv import find_dotenv, load_dotenv
 import requests
@@ -24,6 +22,21 @@ params = {
     "instructionsRequired": True,
     "addRecipeInformation": True,
 }
+
+
+def usercalories(user):
+    """
+    Get calories needed from the user
+    """
+    caloriesneeded = (
+        (10 * int(user.weight)) + (6.25 * int(user.height)) - (5 * int(user.age))
+    )
+    print(caloriesneeded)
+    if user.gender == "F":
+        caloriesneeded -= 161
+    elif user.gender == "M":
+        caloriesneeded += 5
+    return caloriesneeded
 
 
 def addparam(paramname, paramvalue):
@@ -42,11 +55,6 @@ def getrecipeswithcalories(calories):
     addparam("minCalories", calories - 10)
     addparam("number", 3)
     recipes = getrecipe()
-    # print(json.dumps(recipes, indent=2))
-    # print(recipes["results"][0]["title"])
-    # print(recipes["results"][0]["sourceUrl"])
-    # print(recipes["results"][0]["image"])
-    # print(recipes["results"][0]["nutrition"]["nutrients"][0]["amount"])
     return recipes
 
 
@@ -72,12 +80,3 @@ def resetparams():
         "instructionsRequired": True,
         "addRecipeInformation": True,
     }
-
-
-# print(response["results"][0]["title"])
-
-# addparam("maxCalories", 600)
-# addparam("minCalories", 580)
-# recipe = getrecipe()
-# print(json.dumps(recipe, indent=2))
-# getRecipesWithCalories(2100)

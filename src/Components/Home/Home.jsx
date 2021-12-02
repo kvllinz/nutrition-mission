@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import GLogout from "../../GoogleLogout";
 import './Home.css';
@@ -17,7 +17,51 @@ const Home = () => {
   const [userWeight, setUserWeight] = useState(null);
   const [userAge, setUserAge] = useState(null);
   const [userGender, setUserGender] = useState(null);
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState({});
+  const [milesRun, setMilesRun] = useState(0);
+  const [pushUps, setPushUps] = useState(0);
+  const [jumpingJacks, setJumpingJacks] = useState(0);
+  const [sitUps, setSitups]= useState(0);
+  const [data, setData]= useState({});
+  const milesRef = useRef();
+  const pushRef = useRef();
+  const jumpingRef = useRef();
+  const sitUpRef = useRef();
+
+  console.log(recipes)
+
+  const handleMiles=()=>{
+      let newItem = parseInt(milesRef.current.value);
+      const newMiles = milesRun + newItem;
+      console.log(newMiles)
+      setMilesRun(newMiles)
+      milesRef.current.value = " ";
+    }
+
+    const handlePushUps=()=>{
+      let newItem = parseInt(pushRef.current.value);
+      const newPushUps = pushUps + newItem;
+      console.log(newPushUps)
+      setPushUps(newPushUps)
+      pushRef.current.value = " ";
+    }
+
+    const handleJumpingJacks=()=>{
+      let newItem = parseInt(jumpingRef.current.value);
+      const newJacks = jumpingJacks + newItem;
+      console.log(newJacks)
+      setJumpingJacks(newJacks)
+      jumpingRef.current.value = " ";
+    }
+
+    const handleSitups=()=>{
+      let newItem = parseInt(sitUpRef.current.value);
+      const newSitUps = sitUps + newItem;
+      console.log(newSitUps)
+      setSitups(newSitUps)
+      sitUpRef.current.value = " ";
+    }
+  
 
   const saveInfo = () => {
     fetch('/login', {
@@ -32,11 +76,43 @@ const Home = () => {
       setHeight(" ");
       setWeight(" ");
       setGender(" ")
+      getUserInfo();
     });
-    getUserInfo();
   }
 
+  const saveWorkoutInfo = () => {
+    fetch('/workout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"email": location.state.email, "milesRun": milesRun, "pushUps": pushUps, "jumpingJacks": jumpingJacks, "sitUps": sitUps }),
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+      setMilesRun(0);
+      setPushUps(0);
+      setJumpingJacks(0);
+      setSitups(0)
+      getWorkoutInfo();
+    });
+  }
+
+  const getWorkoutInfo = () => {
+    fetch('/workoutinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "email": location.state.email }),
+    }).then(response => response.json()).then(data => {
+      console.log("hello")
+      setData(data.data)
+    })
+  }
+
+
   const getUserInfo = () => {
+    console.log("Its Me")
     fetch('/getuserinfo', {
       method: 'POST',
       headers: {
@@ -56,16 +132,15 @@ const Home = () => {
   const navigateToL = () => {
     setEatRight(false);
     setLiveRight(true);
-    getUserInfo();
   }
 
   const navigateToE = () => {
     setEatRight(true);
     setLiveRight(false);
-    getUserInfo();
   }
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
+    getWorkoutInfo();
   }, [])
 
   return (
@@ -143,7 +218,7 @@ const Home = () => {
               <div class="introContentContainer">
                 {/* <!-- APPLICATION CONTENT: Gmail Name --> */}
                 <div class="introWelcome">
-                  Welcome back, {location.state.name}
+                  Welcome back, {location.state.name}!
                 </div>
                 {/* <!-- APPLICATION CONTENT: Tab Data --> */}
                 {/* <!-- Recipes --> */}
@@ -169,7 +244,6 @@ const Home = () => {
                 {/* <!-- Exercise --> */}
                 {liveRight &&
                   <div class="introFeature">
-                    <div class="entryContainer">
                       <div class="entryBox">
                         <div class="userInputArea">
                           Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
@@ -182,7 +256,6 @@ const Home = () => {
                           {calories} cal<br />
                         </div>
                       </div>
-                    </div>
                   </div>
                 }
               </div>
@@ -218,48 +291,77 @@ const Home = () => {
               {/* <!-- APPLICATION CONTENT --> */}
               {eatRight &&
                 <div class="bodyContent" id="bodyContent">
+                  <div class="bodyTitle">
+                    <h1>Eat Right</h1>
+                  </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][0]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][0]["title"]}</h1>
-                      <a href={recipes["results"][0]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b> {recipes["results"][0]["title"]}</b></u><br />
+                      Max Preparation Time: {recipes["results"][0]["readyInMinutes"]} minutes<br />
+                      Calories: {recipes["results"][0]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Servings: {recipes["results"][0]["servings"]}
+                      <a href={recipes["results"][0]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][1]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][1]["title"]}</h1>
-                      <a href={recipes["results"][1]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b>{recipes["results"][1]["title"]}</b></u><br />
+                      Max Preparation Time: {recipes["results"][1]["readyInMinutes"]} minutes<br />
+                      Calories: {recipes["results"][1]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Servings: {recipes["results"][1]["servings"]}
+                      <a href={recipes["results"][1]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                   <div class="recipeContainer">
-                    <div class="recipeImage">
-                      <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                    <div class="recipeImageContainer">
+                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank">
+                        <div class="recipeImage">
+                          <img src={recipes["results"][2]["image"]} alt="Recipe1"></img>
+                        </div>
+                      </a>
                     </div>
                     <div class="recipeDescription">
-                      <h1>{recipes["results"][2]["title"]}</h1>
-                      <a href={recipes["results"][2]["sourceUrl"]}>Recipe Instructions</a>
-                      <h2>Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}</h2>
+                      <u><b>{recipes["results"][2]["title"]}</b></u><br />
+                      Max Preparation Time: {recipes["results"][2]["readyInMinutes"]} minutes<br />
+                      Calories: {recipes["results"][2]["nutrition"]["nutrients"][0]["amount"]}<br />
+                      Servings: {recipes["results"][2]["servings"]}
+                      <a href={recipes["results"][2]["sourceUrl"]} target="_blank"><span class="recipeButton">Recipe</span></a>
                     </div>
                   </div>
                 </div>
               }
-              {/* {liveRight &&
+              {liveRight &&
                 <div class="bodyContent" id="bodyContent">
-                  Miles Run: Pushups: Jumping Jacks:<br />
-                  Miles Run: <input type="text" style={{ width: "50px" }} />{" "}
-                  Pushups: <input type="text" style={{ width: "50px" }} />{" "}
-                  Jumping Jacks: <input type="text" style={{ width: "50px" }} />{" "}<br />
-                  <button class="userInfoCalories">Add</button>{" "}
-                  <button class="userInfoCalories">Update</button><br />
+                  Miles Run: {milesRun} Pushups: {pushUps} Jumping Jacks: {jumpingJacks} Sit Ups: {sitUps}<br />
+                  Miles Run: <input type="number" ref={milesRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleMiles()}>Add</button>{" "}
+                  Pushups: <input type="number" ref={pushRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handlePushUps()} >Add</button>{" "}
+                  Jumping Jacks: <input type="number" ref={jumpingRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleJumpingJacks()}>Add</button>{" "}
+                  Sit Ups: <input type="number" ref={sitUpRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleSitups()}>Add</button>{" "}<br />
+                  {/* <button class="userInfoCalories">Add</button>{" "} */}
+                  <button class="userInfoCalories" onClick={() => saveWorkoutInfo()}>Update</button><br />
+                <div>
+                  You have ran a total of {data.totalMiles}  Miles<br />
+                  You have done a total of {data.totalPushUps}  Push Ups<br />
+                  You have done a total of {data.totalJumpingJacks}  Sit Ups<br />
+                  You have done a total of {data.totalSitUps}  Jumping Jacks<br />
+                  Horray!!!
+                  </div>
                 </div>
-              } */}
+              }
             </div>
           </div>
         </div >
