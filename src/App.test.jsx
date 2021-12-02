@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-//import { useLocation } from "react-router";
 import React from 'react';
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -26,7 +25,7 @@ test('display App Features', () => {
 
 test('display info when button is clicked ', () => {
   const history = createMemoryHistory();
-  const state = { name: "Collins", email: "kvllinz@gmail.com" }
+  const state = { name: "Lin", email: "loy80093124@gmail.com" }
   history.push("/home", state);
   render(
     <Router history={history}>
@@ -36,7 +35,7 @@ test('display info when button is clicked ', () => {
   const weight = screen.getByTestId("test_weight");
   const age = screen.getByTestId("test_age");
   const gender = screen.getByTestId("test_gender");
-  const button = screen.getByText("Update");
+  const button = screen.getByText("Update Calories");
 
   fireEvent.change(height, { target: { value: "72" } },
     weight, { target: { value: "187" } }, age, { target: { value: "22" } },
@@ -44,12 +43,16 @@ test('display info when button is clicked ', () => {
 
   fireEvent.click(button);
 
-  const newHeight = screen.getByText("72")
-  const newWeight = screen.getByText("187")
-  const newAge = screen.getByText("22")
-  const newGender = screen.getByText("W")
+  const test = screen.getByText("Height: 72in Weight: 187lbs Age: 22 Gender: M ");
+  // const newHeight = screen.getByT("72in");
+  // const newWeight = screen.getByText("187lbs");
+  // const newAge = screen.getByText("22");
+  // const newGender = screen.getByText("M");
 
-  expect(newHeight, newWeight, newAge, newGender), toBeInTheDocument();
+  expect(test).toBeInTheDocument;
+  //expect(newHeight, newWeight, newAge, newGender).toBeInTheDocument();
+  // const title = screen.getByText("Nutrition Mission");
+  // expect(title).toBeInTheDocument();
 });
 
 
