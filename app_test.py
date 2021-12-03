@@ -1,12 +1,20 @@
 import unittest
-<<<<<<< HEAD
 import flask_testing
 from unittest.mock import patch
-from app import login_post, get_user_info_from_db, CreateUser, usercalories
-=======
 from unittest.mock import patch
-from app import login_post, get_user_info_from_db, CreateUser, usercalories, getemail
->>>>>>> origin/main
+import os
+import random
+from dotenv import find_dotenv, load_dotenv
+import requests
+from spoonacular import getrecipe, resetparams
+from app import (
+    login_post,
+    get_user_info_from_db,
+    CreateUser,
+    usercalories,
+    get_user_workout_info_from_db,
+    Workout,
+)
 
 
 class NutritionMissionTest(unittest.TestCase):
@@ -31,6 +39,51 @@ class NutritionMissionTest(unittest.TestCase):
                 height=66,
             ),
         ]
+        self.mock_db_entries1 = [
+            Workout(
+                id="1",
+                email="random@gmail.com",
+                milesRun=5,
+                pushUps=10,
+                jumpingJacks=10,
+                sitUps=20,
+            ),
+            Workout(
+                id="1",
+                email="random123@gmail.com",
+                milesRun=4,
+                pushUps=15,
+                jumpingJacks=20,
+                sitUps=15,
+            ),
+        ]
+
+    def test_get_user_workout_info_from_db(self):
+        expected_email = []
+        expected_milesRun = []
+        expected_pushUps = []
+        expected_jumpingJacks = []
+        expected_sitUps = []
+        for user in self.mock_db_entries1:
+            expected_email.append(user.email)
+            expected_milesRun.append(user.milesRun)
+            expected_pushUps.append(user.pushUps)
+            expected_jumpingJacks.append(user.jumpingJacks)
+            expected_sitUps.append(user.sitUps)
+
+        with patch("app.Workout.query") as mocked_query:
+            mocked_query.all.return_value = self.mock_db_entries1
+            users = get_user_workout_info_from_db()
+            self.assertEqual(
+                users,
+                (
+                    expected_email,
+                    expected_milesRun,
+                    expected_pushUps,
+                    expected_jumpingJacks,
+                    expected_sitUps,
+                ),
+            )
 
     def test_get_user_info_from_db(self):
         expected_email = []
@@ -62,7 +115,6 @@ class NutritionMissionTest(unittest.TestCase):
                 ),
             )
 
-<<<<<<< HEAD
     def test_usercaloriesMale(self):
         userCal1 = usercalories(180, 72, 24, "M")
         userCal2 = usercalories(150, 66, 30, "M")
@@ -77,38 +129,23 @@ class NutritionMissionTest(unittest.TestCase):
         self.assertEqual(userCal1, 1099)
         self.assertEqual(userCal2, 1341.5)
 
-
-if __name__ == "__main__":
-    unittest.main()
-=======
-    def test_getEmail(self):
-        expected_email = []
-        for user in self.mock_db_entries:
-            expected_email.append(user.email)
-
-        with patch("app.CreateUser.query.filter_by(email=email)") as mocked_query:
-            mocked_query.first.return_value = self.mock_db_entries
-            email = getemail()
-            self.assertEqual(email, (expected_email))
-
-    def test_usercalories(self):
-        weight = 180
-        height = 72
-        age = 24
-        gender = "M"
-
-        userCalories = (10 * int(weight)) + (6.25 * int(height)) - (5 * int(age))
-
-        if gender == "M":
-            userCalories += 5
-        elif gender == "F":
-            userCalories -= 161
-
-        for user in self.mock_db_entries:
-            user = usercalories(user.email)
-            self.assertEqual(user, userCalories)
+    def test_getrecipe(self):
+        API_KEY = os.getenv("API_KEY")
+        params = {
+            "apiKey": API_KEY,
+            "number": 1,
+            "offset": random.randrange(25),
+            "instructionsRequired": True,
+            "addRecipeInformation": True,
+        }
+        response = requests.get(
+            "https://api.spoonacular.com/recipes/complexSearch", params=params
+        ).json()
+        with patch("spoonacular.requests") as mocked_query:
+            mocked_query.get.return_value = response
+            users = getrecipe()
+            self.assertEqual(users, response)
 
 
 if __name__ == "__main__":
     unittest.main()
->>>>>>> origin/main

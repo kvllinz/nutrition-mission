@@ -126,6 +126,32 @@ def get_user_info_from_db():
     )
 
 
+def get_user_workout_info_from_db():
+    """
+    Query all the workoiut user information from database
+    """
+    users = Workout.query.all()
+    expected_email = []
+    expected_milesRun = []
+    expected_pushUps = []
+    expected_jumpingJacks = []
+    expected_sitUps = []
+    for user in users:
+        expected_email.append(user.email)
+        expected_milesRun.append(user.milesRun)
+        expected_pushUps.append(user.pushUps)
+        expected_jumpingJacks.append(user.jumpingJacks)
+        expected_sitUps.append(user.sitUps)
+
+    return (
+        expected_email,
+        expected_milesRun,
+        expected_pushUps,
+        expected_jumpingJacks,
+        expected_sitUps,
+    )
+
+
 @app.route("/getuserinfo", methods=["POST"])
 def userinfo():
     """
