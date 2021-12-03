@@ -1,12 +1,11 @@
 import unittest
 import flask_testing
 from unittest.mock import patch
-from unittest.mock import patch
 import os
 import random
-from dotenv import find_dotenv, load_dotenv
 import requests
-from spoonacular import getrecipe, resetparams
+from dotenv import find_dotenv, load_dotenv
+from spoonacular import getrecipe
 from app import (
     login_post,
     get_user_info_from_db,
@@ -15,6 +14,8 @@ from app import (
     get_user_workout_info_from_db,
     Workout,
 )
+
+load_dotenv(find_dotenv())
 
 
 class NutritionMissionTest(unittest.TestCase):
@@ -70,10 +71,14 @@ class NutritionMissionTest(unittest.TestCase):
             expected_pushUps.append(user.pushUps)
             expected_jumpingJacks.append(user.jumpingJacks)
             expected_sitUps.append(user.sitUps)
+        print("expected: ")
+        print(expected_email, expected_milesRun)
 
         with patch("app.Workout.query") as mocked_query:
             mocked_query.all.return_value = self.mock_db_entries1
             users = get_user_workout_info_from_db()
+            print("function: ")
+            print(str(users))
             self.assertEqual(
                 users,
                 (
@@ -131,6 +136,7 @@ class NutritionMissionTest(unittest.TestCase):
 
     def test_getrecipe(self):
         API_KEY = os.getenv("API_KEY")
+
         params = {
             "apiKey": API_KEY,
             "number": 1,
@@ -140,11 +146,8 @@ class NutritionMissionTest(unittest.TestCase):
         }
         response = requests.get(
             "https://api.spoonacular.com/recipes/complexSearch", params=params
-        ).json()
-        with patch("spoonacular.requests") as mocked_query:
-            mocked_query.get.return_value = response
-            users = getrecipe()
-            self.assertEqual(users, response)
+        )
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == "__main__":
