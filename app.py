@@ -128,7 +128,7 @@ def get_user_info_from_db():
 
 def get_user_workout_info_from_db():
     """
-    Query all the workoiut user information from database
+    Query all the workout user information from database
     """
     users = Workout.query.all()
     expected_email = []
