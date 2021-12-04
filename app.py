@@ -28,7 +28,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = os.urandom(9)
 db = SQLAlchemy(app)
 
-
 class CreateUser(db.Model):
     """
     Model for Users
@@ -42,7 +41,6 @@ class CreateUser(db.Model):
     weight = sqlalchemy.Column(sqlalchemy.String(3))
     height = sqlalchemy.Column(sqlalchemy.String(3))
 
-
 class Workout(db.Model):
     """
     Model for Workouts
@@ -54,7 +52,6 @@ class Workout(db.Model):
     pushUps = sqlalchemy.Column(sqlalchemy.Integer, unique=True)
     jumpingJacks = sqlalchemy.Column(sqlalchemy.Integer, unique=True)
     sitUps = sqlalchemy.Column(sqlalchemy.Integer, unique=True)
-
 
 db.drop_all()
 db.create_all()
@@ -76,9 +73,7 @@ def catch_all(path):
     """
     return flask.render_template("index.html")
 
-
 bp = flask.Blueprint("bp", __name__, template_folder="./build")
-
 
 @bp.route("/index")
 # @login_required
@@ -97,61 +92,6 @@ def index():
 app.register_blueprint(bp)
 
 
-def get_user_info_from_db():
-    """
-    Query all the user information from database
-    """
-    users = CreateUser.query.all()
-    expected_email = []
-    expected_name = []
-    expected_age = []
-    expected_gender = []
-    expected_weight = []
-    expected_height = []
-    for user in users:
-        expected_email.append(user.email)
-        expected_name.append(user.name)
-        expected_age.append(user.age)
-        expected_gender.append(user.gender)
-        expected_weight.append(user.weight)
-        expected_height.append(user.height)
-
-    return (
-        expected_email,
-        expected_name,
-        expected_age,
-        expected_gender,
-        expected_weight,
-        expected_height,
-    )
-
-
-def get_user_workout_info_from_db():
-    """
-    Query all the workout user information from database
-    """
-    users = Workout.query.all()
-    expected_email = []
-    expected_milesRun = []
-    expected_pushUps = []
-    expected_jumpingJacks = []
-    expected_sitUps = []
-    for user in users:
-        expected_email.append(user.email)
-        expected_milesRun.append(user.milesRun)
-        expected_pushUps.append(user.pushUps)
-        expected_jumpingJacks.append(user.jumpingJacks)
-        expected_sitUps.append(user.sitUps)
-
-    return (
-        expected_email,
-        expected_milesRun,
-        expected_pushUps,
-        expected_jumpingJacks,
-        expected_sitUps,
-    )
-
-
 @app.route("/getuserinfo", methods=["POST"])
 def userinfo():
     """
@@ -160,8 +100,8 @@ def userinfo():
     try:
         email = flask.request.json.get("email")
         user = CreateUser.query.filter_by(email=email).first()
-        weight, height, age, gender = userinfocalories(user.email)
-        cal = usercalories(weight, height, age, gender)
+        cal = usercalories(CreateUser.query.filter_by(email=user.email).first())
+        print(cal)
         recipes = getrecipeswithcalories(cal)
         print(recipes)
         data = {
@@ -185,25 +125,6 @@ def userinfo():
     return flask.jsonify({"data": data})
 
 
-def userinfocalories(useremail):
-    """
-    Get user infomation for calories calculator
-    """
-    user = CreateUser.query.filter_by(email=useremail).first()
-    return user.weight, user.height, user.age, user.gender
-
-
-def usercalories(weight, height, age, gender):
-    """
-    Get calories needed from the user
-    """
-    caloriesneeded = (10 * int(weight)) + (6.25 * int(height)) - (5 * int(age))
-    if gender == "F":
-        caloriesneeded -= 161
-    elif gender == "M":
-        caloriesneeded += 5
-    return caloriesneeded
-
 
 @app.route("/workoutinfo", methods=["POST"])
 def workoutinfo():
@@ -213,14 +134,14 @@ def workoutinfo():
     try:
         email = flask.request.json.get("email")
         print(email)
-        userTotalWorkout = Workout.query.filter_by(email=str(email)).first()
+        userTotalWorkout = Workout.query.filter_by(email = str(email)).first()
         print(userTotalWorkout)
         data = {
             "totalMiles": userTotalWorkout.milesRun,
             "totalPushUps": userTotalWorkout.pushUps,
             "totalJumpingJacks": userTotalWorkout.jumpingJacks,
-            "totalSitUps": userTotalWorkout.sitUps,
-        }
+            "totalSitUps": userTotalWorkout.sitUps
+            }
     except:
         data = {
             "totalMiles": 0,
@@ -229,14 +150,6 @@ def workoutinfo():
             "totalSitUps": 0,
         }
     return flask.jsonify({"data": data})
-
-
-def getemail(email):
-    """
-    Get email for the user, to check user information in other function
-    """
-    email = CreateUser.query.filter_by(email=email).first()
-    return email
 
 
 @app.route("/login", methods=["POST"])
@@ -250,7 +163,7 @@ def login_post():
     gender = flask.request.json.get("gender")
     weight = flask.request.json.get("weight")
     height = flask.request.json.get("height")
-    checkemail = getemail(email)
+    checkemail = CreateUser.query.filter_by(email=email).first()
     if checkemail:
         checkemail.age = age
         checkemail.height = height
@@ -275,7 +188,7 @@ def workout_post():
     milesRun = flask.request.json.get("milesRun")
     pushUps = flask.request.json.get("pushUps")
     jumpingJacks = flask.request.json.get("jumpingJacks")
-    sitUps = flask.request.json.get("sitUps")
+    sitUps  = flask.request.json.get("sitUps")
     # print(date, email, milesRun, pushUps, jumpingJacks, sitUps)
     # return flask.jsonify({"loginResponse": "Ok"})
     checkemail = Workout.query.filter_by(email=email).first()
@@ -287,11 +200,7 @@ def workout_post():
         db.session.commit()
     else:
         userWod = Workout(
-            email=email,
-            milesRun=milesRun,
-            pushUps=pushUps,
-            jumpingJacks=jumpingJacks,
-            sitUps=sitUps,
+            email=email, milesRun= milesRun, pushUps=pushUps, jumpingJacks=jumpingJacks, sitUps=sitUps
         )
         db.session.add(userWod)
         db.session.commit()
@@ -301,5 +210,5 @@ def workout_post():
 if __name__ == "__main__":
 
     # First app.run is local use. Second app.run is Heroku.
-    app.run(use_reloader=True, debug=True)
-    # app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    # app.run(use_reloader=True, debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
