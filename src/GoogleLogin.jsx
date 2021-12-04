@@ -9,6 +9,8 @@ const clientId = process.env.REACT_APP_Google_Client_ID;
 
 const GLogin = () => {
 
+    console.log(clientId);
+
     const history = useHistory();
 
     const onSuccess = (res) => {

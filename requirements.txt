@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+Flask
+pytest
+=======
 aniso8601==8.1.0
 astroid==2.4.2
 attrs==20.3.0
@@ -33,3 +37,4 @@ toml==0.10.2
 urllib3==1.26.2
 Werkzeug==1.0.1
 wrapt==1.12.1
+>>>>>>> origin/main

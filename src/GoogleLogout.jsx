@@ -11,10 +11,13 @@ const GLogout = () => {
     const history = useHistory();
 
     const onSuccess = () => {
+
         console.log('Logged out successfully.');
         alert('Logged out successfully ✌.');
+
         sessionStorage.setItem('loggedIn', false)
         history.push("/")
+
     };
 
     return (

@@ -21,8 +21,8 @@ const Home = () => {
   const [milesRun, setMilesRun] = useState(0);
   const [pushUps, setPushUps] = useState(0);
   const [jumpingJacks, setJumpingJacks] = useState(0);
-  const [sitUps, setSitups]= useState(0);
-  const [data, setData]= useState({});
+  const [sitUps, setSitups] = useState(0);
+  const [data, setData] = useState({});
   const milesRef = useRef();
   const pushRef = useRef();
   const jumpingRef = useRef();
@@ -30,38 +30,38 @@ const Home = () => {
 
   console.log(recipes)
 
-  const handleMiles=()=>{
-      let newItem = parseInt(milesRef.current.value);
-      const newMiles = milesRun + newItem;
-      console.log(newMiles)
-      setMilesRun(newMiles)
-      milesRef.current.value = " ";
-    }
+  const handleMiles = () => {
+    let newItem = parseInt(milesRef.current.value);
+    const newMiles = milesRun + newItem;
+    console.log(newMiles)
+    setMilesRun(newMiles)
+    milesRef.current.value = " ";
+  }
 
-    const handlePushUps=()=>{
-      let newItem = parseInt(pushRef.current.value);
-      const newPushUps = pushUps + newItem;
-      console.log(newPushUps)
-      setPushUps(newPushUps)
-      pushRef.current.value = " ";
-    }
+  const handlePushUps = () => {
+    let newItem = parseInt(pushRef.current.value);
+    const newPushUps = pushUps + newItem;
+    console.log(newPushUps)
+    setPushUps(newPushUps)
+    pushRef.current.value = " ";
+  }
 
-    const handleJumpingJacks=()=>{
-      let newItem = parseInt(jumpingRef.current.value);
-      const newJacks = jumpingJacks + newItem;
-      console.log(newJacks)
-      setJumpingJacks(newJacks)
-      jumpingRef.current.value = " ";
-    }
+  const handleJumpingJacks = () => {
+    let newItem = parseInt(jumpingRef.current.value);
+    const newJacks = jumpingJacks + newItem;
+    console.log(newJacks)
+    setJumpingJacks(newJacks)
+    jumpingRef.current.value = " ";
+  }
 
-    const handleSitups=()=>{
-      let newItem = parseInt(sitUpRef.current.value);
-      const newSitUps = sitUps + newItem;
-      console.log(newSitUps)
-      setSitups(newSitUps)
-      sitUpRef.current.value = " ";
-    }
-  
+  const handleSitups = () => {
+    let newItem = parseInt(sitUpRef.current.value);
+    const newSitUps = sitUps + newItem;
+    console.log(newSitUps)
+    setSitups(newSitUps)
+    sitUpRef.current.value = " ";
+  }
+
 
   const saveInfo = () => {
     fetch('/login', {
@@ -86,7 +86,7 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"email": location.state.email, "milesRun": milesRun, "pushUps": pushUps, "jumpingJacks": jumpingJacks, "sitUps": sitUps }),
+      body: JSON.stringify({ "email": location.state.email, "milesRun": milesRun, "pushUps": pushUps, "jumpingJacks": jumpingJacks, "sitUps": sitUps }),
     }).then(response => response.json()).then(data => {
       console.log(data);
       setMilesRun(0);
@@ -178,7 +178,7 @@ const Home = () => {
                 <div class="tabRIn" id="tabLRIn">
                 </div>
               </div>
-            </div>
+            </div >
             <div class="tabBox" id="tabBoxR">
               <div class="tabL">
                 <div class="tabLIn" id="tabRLIn">
@@ -201,7 +201,7 @@ const Home = () => {
           </div>
         </div>
         {/* <!-- Intro --> */}
-        <div class="introContainer">
+        < div class="introContainer" >
           <div class="introBoxL">
             <div class="introBoxLIn">
             </div>
@@ -244,18 +244,18 @@ const Home = () => {
                 {/* <!-- Exercise --> */}
                 {liveRight &&
                   <div class="introFeature">
-                      <div class="entryBox">
-                        <div class="userInputArea">
-                          Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
-                          Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} />{" "}
-                          Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} /><br />
-                          Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} />{" "}
-                          Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} />{" "}<br />
-                          <button class="userInfoCalories" onClick={() => saveInfo()}>Update</button>{" "}<br />
-                          To maintain your weight, you need:<br />
-                          {calories} cal<br />
-                        </div>
+                    <div class="entryBox">
+                      <div class="userInputArea">
+                        Height: {userHeight}in Weight: {userWeight}lbs Age: {userAge} Gender: {userGender}<br />
+                        Height(in): <input type="number" value={height} onChange={(e) => setHeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2))} style={{ width: "50px" }} data-testid="test_height" />{" "}
+                        Weight(lbs): <input type="number" value={weight} onChange={(e) => setWeight(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} data-testid="test_weight" /><br />
+                        Age(y): <input type="number" value={age} onChange={(e) => setAge(e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3))} style={{ width: "50px" }} data-testid="test_age" />{" "}
+                        Gender(M/F): <input type="text" maxLength={1} value={gender} onChange={(e) => setGender(e.target.value)} style={{ width: "50px" }} data-testid="test_gender" />{" "}<br />
+                        <button class="userInfoCalories" onClick={() => saveInfo()}>Update Calories</button>{" "}<br />
+                        To maintain your weight, you need:<br />
+                        {calories} cal<br />
                       </div>
+                    </div>
                   </div>
                 }
               </div>
@@ -265,12 +265,12 @@ const Home = () => {
             <div class="introBoxRIn">
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       {/* <!-- Body --> */}
-      <div class="bodyContainer">
+      < div class="bodyContainer" >
         {/* <!-- Body Top --> */}
-        <div class="bodyContainerTop">
+        < div class="bodyContainerTop" >
           <div class="bodyTopL">
             <div class="bodyTopLIn">
             </div>
@@ -283,9 +283,9 @@ const Home = () => {
             <div class="bodyTopRIn">
             </div>
           </div>
-        </div>
+        </div >
         {/* <!-- Body Content --> */}
-        <div class="bodyContainerCenter">
+        < div class="bodyContainerCenter" >
           <div class="bodyContentContainer">
             <div class="bodyContentBox">
               {/* <!-- APPLICATION CONTENT --> */}
@@ -347,26 +347,26 @@ const Home = () => {
               {liveRight &&
                 <div class="bodyContent" id="bodyContent">
                   Miles Run: {milesRun} Pushups: {pushUps} Jumping Jacks: {jumpingJacks} Sit Ups: {sitUps}<br />
-                  Miles Run: <input type="number" ref={milesRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleMiles()}>Add</button>{" "}
-                  Pushups: <input type="number" ref={pushRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handlePushUps()} >Add</button>{" "}
-                  Jumping Jacks: <input type="number" ref={jumpingRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleJumpingJacks()}>Add</button>{" "}
-                  Sit Ups: <input type="number" ref={sitUpRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={()=> handleSitups()}>Add</button>{" "}<br />
+                  Miles Run: <input type="number" ref={milesRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={() => handleMiles()}>Add</button>{" "}
+                  Pushups: <input type="number" ref={pushRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={() => handlePushUps()} >Add</button>{" "}
+                  Jumping Jacks: <input type="number" ref={jumpingRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={() => handleJumpingJacks()}>Add</button>{" "}
+                  Sit Ups: <input type="number" ref={sitUpRef} style={{ width: "50px" }} /> <button class="userInfoCalories" onClick={() => handleSitups()}>Add</button>{" "}<br />
                   {/* <button class="userInfoCalories">Add</button>{" "} */}
                   <button class="userInfoCalories" onClick={() => saveWorkoutInfo()}>Update</button><br />
-                <div>
-                  You have ran a total of {data.totalMiles}  Miles<br />
-                  You have done a total of {data.totalPushUps}  Push Ups<br />
-                  You have done a total of {data.totalJumpingJacks}  Sit Ups<br />
-                  You have done a total of {data.totalSitUps}  Jumping Jacks<br />
-                  Horray!!!
+                  <div>
+                    You have ran a total of {data.totalMiles}  Miles<br />
+                    You have done a total of {data.totalPushUps}  Push Ups<br />
+                    You have done a total of {data.totalJumpingJacks}  Sit Ups<br />
+                    You have done a total of {data.totalSitUps}  Jumping Jacks<br />
+                    Horray!!!
                   </div>
                 </div>
               }
             </div>
           </div>
-        </div>
+        </div >
         {/* <!-- Body Bottom --> */}
-        <div class="bodyContainerBottom">
+        < div class="bodyContainerBottom" >
           <div class="bodyBottomL">
             <div class="bodyBottomLIn">
             </div>
